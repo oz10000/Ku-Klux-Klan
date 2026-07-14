@@ -1,0 +1,47 @@
+name: Krishna Killing Spree
+on:
+  schedule:
+    - cron: "0 */5 * * *"
+  workflow_dispatch:
+concurrency:
+  group: krishna-bot
+  cancel-in-progress: false
+jobs:
+  run-bot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - run: mkdir -p logs metrics state
+      - name: Download previous state
+        continue-on-error: true
+        uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: krishna.yml
+          name: krishna-state
+          path: state
+          check_artifacts: true
+          search_artifacts: true
+      - name: Run Bot
+        run: python main_live.py
+        env:
+          OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
+          OKX_SECRET_KEY: ${{ secrets.OKX_SECRET_KEY }}
+          OKX_PASSPHRASE: ${{ secrets.OKX_PASSPHRASE }}
+          OKX_DEMO: ${{ secrets.OKX_DEMO || '1' }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: Upload state artifact
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: krishna-state
+          path: |
+            state/
+            logs/
+            metrics/
+          retention-days: 30

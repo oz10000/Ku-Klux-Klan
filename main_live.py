@@ -2,10 +2,9 @@
 """
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
-Descripción: Orquestación del bot con ejecución real. Dashboard ASCII con
-PnL/hora, PnL/día, trades/hora y trades/día. Apalancamiento real configurado antes de operar.
+Descripción: Orquestación del bot con corrección de lot size.
 """
-import time, os, sys, json, subprocess
+import time, os, json, subprocess
 from datetime import datetime, timedelta
 from collections import defaultdict
 import pandas as pd
@@ -102,14 +101,11 @@ class TradingBot:
         self.trades = []
         self.equity = [INITIAL_CAPITAL]
         self.dashboard = Dashboard()
-
-    def _map_side_to_pos_side(self, side_str):
-        return 'long' if side_str == 'long' else 'short'
+        self.current_mode = 'swap'   # siempre futuros en esta versión
 
     def verify_protection(self):
         for pos in self.open_positions:
-            if pos.closed:
-                continue
+            if pos.closed: continue
             inst_id = f"{pos.symbol}-USDT-SWAP"
             existing_algos = self.ex.get_algo_orders(inst_id, [pos.sl_algo_id, pos.tp_algo_id])
             sl_found = any(a['algoId'] == pos.sl_algo_id and a.get('slTriggerPx','0') != '0' for a in existing_algos) if pos.sl_algo_id else False
@@ -121,15 +117,12 @@ class TradingBot:
                                           sl_price=pos.sl if not sl_found else None)
                 new_algos = self.ex.get_algo_orders(inst_id)
                 for a in new_algos:
-                    if a.get('slTriggerPx','0') != '0':
-                        pos.sl_algo_id = a['algoId']
-                    if a.get('tpTriggerPx','0') != '0':
-                        pos.tp_algo_id = a['algoId']
+                    if a.get('slTriggerPx','0') != '0': pos.sl_algo_id = a['algoId']
+                    if a.get('tpTriggerPx','0') != '0': pos.tp_algo_id = a['algoId']
                 self.store.save(self.open_positions)
 
     def handle_position_events(self, pos, event):
-        if not event:
-            return
+        if not event: return
         if event['action'] == 'MODIFY_SL':
             algo_id = event.get('algo_id')
             if algo_id:
@@ -140,7 +133,7 @@ class TradingBot:
         elif event['action'] == 'CLOSE':
             closed_ok = False
             if pos.pos_id:
-                resp = self.ex.close_position(pos.symbol, pos.pos_id)
+                resp = self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
                 if resp.get('code') == '0':
                     for _ in range(5):
                         positions = self.ex.get_positions()
@@ -149,9 +142,8 @@ class TradingBot:
                             break
                         time.sleep(1)
             if not closed_ok:
-                logger.warning(f"No se confirmó cierre manual de {pos.symbol}. Confiando en protección automática.")
+                logger.warning(f"No se confirmó cierre de {pos.symbol}.")
                 return
-
             if pos.side == 'long':
                 pnl_gross = (event['price'] - pos.entry) * pos.size
             else:
@@ -183,6 +175,10 @@ class TradingBot:
 
     def run(self):
         logger.info("🚀 KRISHNA OMEGA ULTRA INICIADO")
+        if not self.ex.self_test():
+            logger.critical("❌ Self test fallido. Bot detenido.")
+            return
+
         repair_orders(self.ex, self.open_positions)
         self.store.save(self.open_positions)
 
@@ -193,7 +189,7 @@ class TradingBot:
             self.rm.initial = initial_balance
             logger.info(f"Capital de referencia ajustado a {initial_balance:.2f} USDT")
         else:
-            logger.warning("Balance inicial es 0 – el kill‑switch permanecerá desactivado hasta que haya fondos.")
+            logger.warning("Balance inicial 0 – kill‑switch desactivado hasta fondos.")
 
         last_dashboard_time = datetime.utcnow()
         while self.running:
@@ -216,8 +212,7 @@ class TradingBot:
                 candle = None
                 if pos.symbol in d5:
                     df = d5[pos.symbol]
-                    if not df.empty:
-                        candle = df.iloc[-1]
+                    if not df.empty: candle = df.iloc[-1]
                 if candle is None: continue
                 full_df = d5.get(pos.symbol)
                 if full_df is None: continue
@@ -227,57 +222,51 @@ class TradingBot:
             if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
                 sig = self.strat.generate_signal(d5, d15)
                 if sig:
-                    sz = self.rm.calculate_size(sig['entry'], sig['symbol'])
-                    if sz > 0:
-                        side = 'buy' if sig['direction'] == 'Long' else 'sell'
-                        pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
-
-                        # ✅ Configurar apalancamiento antes de enviar la orden
-                        if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
-                            logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Operación cancelada.")
-                            continue
-
-                        resp = self.ex.place_market_order(sig['symbol'], side, sz)
-                        if resp.get('code') == '0':
+                    pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
+                    if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
+                        logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
+                        continue
+                    sz = self.rm.calculate_size(sig['entry'], sig['symbol'], self.ex)
+                    if sz <= 0: continue
+                    side = 'buy' if sig['direction'] == 'Long' else 'sell'
+                    resp = self.ex.place_market_order(sig['symbol'], side, sz, mode='swap',
+                                                      tp_price=sig['tp'], sl_price=sig['sl'], pos_side=pos_side)
+                    if resp.get('code') == '0':
+                        time.sleep(1)
+                        positions = self.ex.get_positions()
+                        pos_id = None
+                        for p in positions:
+                            if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
+                                pos_id = p['posId']
+                                break
+                        if not pos_id:
                             time.sleep(2)
                             positions = self.ex.get_positions()
-                            pos_id = None
                             for p in positions:
                                 if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
                                     pos_id = p['posId']
                                     break
-                            if not pos_id:
-                                time.sleep(3)
-                                positions = self.ex.get_positions()
-                                for p in positions:
-                                    if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
-                                        pos_id = p['posId']
-                                        break
-                            if not pos_id:
-                                logger.error("No se pudo obtener pos_id. Abortando entrada.")
-                                continue
-
-                            algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, sz,
-                                                                  tp_price=sig['tp'], sl_price=sig['sl'])
-                            sl_algo_id = tp_algo_id = None
-                            if algo_resp and algo_resp.get('code') == '0':
-                                for algo in algo_resp['data']:
-                                    if algo.get('slTriggerPx','0') != '0':
-                                        sl_algo_id = algo['algoId']
-                                    if algo.get('tpTriggerPx','0') != '0':
-                                        tp_algo_id = algo['algoId']
-                            else:
-                                logger.error("Fallo al crear órdenes TP/SL. Posición sin protección inicial.")
-
-                            pos = Position(sig['symbol'], sig['direction'].lower(),
-                                           sig['entry'], sz, sig['tp'], sig['sl'],
-                                           datetime.utcnow(), ord_id=None,
-                                           sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
-                            self.open_positions.append(pos)
-                            self.store.save(self.open_positions)
-                            logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (pos:{pos_id}, sl_algo:{sl_algo_id}, tp_algo:{tp_algo_id})")
+                        if not pos_id:
+                            logger.error("No se pudo obtener pos_id. Abortando entrada.")
+                            continue
+                        algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, sz,
+                                                              tp_price=sig['tp'], sl_price=sig['sl'])
+                        sl_algo_id = tp_algo_id = None
+                        if algo_resp and algo_resp.get('code') == '0':
+                            for algo in algo_resp['data']:
+                                if algo.get('slTriggerPx','0') != '0': sl_algo_id = algo['algoId']
+                                if algo.get('tpTriggerPx','0') != '0': tp_algo_id = algo['algoId']
                         else:
-                            logger.error(f"Error en orden de mercado: {resp}")
+                            logger.error("Fallo al crear órdenes TP/SL.")
+                        pos = Position(sig['symbol'], sig['direction'].lower(),
+                                       sig['entry'], sz, sig['tp'], sig['sl'],
+                                       datetime.utcnow(), ord_id=None,
+                                       sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
+                        self.open_positions.append(pos)
+                        self.store.save(self.open_positions)
+                        logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={sz})")
+                    else:
+                        logger.error(f"Error en orden de mercado: {resp}")
 
             self.store.save(self.open_positions)
             push_state_to_git()

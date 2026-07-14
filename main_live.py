@@ -3,7 +3,7 @@
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
 Descripción: Orquestación del bot con ejecución real. Dashboard ASCII con
-PnL/hora, PnL/día, trades/hora y trades/día.
+PnL/hora, PnL/día, trades/hora, trades/día. Kill‑switch ajustado al balance real.
 """
 import time, os, sys, json, subprocess
 from datetime import datetime, timedelta
@@ -186,6 +186,16 @@ class TradingBot:
         logger.info("🚀 KRISHNA OMEGA ULTRA INICIADO")
         repair_orders(self.ex, self.open_positions)
         self.store.save(self.open_positions)
+
+        # 🔧 Ajustar el capital de referencia al balance real de la cuenta
+        initial_balance = self.ex.get_balance()
+        if initial_balance > 0:
+            self.rm.peak = initial_balance
+            self.rm.current = initial_balance
+            self.rm.initial = initial_balance   # para métricas coherentes
+            logger.info(f"Capital de referencia ajustado a {initial_balance:.2f} USDT")
+        else:
+            logger.warning("Balance inicial es 0 – el kill‑switch permanecerá desactivado hasta que haya fondos.")
 
         last_dashboard_time = datetime.utcnow()
         while self.running:

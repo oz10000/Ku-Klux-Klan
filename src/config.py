@@ -1,8 +1,7 @@
 """
 Archivo: src/config.py
 Proyecto: Krishna Omega Ultra — Final Certified
-Descripción: Configuración global corregida. Incluye SL_MULT, scoring horario
-sin solapamiento y parámetros completos para el dashboard.
+Descripción: Configuración global con todas las constantes necesarias.
 """
 import os
 from dotenv import load_dotenv
@@ -52,7 +51,7 @@ CORR_THRESHOLD = 0.75
 
 # Salidas
 TP_MULT_INIT = 2.5
-SL_MULT = 1.2                    # ← Agregado para corregir error en strategy_rama_b.py
+SL_MULT = 1.2
 TRAIL_STOP_BASE_MULT = 1.5
 TRAIL_STOP_MAX_MULT = 2.0
 TRAIL_STOP_MIN_MULT = 0.8
@@ -61,8 +60,9 @@ TRAIL_TP_MIN_MULT = 1.2
 BREAK_EVEN_ACTIVATION_PCT = 0.8
 BREAK_EVEN_BUFFER_PCT = 0.3
 MAX_HOLD_MINUTES = 75
+BREAK_EVEN_MINUTES = 14          # <--- Constante restaurada
 
-# Scoring horario 24/7 (corregido sin solapamiento)
+# Scoring horario 24/7
 TIME_SCORE_ENABLED = True
 TIME_SCORE_THRESHOLD = 40
 TIME_SCORE_MIN_FOR_ENTRY = 0.55

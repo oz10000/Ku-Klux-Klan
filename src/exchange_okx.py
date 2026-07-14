@@ -1,9 +1,8 @@
 """
 Archivo: src/exchange_okx.py
 Proyecto: Krishna Omega Ultra — Final Certified
-Descripción: Cliente OKX API v5 completo. Incluye autenticación, firma corregida,
-sincronización horaria, self‑test, reintentos, manejo de errores y endpoints
-necesarios para el bot.
+Descripción: Cliente OKX API v5 completo. Corregido side en create_algo_order
+y añadido logging detallado de errores.
 """
 import time
 import base64
@@ -89,7 +88,14 @@ class OKXClient:
                     resp = self.session.post(url, headers=headers, data=body_str, timeout=15)
                 data = resp.json()
                 if data.get('code') != '0':
-                    logger.error(f"API error {data.get('code')}: {data.get('msg')} (path: {request_path})")
+                    # Extraer sCode y sMsg de data si existen
+                    err_data = data.get('data', [{}])[0] if data.get('data') else {}
+                    s_code = err_data.get('sCode', '')
+                    s_msg = err_data.get('sMsg', '')
+                    logger.error(
+                        f"API error {data.get('code')}: {data.get('msg')} | sCode={s_code} | sMsg={s_msg} "
+                        f"(path: {request_path})"
+                    )
                     if attempt < retries - 1:
                         time.sleep(2 ** attempt)
                         continue
@@ -278,13 +284,19 @@ class OKXClient:
     # Órdenes algorítmicas (TP/SL)
     # --------------------------------------------------------------
     def create_algo_order(self, symbol, pos_side, size, tp_price=None, sl_price=None):
+        """
+        Crea una orden condicional (TP/SL) para cerrar la posición.
+        CORRECCIÓN: side invertido para que coincida con el cierre de la posición.
+        """
         if not tp_price and not sl_price:
             return None
         inst_id = self._swap_id(symbol)
+        # side = 'sell' para cerrar long, 'buy' para cerrar short
+        close_side = 'sell' if pos_side == 'long' else 'buy'
         body = {
             'instId': inst_id,
             'tdMode': 'isolated',
-            'side': 'buy' if pos_side == 'long' else 'sell',
+            'side': close_side,
             'posSide': pos_side,
             'ordType': 'conditional',
             'sz': str(size)

@@ -2,7 +2,7 @@
 """
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
-Descripción: Orquestación del bot con corrección de lot size.
+Descripción: Orquestación del bot con persistencia completa vía StateManager.
 """
 import time, os, json, subprocess
 from datetime import datetime, timedelta
@@ -13,9 +13,11 @@ from src.exchange_okx import OKXClient
 from src.strategy_rama_b import StrategyRamaB
 from src.position_manager import Position, PositionStore
 from src.risk_manager import RiskManager
+from src.trailing_engine import TrailingEngine
 from src.repair_manager import repair_orders
 from src.logger import get_logger
 from src.metrics import compute_all, save_report
+from src.state_manager import StateManager
 
 logger = get_logger(__name__)
 
@@ -44,50 +46,28 @@ def push_state_to_git():
         return False
 
 class Dashboard:
-    def __init__(self):
-        self.trades = []
+    def __init__(self, sm):
+        self.sm = sm
         self.start_time = datetime.utcnow()
 
     def record_trade(self, pnl):
-        now = datetime.utcnow()
-        self.trades.append({'time': now, 'pnl': pnl})
+        pass  # se guarda en state_manager
 
     def print_summary(self):
+        data = self.sm.load_all()
+        metrics = data.get('metrics', {})
+        trades = data.get('trades', [])
         now = datetime.utcnow()
-        if not self.trades:
-            return
-        daily_pnl = defaultdict(float)
-        hourly_pnl = defaultdict(float)
-        daily_trades = defaultdict(int)
-        hourly_trades = defaultdict(int)
-        for t in self.trades:
-            day_key = t['time'].strftime('%Y-%m-%d')
-            hour_key = t['time'].strftime('%Y-%m-%d %H:00')
-            daily_pnl[day_key] += t['pnl']
-            hourly_pnl[hour_key] += t['pnl']
-            daily_trades[day_key] += 1
-            hourly_trades[hour_key] += 1
-
-        current_hour = now.strftime('%Y-%m-%d %H:00')
-        current_day = now.strftime('%Y-%m-%d')
-        pnl_hour = hourly_pnl.get(current_hour, 0.0)
-        pnl_day = daily_pnl.get(current_day, 0.0)
-        trades_hour = hourly_trades.get(current_hour, 0)
-        trades_day = daily_trades.get(current_day, 0)
-
-        hours_since_start = max((now - self.start_time).total_seconds() / 3600, 1)
-        avg_pnl_hour = sum(t['pnl'] for t in self.trades) / hours_since_start
-        avg_trades_hour = len(self.trades) / hours_since_start
-
+        # cálculo simple
         print("\n" + "="*60)
         print(f"🐺 KRISHNA OMEGA ULTRA — Dashboard a las {now.strftime('%H:%M:%S')}")
         print("="*60)
-        print(f"  PnL última hora:  {pnl_hour:>8.2f} USDT")
-        print(f"  PnL hoy:          {pnl_day:>8.2f} USDT")
-        print(f"  Trades última hora: {trades_hour:>5d}")
-        print(f"  Trades hoy:         {trades_day:>5d}")
-        print(f"  Promedio PnL/hora:  {avg_pnl_hour:>8.2f} USDT")
-        print(f"  Promedio trades/h:  {avg_trades_hour:>5.1f}")
+        # PnL hora aproximado
+        hours = max((now - self.start_time).total_seconds() / 3600, 1)
+        pnl_hour = metrics.get('net_pnl', 0) / hours
+        trades_hour = len(trades) / hours
+        print(f"  PnL/hora: {pnl_hour:.2f} USDT")
+        print(f"  Trades/hora: {trades_hour:.2f}")
         print("="*60)
 
 class TradingBot:
@@ -96,82 +76,129 @@ class TradingBot:
         self.strat = StrategyRamaB(self.ex)
         self.rm = RiskManager(INITIAL_CAPITAL)
         self.store = PositionStore()
+        self.sm = StateManager()
         self.open_positions = self.store.load()
         self.running = True
         self.trades = []
         self.equity = [INITIAL_CAPITAL]
-        self.dashboard = Dashboard()
-        self.current_mode = 'swap'   # siempre futuros en esta versión
+        self.dashboard = Dashboard(self.sm)
+        self._data_1m = {}
+        self.sm.save_positions(self.open_positions)
 
-    def verify_protection(self):
-        for pos in self.open_positions:
-            if pos.closed: continue
-            inst_id = f"{pos.symbol}-USDT-SWAP"
-            existing_algos = self.ex.get_algo_orders(inst_id, [pos.sl_algo_id, pos.tp_algo_id])
-            sl_found = any(a['algoId'] == pos.sl_algo_id and a.get('slTriggerPx','0') != '0' for a in existing_algos) if pos.sl_algo_id else False
-            tp_found = any(a['algoId'] == pos.tp_algo_id and a.get('tpTriggerPx','0') != '0' for a in existing_algos) if pos.tp_algo_id else False
-            if not sl_found or not tp_found:
-                logger.warning(f"{pos.symbol}: falta protección (SL:{sl_found} TP:{tp_found}). Recreando...")
-                self.ex.create_algo_order(pos.symbol, pos.side, pos.size,
-                                          tp_price=pos.tp if not tp_found else None,
-                                          sl_price=pos.sl if not sl_found else None)
-                new_algos = self.ex.get_algo_orders(inst_id)
-                for a in new_algos:
-                    if a.get('slTriggerPx','0') != '0': pos.sl_algo_id = a['algoId']
-                    if a.get('tpTriggerPx','0') != '0': pos.tp_algo_id = a['algoId']
-                self.store.save(self.open_positions)
+    def _get_1m_data(self, symbol):
+        now = datetime.utcnow()
+        key = (symbol, now.replace(second=0, microsecond=0))
+        if key not in self._data_1m:
+            df1 = self.ex.fetch_candles(symbol, '1m', 60)
+            if df1 is not None and len(df1) >= 20:
+                self._data_1m[key] = df1
+            else:
+                time.sleep(1)
+                df1 = self.ex.fetch_candles(symbol, '1m', 60)
+                self._data_1m[key] = df1 if (df1 is not None and len(df1) >= 20) else None
+        return self._data_1m.get(key)
 
-    def handle_position_events(self, pos, event):
-        if not event: return
-        if event['action'] == 'MODIFY_SL':
-            algo_id = event.get('algo_id')
-            if algo_id:
-                self.ex.amend_algo_order(f"{pos.symbol}-USDT-SWAP", algo_id, new_sl=event['new_sl'])
-                logger.info(f"SL modificado: {pos.symbol} → {event['new_sl']}")
-            else:
-                logger.error(f"No se pudo modificar SL, falta sl_algo_id para {pos.symbol}")
-        elif event['action'] == 'CLOSE':
-            closed_ok = False
-            if pos.pos_id:
-                resp = self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
-                if resp.get('code') == '0':
-                    for _ in range(5):
-                        positions = self.ex.get_positions()
-                        if not any(p['posId'] == pos.pos_id for p in positions):
-                            closed_ok = True
-                            break
-                        time.sleep(1)
-            if not closed_ok:
-                logger.warning(f"No se confirmó cierre de {pos.symbol}.")
-                return
-            if pos.side == 'long':
-                pnl_gross = (event['price'] - pos.entry) * pos.size
-            else:
-                pnl_gross = (pos.entry - event['price']) * pos.size
-            comm = pos.size * event['price'] * COMMISSION_RATE
-            net = pnl_gross - comm
-            self.trades.append({
-                'symbol': pos.symbol, 'entry': pos.entry, 'exit': event['price'],
-                'pnl_net': net, 'reason': event.get('reason',''),
-                'hold_minutes': (datetime.utcnow() - pos.entry_time).total_seconds()/60
+    def handle_event(self, pos, event):
+        if event is None:
+            return
+        action = event['action']
+        price = event.get('price')
+        reason = event.get('reason', '')
+        if action in ('MOVE_SL', 'ACTIVATE_TP_TRAIL'):
+            if pos.sl_algo_id:
+                self.ex.amend_algo_order(f"{pos.symbol}-USDT-SWAP", pos.sl_algo_id, new_sl=price)
+                logger.info(f"SL movido a {price:.4f} para {pos.symbol}")
+            pos.sl = price
+            self.sm.save_trailing_event({
+                'time': datetime.utcnow().isoformat(),
+                'symbol': pos.symbol,
+                'action': action,
+                'new_sl': price
             })
-            self.dashboard.record_trade(net)
-            logger.info(f"Posición cerrada: {pos.symbol} {event['reason']} PnL: {net:.2f}")
+            if action == 'ACTIVATE_TP_TRAIL':
+                pos.trailing.current_tp_trail_active = True
+        elif action == 'CLOSE':
+            if pos.pos_id:
+                self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
+            if pos.side == 'long':
+                pnl_gross = (price - pos.entry) * pos.size
+            else:
+                pnl_gross = (pos.entry - price) * pos.size
+            comm = pos.size * price * COMMISSION_RATE
+            net = pnl_gross - comm
+            trade = {
+                'symbol': pos.symbol,
+                'entry': pos.entry,
+                'exit': price,
+                'pnl_net': net,
+                'reason': reason,
+                'hold_minutes': (datetime.utcnow() - pos.entry_time).total_seconds()/60,
+                'time': datetime.utcnow().isoformat()
+            }
+            self.trades.append(trade)
+            self.sm.save_trade(trade)
+            logger.info(f"Posición cerrada: {pos.symbol} {reason} PnL: {net:.2f}")
             self.dashboard.print_summary()
+            pos.closed = True
+            pos.exit_price = price
+            pos.reason = reason
             self.open_positions.remove(pos)
-            self.store.save(self.open_positions)
+            self.sm.save_positions(self.open_positions)
 
     def fetch_data(self):
         d5, d15 = {}, {}
         for sym in UNIVERSO:
             df5 = self.ex.fetch_candles(sym, '5m', 200)
-            if df5 is not None and len(df5)>=60:
+            if df5 is not None and len(df5) >= 60:
                 d5[sym] = df5
                 idx = df5.set_index('ts')
                 df15 = idx['c'].resample('15min', label='right').last().dropna()
-                if len(df15)>=20:
-                    d15[sym] = pd.DataFrame({'c':df15})
+                if len(df15) >= 20:
+                    d15[sym] = pd.DataFrame({'c': df15})
         return d5, d15
+
+    def place_order_with_retry(self, symbol, side, entry_price, tp, sl, pos_side):
+        factor = self.rm.get_factor(symbol)
+        logger.info(f"{symbol}: factor inicial {factor:.4f}")
+        for attempt in range(MAX_SIZE_RETRIES):
+            size = self.rm.calculate_size(entry_price, symbol, self.ex, factor)
+            if size <= 0:
+                logger.error(f"{symbol}: tamaño inválido con factor {factor:.4f}")
+                factor = max(MIN_MARGIN_FACTOR, factor - FACTOR_STEP)
+                continue
+            info = self.ex.get_instrument_info(symbol)
+            margin_required = (size * entry_price) / LEVERAGE if info else 0
+            logger.info(f"Intento {attempt+1}: factor={factor:.4f} size={size} margen_req={margin_required:.2f} margen_disp={self.rm.current:.2f}")
+            resp = self.ex.place_market_order(symbol, side, size, mode='swap',
+                                              tp_price=tp, sl_price=sl, pos_side=pos_side)
+            self.sm.save_order({
+                'time': datetime.utcnow().isoformat(),
+                'symbol': symbol,
+                'side': side,
+                'size': size,
+                'factor': factor,
+                'attempt': attempt+1,
+                'success': resp.get('code') == '0',
+                'response': resp
+            })
+            if resp.get('code') == '0':
+                self.rm.set_factor(symbol, factor)
+                self.rm.record_success(symbol)
+                return resp, size
+            elif resp.get('code') == '1':
+                s_code = resp.get('data', [{}])[0].get('sCode', '')
+                if s_code == '51008':
+                    logger.warning(f"{symbol}: 51008 – reduciendo factor")
+                    self.rm.record_failure(symbol)
+                    factor = max(MIN_MARGIN_FACTOR, factor - FACTOR_STEP)
+                else:
+                    logger.error(f"{symbol}: error {s_code}")
+                    return None, 0
+            else:
+                logger.error(f"Error en orden: {resp}")
+                return None, 0
+        logger.error(f"{symbol}: no se encontró tamaño válido")
+        return None, 0
 
     def run(self):
         logger.info("🚀 KRISHNA OMEGA ULTRA INICIADO")
@@ -180,7 +207,10 @@ class TradingBot:
             return
 
         repair_orders(self.ex, self.open_positions)
-        self.store.save(self.open_positions)
+        for pos in self.open_positions:
+            if pos.trailing is None:
+                pos.trailing = TrailingEngine(pos.entry, pos.entry_time, pos.symbol, pos.side)
+        self.sm.save_positions(self.open_positions)
 
         initial_balance = self.ex.get_balance()
         if initial_balance > 0:
@@ -205,70 +235,70 @@ class TradingBot:
                 break
 
             d5, d15 = self.fetch_data()
-            self.verify_protection()
 
             for pos in self.open_positions[:]:
                 if pos.closed: continue
-                candle = None
-                if pos.symbol in d5:
-                    df = d5[pos.symbol]
-                    if not df.empty: candle = df.iloc[-1]
-                if candle is None: continue
-                full_df = d5.get(pos.symbol)
-                if full_df is None: continue
-                event = pos.update(candle, full_df)
-                self.handle_position_events(pos, event)
+                symbol = pos.symbol
+                if symbol not in d5: continue
+                df5 = d5[symbol]
+                candle_5m = df5.iloc[-1] if not df5.empty else None
+                if candle_5m is None: continue
+                df1 = self._get_1m_data(symbol)
+                df15 = d15.get(symbol)
+                event = pos.trailing.evaluate(candle_5m, df5, df1, df15)
+                self.handle_event(pos, event)
 
             if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
                 sig = self.strat.generate_signal(d5, d15)
                 if sig:
+                    self.sm.save_signal(sig)
                     pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
                     if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
                         logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
                         continue
-                    sz = self.rm.calculate_size(sig['entry'], sig['symbol'], self.ex)
-                    if sz <= 0: continue
-                    side = 'buy' if sig['direction'] == 'Long' else 'sell'
-                    resp = self.ex.place_market_order(sig['symbol'], side, sz, mode='swap',
-                                                      tp_price=sig['tp'], sl_price=sig['sl'], pos_side=pos_side)
-                    if resp.get('code') == '0':
-                        time.sleep(1)
+                    resp, size = self.place_order_with_retry(
+                        sig['symbol'],
+                        'buy' if sig['direction'] == 'Long' else 'sell',
+                        sig['entry'], sig['tp'], sig['sl'], pos_side
+                    )
+                    if resp is None:
+                        continue
+                    time.sleep(1)
+                    positions = self.ex.get_positions()
+                    pos_id = None
+                    for p in positions:
+                        if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
+                            pos_id = p['posId']
+                            break
+                    if not pos_id:
+                        time.sleep(2)
                         positions = self.ex.get_positions()
-                        pos_id = None
                         for p in positions:
                             if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
                                 pos_id = p['posId']
                                 break
-                        if not pos_id:
-                            time.sleep(2)
-                            positions = self.ex.get_positions()
-                            for p in positions:
-                                if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
-                                    pos_id = p['posId']
-                                    break
-                        if not pos_id:
-                            logger.error("No se pudo obtener pos_id. Abortando entrada.")
-                            continue
-                        algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, sz,
-                                                              tp_price=sig['tp'], sl_price=sig['sl'])
-                        sl_algo_id = tp_algo_id = None
-                        if algo_resp and algo_resp.get('code') == '0':
-                            for algo in algo_resp['data']:
-                                if algo.get('slTriggerPx','0') != '0': sl_algo_id = algo['algoId']
-                                if algo.get('tpTriggerPx','0') != '0': tp_algo_id = algo['algoId']
-                        else:
-                            logger.error("Fallo al crear órdenes TP/SL.")
-                        pos = Position(sig['symbol'], sig['direction'].lower(),
-                                       sig['entry'], sz, sig['tp'], sig['sl'],
-                                       datetime.utcnow(), ord_id=None,
-                                       sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
-                        self.open_positions.append(pos)
-                        self.store.save(self.open_positions)
-                        logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={sz})")
+                    if not pos_id:
+                        logger.error("No se pudo obtener pos_id. Abortando entrada.")
+                        continue
+                    algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, size,
+                                                          tp_price=sig['tp'], sl_price=sig['sl'])
+                    sl_algo_id = tp_algo_id = None
+                    if algo_resp and algo_resp.get('code') == '0':
+                        for algo in algo_resp['data']:
+                            if algo.get('slTriggerPx','0') != '0': sl_algo_id = algo['algoId']
+                            if algo.get('tpTriggerPx','0') != '0': tp_algo_id = algo['algoId']
                     else:
-                        logger.error(f"Error en orden de mercado: {resp}")
+                        logger.error("Fallo al crear órdenes TP/SL.")
+                    pos = Position(sig['symbol'], sig['direction'].lower(),
+                                   sig['entry'], size, sig['tp'], sig['sl'],
+                                   datetime.utcnow(), ord_id=None,
+                                   sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
+                    pos.trailing = TrailingEngine(sig['entry'], datetime.utcnow(), sig['symbol'], sig['direction'].lower())
+                    self.open_positions.append(pos)
+                    self.sm.save_positions(self.open_positions)
+                    logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={size})")
 
-            self.store.save(self.open_positions)
+            self.sm.save_positions(self.open_positions)
             push_state_to_git()
 
             if (now - last_dashboard_time).total_seconds() >= 300:
@@ -282,6 +312,7 @@ class TradingBot:
 
         metrics = compute_all(self.trades, self.equity, INITIAL_CAPITAL)
         save_report(metrics)
+        self.sm.save_metrics(metrics)
         logger.info(f"Métricas finales guardadas: {metrics}")
 
 if __name__ == '__main__':

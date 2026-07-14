@@ -1,7 +1,8 @@
 """
 Archivo: src/config.py
-Proyecto: Krishna Omega Ultra
-Descripción: Configuración global, parámetros optimizados.
+Proyecto: Krishna Omega Ultra — Final Certified
+Descripción: Configuración global corregida. Incluye SL_MULT, scoring horario
+sin solapamiento y parámetros completos para el dashboard.
 """
 import os
 from dotenv import load_dotenv
@@ -17,8 +18,9 @@ UNIVERSO = [
     'ADA', 'AVAX', 'LINK', 'LTC', 'TRX', 'SUI'
 ]
 
-TIMEFRAME_PRIMARY = '5m'
-TIMEFRAME_CONFIRM = '15m'
+TIMEFRAME_PRIMARY   = '5m'
+TIMEFRAME_CONFIRM   = '15m'
+TIMEFRAME_TRAILING  = '1m'
 
 INITIAL_CAPITAL = 1000.0
 LEVERAGE = 10
@@ -27,6 +29,16 @@ KILL_SWITCH_DD_PCT = 12.0
 COMMISSION_RATE = 0.0008
 SLIPPAGE_PCT = 0.001
 
+# Sizing adaptativo
+INITIAL_MARGIN_FACTOR = 0.98
+FACTOR_STEP = 0.005
+FACTOR_INCREMENT = 0.002
+MAX_MARGIN_FACTOR = 0.99
+MIN_MARGIN_FACTOR = 0.10
+MAX_SIZE_RETRIES = 15
+CONSECUTIVE_SUCCESS_TO_INCREASE = 3
+
+# Entradas
 MIN_SCORE = 0.38
 ADX_THRESHOLD = 24
 KER_THRESHOLD = 0.52
@@ -38,15 +50,24 @@ MOMENTUM_PERIOD = 5
 MACRO_LOOKBACK = 18
 CORR_THRESHOLD = 0.75
 
-TP_MULT_INIT = 2.2
-SL_MULT = 0.85
-TRAIL_CALLBACK = 0.40
-TP_TRAIL_ACTIVATION_ATR = 2.0
-TP_TRAIL_CALLBACK = 0.35
-BREAK_EVEN_MINUTES = 14
-BREAK_EVEN_BUFFER = 0.25
+# Salidas
+TP_MULT_INIT = 2.5
+SL_MULT = 1.2                    # ← Agregado para corregir error en strategy_rama_b.py
+TRAIL_STOP_BASE_MULT = 1.5
+TRAIL_STOP_MAX_MULT = 2.0
+TRAIL_STOP_MIN_MULT = 0.8
+TRAIL_TP_BASE_MULT = 2.0
+TRAIL_TP_MIN_MULT = 1.2
+BREAK_EVEN_ACTIVATION_PCT = 0.8
+BREAK_EVEN_BUFFER_PCT = 0.3
 MAX_HOLD_MINUTES = 75
 
+# Scoring horario 24/7 (corregido sin solapamiento)
+TIME_SCORE_ENABLED = True
+TIME_SCORE_THRESHOLD = 40
+TIME_SCORE_MIN_FOR_ENTRY = 0.55
+
+# Pesos scoring
 PIDELTA_WEIGHTS = {
     'velocity_momentum': 0.25,
     'adx': 0.20,
@@ -56,5 +77,3 @@ PIDELTA_WEIGHTS = {
     'vwap_z': 0.10,
     'momentum': 0.10
 }
-# Nota: Los specs de instrumentos ahora se obtienen dinámicamente de OKX.
-# Ya no se usan valores fijos de minSz/lotSz.

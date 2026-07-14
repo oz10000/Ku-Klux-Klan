@@ -1,9 +1,17 @@
 """
 Archivo: src/exchange_okx.py
-Proyecto: Krishna Omega Ultra
-Descripción: Cliente OKX API v5 completo.
+Proyecto: Krishna Omega Ultra — Final Certified
+Descripción: Cliente OKX API v5 completo. Incluye autenticación, firma corregida,
+sincronización horaria, self‑test, reintentos, manejo de errores y endpoints
+necesarios para el bot.
 """
-import time, base64, hmac, hashlib, json, requests, urllib.parse
+import time
+import base64
+import hmac
+import hashlib
+import json
+import requests
+import urllib.parse
 from datetime import datetime, timezone
 import pandas as pd
 from src.config import *
@@ -25,9 +33,18 @@ class OKXClient:
         self._server_time_offset = 0.0
         self._sync_time()
 
-    def _swap_id(self, sym): return f"{sym}-USDT-SWAP"
-    def _spot_id(self, sym): return f"{sym}-USDT"
+    # --------------------------------------------------------------
+    # Helpers
+    # --------------------------------------------------------------
+    def _swap_id(self, sym):
+        return f"{sym}-USDT-SWAP"
 
+    def _spot_id(self, sym):
+        return f"{sym}-USDT"
+
+    # --------------------------------------------------------------
+    # Sincronización horaria y firma
+    # --------------------------------------------------------------
     def _sync_time(self):
         try:
             resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=10)
@@ -93,6 +110,9 @@ class OKXClient:
             logger.error(f"Public request error: {e}")
             return {}
 
+    # --------------------------------------------------------------
+    # Self test de conectividad
+    # --------------------------------------------------------------
     def self_test(self):
         logger.info("🔍 Ejecutando self test...")
         try:
@@ -141,6 +161,9 @@ class OKXClient:
         logger.info("✅ Self test completado exitosamente")
         return True
 
+    # --------------------------------------------------------------
+    # Apalancamiento
+    # --------------------------------------------------------------
     def set_leverage(self, symbol, leverage, pos_side):
         cache_key = (symbol, pos_side)
         if cache_key in self._leverage_cache:
@@ -161,6 +184,9 @@ class OKXClient:
             logger.error(f"Error set_leverage: {resp.get('msg')}")
             return False
 
+    # --------------------------------------------------------------
+    # Información de instrumentos
+    # --------------------------------------------------------------
     def get_instrument_info(self, symbol):
         if symbol not in self._instrument_cache:
             resp = self._public_request('GET', '/api/v5/public/instruments',
@@ -183,6 +209,9 @@ class OKXClient:
             return float(resp['data'][0]['last'])
         return None
 
+    # --------------------------------------------------------------
+    # Balance
+    # --------------------------------------------------------------
     def get_balance(self, ccy='USDT'):
         resp = self._request('GET', '/api/v5/account/balance', params={'ccy': ccy})
         details = resp.get('data', [{}])[0].get('details', [])
@@ -191,6 +220,9 @@ class OKXClient:
                 return float(d['availBal'])
         return 0.0
 
+    # --------------------------------------------------------------
+    # Órdenes de mercado
+    # --------------------------------------------------------------
     def place_market_order(self, symbol, side, size, mode='swap', tp_price=None, sl_price=None, pos_side=None):
         inst_id = self._swap_id(symbol) if mode == 'swap' else self._spot_id(symbol)
         body = {
@@ -213,6 +245,9 @@ class OKXClient:
             body['attachAlgoOrds'] = attach
         return self._request('POST', '/api/v5/trade/order', body=body)
 
+    # --------------------------------------------------------------
+    # Cierre de posiciones
+    # --------------------------------------------------------------
     def close_position(self, symbol, pos_id=None, pos_side=None, size=None, mode='swap'):
         if mode == 'swap':
             if not pos_id or not pos_side:
@@ -231,19 +266,28 @@ class OKXClient:
                 return {'code': '-1'}
             return self.place_market_order(symbol, 'sell', size, mode='spot')
 
+    # --------------------------------------------------------------
+    # Posiciones
+    # --------------------------------------------------------------
     def get_positions(self, mode='swap'):
         if mode == 'swap':
             return self._request('GET', '/api/v5/account/positions', params={'instType': 'SWAP'}).get('data', [])
         return []
 
+    # --------------------------------------------------------------
+    # Órdenes algorítmicas (TP/SL)
+    # --------------------------------------------------------------
     def create_algo_order(self, symbol, pos_side, size, tp_price=None, sl_price=None):
         if not tp_price and not sl_price:
             return None
         inst_id = self._swap_id(symbol)
         body = {
-            'instId': inst_id, 'tdMode': 'isolated',
+            'instId': inst_id,
+            'tdMode': 'isolated',
             'side': 'buy' if pos_side == 'long' else 'sell',
-            'posSide': pos_side, 'ordType': 'conditional', 'sz': str(size)
+            'posSide': pos_side,
+            'ordType': 'conditional',
+            'sz': str(size)
         }
         if tp_price:
             body['tpTriggerPx'] = str(tp_price)
@@ -257,8 +301,10 @@ class OKXClient:
         params = {'instType': 'SWAP'}
         if inst_id:
             params['instId'] = inst_id
+        # Primer intento sin ordType (puede fallar en hedge mode)
         resp = self._request('GET', '/api/v5/trade/orders-algo-pending', params=params)
         if resp.get('code') != '0' and 'ordType' in resp.get('msg', '').lower():
+            # Reintentar con ordType='conditional'
             params['ordType'] = 'conditional'
             resp = self._request('GET', '/api/v5/trade/orders-algo-pending', params=params)
         orders = resp.get('data', [])
@@ -283,6 +329,9 @@ class OKXClient:
             break
         return resp
 
+    # --------------------------------------------------------------
+    # Velas históricas
+    # --------------------------------------------------------------
     def fetch_candles(self, symbol, bar='5m', limit=200):
         inst_id = self._swap_id(symbol)
         resp = self._request('GET', '/api/v5/market/candles',

@@ -138,7 +138,6 @@ class OKXClient:
             self._server_time_offset = 0.0
 
     def _current_ts_iso(self):
-        """Devuelve timestamp en formato ISO 8601 (UTC)."""
         now_utc = datetime.utcfromtimestamp(time.time() + self._server_time_offset)
         return now_utc.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
@@ -147,25 +146,28 @@ class OKXClient:
         return base64.b64encode(hmac.new(self.secret.encode(), message.encode(), hashlib.sha256).digest()).decode()
 
     def _manual_request(self, method, path, params=None, body=None, retries=3):
-        self._sync_time(force=(retries<3))  # re-sync si no es el primer intento
-        ts_iso = self._current_ts_iso()
-        body_str = json.dumps(body) if body else ''
-        request_path = path
-        if params:
-            query = urllib.parse.urlencode(sorted(params.items()))
-            request_path += '?' + query
-        headers = {
-            'OK-ACCESS-KEY': self.api_key,
-            'OK-ACCESS-SIGN': self._manual_sign(ts_iso, method, request_path, body_str),
-            'OK-ACCESS-TIMESTAMP': ts_iso,
-            'OK-ACCESS-PASSPHRASE': self.passphrase,
-            'Content-Type': 'application/json',
-        }
-        if self.demo:
-            headers['x-simulated-trading'] = '1'
-
-        url = self.base_url + request_path
         for attempt in range(retries):
+            # Sincronizar tiempo antes de cada intento si no es el primero
+            if attempt > 0:
+                self._sync_time()
+
+            ts_iso = self._current_ts_iso()
+            body_str = json.dumps(body) if body else ''
+            request_path = path
+            if params:
+                query = urllib.parse.urlencode(sorted(params.items()))
+                request_path += '?' + query
+            headers = {
+                'OK-ACCESS-KEY': self.api_key,
+                'OK-ACCESS-SIGN': self._manual_sign(ts_iso, method, request_path, body_str),
+                'OK-ACCESS-TIMESTAMP': ts_iso,
+                'OK-ACCESS-PASSPHRASE': self.passphrase,
+                'Content-Type': 'application/json',
+            }
+            if self.demo:
+                headers['x-simulated-trading'] = '1'
+
+            url = self.base_url + request_path
             try:
                 if method == 'GET':
                     resp = self.session.get(url, headers=headers, timeout=15)
@@ -176,10 +178,6 @@ class OKXClient:
                     logger.error(f"Manual API error {data.get('code')}: {data.get('msg')} (path: {request_path})")
                     if attempt < retries-1:
                         time.sleep(2 ** attempt)
-                        self._sync_time(force=True)
-                        ts_iso = self._current_ts_iso()
-                        headers['OK-ACCESS-TIMESTAMP'] = ts_iso
-                        headers['OK-ACCESS-SIGN'] = self._manual_sign(ts_iso, method, request_path, body_str)
                         continue
                 return data
             except Exception as e:

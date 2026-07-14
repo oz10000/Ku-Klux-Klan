@@ -1,8 +1,8 @@
 """
 Archivo: src/exchange_okx.py
 Proyecto: Krishna Omega Ultra
-Descripción: Cliente OKX API v5. Prioriza la librería oficial, con fallback
-manual que usa timestamp ISO 8601 (corregido).
+Descripción: Cliente OKX API v5 con establecimiento de apalancamiento real,
+reintentos y logs. Soporta modo oficial y manual (fallback).
 """
 import time, base64, hmac, hashlib, json, requests, urllib.parse
 from datetime import datetime, timezone
@@ -27,6 +27,9 @@ class OKXClient:
         self.passphrase = OKX_PASSPHRASE
         self.base_url = "https://www.okx.com"
         self.demo = OKX_DEMO
+        # Caché de apalancamiento ya configurado por símbolo y lado
+        self._leverage_cache = {}   # clave: (symbol, pos_side) -> bool
+
         if OFFICIAL_LIB:
             flag = '1' if self.demo else '0'
             self.account = AccountAPI(self.api_key, self.secret, self.passphrase, flag=flag)
@@ -42,7 +45,47 @@ class OKXClient:
     def _inst_id(self, sym):
         return f"{sym}-USDT-SWAP"
 
-    # ==================== MÉTODOS OFICIALES / MANUALES ====================
+    # ----------------------------------------------------------------
+    # APALANCAMIENTO (NUEVO)
+    # ----------------------------------------------------------------
+    def set_leverage(self, symbol, leverage, pos_side):
+        """
+        Establece el apalancamiento en OKX para el símbolo y lado.
+        pos_side: 'long' o 'short'.
+        Retorna True si se configuró correctamente o si ya estaba configurado.
+        """
+        cache_key = (symbol, pos_side)
+        if cache_key in self._leverage_cache:
+            return True   # ya configurado en esta ejecución
+
+        inst_id = self._inst_id(symbol)
+        body = {
+            "instId": inst_id,
+            "lever": str(leverage),
+            "mgnMode": "isolated",
+            "posSide": pos_side
+        }
+
+        if OFFICIAL_LIB:
+            try:
+                resp = self.account.set_leverage(**body)
+            except Exception as e:
+                logger.error(f"Excepción al configurar apalancamiento oficial: {e}")
+                return False
+        else:
+            resp = self._manual_request('POST', '/api/v5/account/set-leverage', body=body)
+
+        if resp.get('code') == '0':
+            logger.info(f"Apalancamiento configurado: {symbol} {pos_side} {leverage}x")
+            self._leverage_cache[cache_key] = True
+            return True
+        else:
+            logger.error(f"Error al configurar apalancamiento: {resp.get('msg')} (código {resp.get('code')})")
+            return False
+
+    # ----------------------------------------------------------------
+    # MÉTODOS EXISTENTES (sin cambios en la lógica, solo se muestra el esqueleto)
+    # ----------------------------------------------------------------
     def fetch_candles(self, symbol, bar='5m', limit=200):
         if OFFICIAL_LIB:
             try:
@@ -127,7 +170,9 @@ class OKXClient:
             if d['ccy']==ccy: return float(d['availBal'])
         return 0.0
 
-    # ==================== CLIENTE MANUAL CON ISO 8601 ====================
+    # ----------------------------------------------------------------
+    # CLIENTE MANUAL (mismo que antes, sin cambios)
+    # ----------------------------------------------------------------
     def _sync_time(self):
         try:
             resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=10)
@@ -147,10 +192,8 @@ class OKXClient:
 
     def _manual_request(self, method, path, params=None, body=None, retries=3):
         for attempt in range(retries):
-            # Sincronizar tiempo antes de cada intento si no es el primero
             if attempt > 0:
                 self._sync_time()
-
             ts_iso = self._current_ts_iso()
             body_str = json.dumps(body) if body else ''
             request_path = path
@@ -166,7 +209,6 @@ class OKXClient:
             }
             if self.demo:
                 headers['x-simulated-trading'] = '1'
-
             url = self.base_url + request_path
             try:
                 if method == 'GET':

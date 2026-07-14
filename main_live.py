@@ -3,7 +3,7 @@
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
 Descripción: Orquestación del bot con ejecución real. Dashboard ASCII con
-PnL/hora, PnL/día, trades/hora, trades/día. Kill‑switch ajustado al balance real.
+PnL/hora, PnL/día, trades/hora y trades/día. Apalancamiento real configurado antes de operar.
 """
 import time, os, sys, json, subprocess
 from datetime import datetime, timedelta
@@ -45,9 +45,8 @@ def push_state_to_git():
         return False
 
 class Dashboard:
-    """Mantiene estadísticas de trading y muestra resumen en consola."""
     def __init__(self):
-        self.trades = []          # lista de dicts: {time, pnl}
+        self.trades = []
         self.start_time = datetime.utcnow()
 
     def record_trade(self, pnl):
@@ -187,12 +186,11 @@ class TradingBot:
         repair_orders(self.ex, self.open_positions)
         self.store.save(self.open_positions)
 
-        # 🔧 Ajustar el capital de referencia al balance real de la cuenta
         initial_balance = self.ex.get_balance()
         if initial_balance > 0:
             self.rm.peak = initial_balance
             self.rm.current = initial_balance
-            self.rm.initial = initial_balance   # para métricas coherentes
+            self.rm.initial = initial_balance
             logger.info(f"Capital de referencia ajustado a {initial_balance:.2f} USDT")
         else:
             logger.warning("Balance inicial es 0 – el kill‑switch permanecerá desactivado hasta que haya fondos.")
@@ -233,6 +231,12 @@ class TradingBot:
                     if sz > 0:
                         side = 'buy' if sig['direction'] == 'Long' else 'sell'
                         pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
+
+                        # ✅ Configurar apalancamiento antes de enviar la orden
+                        if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
+                            logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Operación cancelada.")
+                            continue
+
                         resp = self.ex.place_market_order(sig['symbol'], side, sz)
                         if resp.get('code') == '0':
                             time.sleep(2)

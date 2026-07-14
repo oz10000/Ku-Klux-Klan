@@ -1,7 +1,7 @@
 """
 Archivo: src/config.py
 Proyecto: Krishna Omega Ultra
-Descripción: Configuración global, parámetros optimizados y especificaciones.
+Descripción: Configuración global, parámetros optimizados.
 """
 import os
 from dotenv import load_dotenv
@@ -12,20 +12,9 @@ OKX_SECRET_KEY = os.getenv("OKX_SECRET_KEY", "")
 OKX_PASSPHRASE = os.getenv("OKX_PASSPHRASE", "")
 OKX_DEMO = os.getenv("OKX_DEMO", "1") == "1"
 
-# Universo verificado: contratos perpetuos USDT de alta liquidez en OKX
 UNIVERSO = [
-    "BTC",
-    "ETH",
-    "SOL",
-    "BNB",
-    "XRP",
-    "DOGE",
-    "ADA",
-    "AVAX",
-    "LINK",
-    "SUI",
-    "TRX",
-    "LTC"
+    'BTC', 'ETH', 'SOL', 'BNB', 'XRP', 'DOGE',
+    'ADA', 'AVAX', 'LINK', 'LTC', 'TRX', 'SUI'
 ]
 
 TIMEFRAME_PRIMARY = '5m'
@@ -67,18 +56,5 @@ PIDELTA_WEIGHTS = {
     'vwap_z': 0.10,
     'momentum': 0.10
 }
-
-INSTRUMENT_SPECS = {
-    'BTC':  {'minSz':0.001,'lotSz':0.001},
-    'ETH':  {'minSz':0.01, 'lotSz':0.01},
-    'SOL':  {'minSz':0.1,  'lotSz':0.1},
-    'BNB':  {'minSz':0.01, 'lotSz':0.01},
-    'XRP':  {'minSz':1,    'lotSz':1},
-    'DOGE': {'minSz':10,   'lotSz':10},
-    'ADA':  {'minSz':1,    'lotSz':1},
-    'AVAX': {'minSz':0.1,  'lotSz':0.1},
-    'LINK': {'minSz':0.1,  'lotSz':0.1},
-    'SUI':  {'minSz':1,    'lotSz':1},
-    'TRX':  {'minSz':1,    'lotSz':1},
-    'LTC':  {'minSz':0.01, 'lotSz':0.01}
-}
+# Nota: Los specs de instrumentos ahora se obtienen dinámicamente de OKX.
+# Ya no se usan valores fijos de minSz/lotSz.

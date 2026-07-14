@@ -1,7 +1,7 @@
 """
 Archivo: src/config.py
 Proyecto: Krishna Omega Ultra
-Descripción: Configuración global, parámetros optimizados y especificaciones de instrumentos.
+Descripción: Configuración global, parámetros optimizados y especificaciones.
 """
 import os
 from dotenv import load_dotenv
@@ -12,10 +12,22 @@ OKX_SECRET_KEY = os.getenv("OKX_SECRET_KEY", "")
 OKX_PASSPHRASE = os.getenv("OKX_PASSPHRASE", "")
 OKX_DEMO = os.getenv("OKX_DEMO", "1") == "1"
 
+# Universo verificado: contratos perpetuos USDT de alta liquidez en OKX
 UNIVERSO = [
-    'BTC','ETH','SOL','XRP','ADA','AVAX','DOGE','DOT',
-    'LINK','MATIC','LTC','BCH','APT','ARB','OP'
+    "BTC",
+    "ETH",
+    "SOL",
+    "BNB",
+    "XRP",
+    "DOGE",
+    "ADA",
+    "AVAX",
+    "LINK",
+    "SUI",
+    "TRX",
+    "LTC"
 ]
+
 TIMEFRAME_PRIMARY = '5m'
 TIMEFRAME_CONFIRM = '15m'
 
@@ -57,19 +69,16 @@ PIDELTA_WEIGHTS = {
 }
 
 INSTRUMENT_SPECS = {
-    'BTC': {'minSz':0.001,'lotSz':0.001},
-    'ETH': {'minSz':0.01, 'lotSz':0.01},
-    'SOL': {'minSz':0.1,  'lotSz':0.1},
-    'XRP': {'minSz':1,    'lotSz':1},
-    'ADA': {'minSz':1,    'lotSz':1},
-    'AVAX':{'minSz':0.1,  'lotSz':0.1},
-    'DOGE':{'minSz':10,   'lotSz':10},
-    'DOT': {'minSz':0.1,  'lotSz':0.1},
-    'LINK':{'minSz':0.1,  'lotSz':0.1},
-    'MATIC':{'minSz':1,   'lotSz':1},
-    'LTC': {'minSz':0.01, 'lotSz':0.01},
-    'BCH': {'minSz':0.01, 'lotSz':0.01},
-    'APT': {'minSz':0.1,  'lotSz':0.1},
-    'ARB': {'minSz':1,    'lotSz':1},
-    'OP':  {'minSz':1,    'lotSz':1}
+    'BTC':  {'minSz':0.001,'lotSz':0.001},
+    'ETH':  {'minSz':0.01, 'lotSz':0.01},
+    'SOL':  {'minSz':0.1,  'lotSz':0.1},
+    'BNB':  {'minSz':0.01, 'lotSz':0.01},
+    'XRP':  {'minSz':1,    'lotSz':1},
+    'DOGE': {'minSz':10,   'lotSz':10},
+    'ADA':  {'minSz':1,    'lotSz':1},
+    'AVAX': {'minSz':0.1,  'lotSz':0.1},
+    'LINK': {'minSz':0.1,  'lotSz':0.1},
+    'SUI':  {'minSz':1,    'lotSz':1},
+    'TRX':  {'minSz':1,    'lotSz':1},
+    'LTC':  {'minSz':0.01, 'lotSz':0.01}
 }

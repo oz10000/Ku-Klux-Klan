@@ -1,7 +1,7 @@
 """
 Archivo: src/risk_manager.py
 Proyecto: Krishna Omega Ultra
-Descripción: Gestión de riesgo dinámica, cálculo de tamaño y kill switch.
+Descripción: Gestión de riesgo dinámica. No activa kill‑switch si el balance es 0 (demo sin fondos).
 """
 from src.config import *
 from src.logger import get_logger
@@ -21,7 +21,9 @@ class RiskManager:
             self.peak = balance
 
     def check_kill(self):
-        if self.peak <= 0: return False
+        if self.peak <= 0 or self.current <= 0:
+            logger.warning("Balance cero – kill‑switch desactivado (modo demo o sin fondos).")
+            return False
         dd = (self.peak - self.current) / self.peak * 100
         if dd >= KILL_SWITCH_DD_PCT:
             self.kill = True
@@ -30,7 +32,7 @@ class RiskManager:
         return False
 
     def calculate_size(self, entry_price, symbol):
-        if self.kill:
+        if self.kill or self.current <= 0:
             return 0.0
         dd = (self.peak - self.current) / self.peak * 100 if self.peak > 0 else 0
         if dd < 5: sf = 1.0

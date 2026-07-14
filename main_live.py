@@ -2,11 +2,12 @@
 """
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
-Descripción: Orquestación del bot con ejecución real. Maneja eventos, persistencia dual,
-protección de stops reales (algo orders) y verificación continua de protección.
+Descripción: Orquestación del bot con ejecución real. Dashboard ASCII con
+PnL/hora, PnL/día, trades/hora y trades/día.
 """
 import time, os, sys, json, subprocess
 from datetime import datetime, timedelta
+from collections import defaultdict
 import pandas as pd
 from src.config import *
 from src.exchange_okx import OKXClient
@@ -43,6 +44,54 @@ def push_state_to_git():
         logger.error(f"No se pudo guardar estado en Git: {e}")
         return False
 
+class Dashboard:
+    """Mantiene estadísticas de trading y muestra resumen en consola."""
+    def __init__(self):
+        self.trades = []          # lista de dicts: {time, pnl}
+        self.start_time = datetime.utcnow()
+
+    def record_trade(self, pnl):
+        now = datetime.utcnow()
+        self.trades.append({'time': now, 'pnl': pnl})
+
+    def print_summary(self):
+        now = datetime.utcnow()
+        if not self.trades:
+            return
+        daily_pnl = defaultdict(float)
+        hourly_pnl = defaultdict(float)
+        daily_trades = defaultdict(int)
+        hourly_trades = defaultdict(int)
+        for t in self.trades:
+            day_key = t['time'].strftime('%Y-%m-%d')
+            hour_key = t['time'].strftime('%Y-%m-%d %H:00')
+            daily_pnl[day_key] += t['pnl']
+            hourly_pnl[hour_key] += t['pnl']
+            daily_trades[day_key] += 1
+            hourly_trades[hour_key] += 1
+
+        current_hour = now.strftime('%Y-%m-%d %H:00')
+        current_day = now.strftime('%Y-%m-%d')
+        pnl_hour = hourly_pnl.get(current_hour, 0.0)
+        pnl_day = daily_pnl.get(current_day, 0.0)
+        trades_hour = hourly_trades.get(current_hour, 0)
+        trades_day = daily_trades.get(current_day, 0)
+
+        hours_since_start = max((now - self.start_time).total_seconds() / 3600, 1)
+        avg_pnl_hour = sum(t['pnl'] for t in self.trades) / hours_since_start
+        avg_trades_hour = len(self.trades) / hours_since_start
+
+        print("\n" + "="*60)
+        print(f"🐺 KRISHNA OMEGA ULTRA — Dashboard a las {now.strftime('%H:%M:%S')}")
+        print("="*60)
+        print(f"  PnL última hora:  {pnl_hour:>8.2f} USDT")
+        print(f"  PnL hoy:          {pnl_day:>8.2f} USDT")
+        print(f"  Trades última hora: {trades_hour:>5d}")
+        print(f"  Trades hoy:         {trades_day:>5d}")
+        print(f"  Promedio PnL/hora:  {avg_pnl_hour:>8.2f} USDT")
+        print(f"  Promedio trades/h:  {avg_trades_hour:>5.1f}")
+        print("="*60)
+
 class TradingBot:
     def __init__(self):
         self.ex = OKXClient()
@@ -53,12 +102,12 @@ class TradingBot:
         self.running = True
         self.trades = []
         self.equity = [INITIAL_CAPITAL]
+        self.dashboard = Dashboard()
 
     def _map_side_to_pos_side(self, side_str):
         return 'long' if side_str == 'long' else 'short'
 
     def verify_protection(self):
-        """Comprueba que todas las posiciones abiertas tengan sus órdenes SL/TP activas. Si falta alguna, la recrea."""
         for pos in self.open_positions:
             if pos.closed:
                 continue
@@ -68,11 +117,9 @@ class TradingBot:
             tp_found = any(a['algoId'] == pos.tp_algo_id and a.get('tpTriggerPx','0') != '0' for a in existing_algos) if pos.tp_algo_id else False
             if not sl_found or not tp_found:
                 logger.warning(f"{pos.symbol}: falta protección (SL:{sl_found} TP:{tp_found}). Recreando...")
-                # Recrear la orden algo correspondiente
                 self.ex.create_algo_order(pos.symbol, pos.side, pos.size,
                                           tp_price=pos.tp if not tp_found else None,
                                           sl_price=pos.sl if not sl_found else None)
-                # Actualizar los IDs
                 new_algos = self.ex.get_algo_orders(inst_id)
                 for a in new_algos:
                     if a.get('slTriggerPx','0') != '0':
@@ -117,15 +164,30 @@ class TradingBot:
                 'pnl_net': net, 'reason': event.get('reason',''),
                 'hold_minutes': (datetime.utcnow() - pos.entry_time).total_seconds()/60
             })
+            self.dashboard.record_trade(net)
             logger.info(f"Posición cerrada: {pos.symbol} {event['reason']} PnL: {net:.2f}")
+            self.dashboard.print_summary()
             self.open_positions.remove(pos)
             self.store.save(self.open_positions)
+
+    def fetch_data(self):
+        d5, d15 = {}, {}
+        for sym in UNIVERSO:
+            df5 = self.ex.fetch_candles(sym, '5m', 200)
+            if df5 is not None and len(df5)>=60:
+                d5[sym] = df5
+                idx = df5.set_index('ts')
+                df15 = idx['c'].resample('15min', label='right').last().dropna()
+                if len(df15)>=20:
+                    d15[sym] = pd.DataFrame({'c':df15})
+        return d5, d15
 
     def run(self):
         logger.info("🚀 KRISHNA OMEGA ULTRA INICIADO")
         repair_orders(self.ex, self.open_positions)
         self.store.save(self.open_positions)
 
+        last_dashboard_time = datetime.utcnow()
         while self.running:
             now = datetime.utcnow()
             if now.hour < 14 and now.hour > 0:
@@ -139,7 +201,6 @@ class TradingBot:
                 break
 
             d5, d15 = self.fetch_data()
-            # Verificar protección continuamente
             self.verify_protection()
 
             for pos in self.open_positions[:]:
@@ -182,13 +243,10 @@ class TradingBot:
                                 logger.error("No se pudo obtener pos_id. Abortando entrada.")
                                 continue
 
-                            # Crear órdenes TP/SL con tamaño exacto
                             algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, sz,
                                                                   tp_price=sig['tp'], sl_price=sig['sl'])
                             sl_algo_id = tp_algo_id = None
                             if algo_resp and algo_resp.get('code') == '0':
-                                # La respuesta de order-algo devuelve un solo algoId si es una orden combinada, o varios.
-                                # Suponemos que OKX devuelve un array con todas las órdenes creadas.
                                 for algo in algo_resp['data']:
                                     if algo.get('slTriggerPx','0') != '0':
                                         sl_algo_id = algo['algoId']
@@ -210,6 +268,10 @@ class TradingBot:
             self.store.save(self.open_positions)
             push_state_to_git()
 
+            if (now - last_dashboard_time).total_seconds() >= 300:
+                self.dashboard.print_summary()
+                last_dashboard_time = now
+
             next_run = now.replace(second=0, microsecond=0) + timedelta(minutes=5)
             sleep_secs = (next_run - datetime.utcnow()).total_seconds()
             if sleep_secs > 0:
@@ -217,7 +279,7 @@ class TradingBot:
 
         metrics = compute_all(self.trades, self.equity, INITIAL_CAPITAL)
         save_report(metrics)
-        logger.info(f"Métricas finales: {metrics}")
+        logger.info(f"Métricas finales guardadas: {metrics}")
 
 if __name__ == '__main__':
     bot = TradingBot()

@@ -6,26 +6,47 @@ on:
 concurrency:
   group: krishna-bot
   cancel-in-progress: false
+
+permissions:
+  contents: write          # Permite hacer push al repositorio con GITHUB_TOKEN
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     timeout-minutes: 360
     steps:
+      # ✅ Checkout usando el token automático (no necesita secreto adicional)
       - uses: actions/checkout@v4
+
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - run: pip install -r requirements.txt
       - run: mkdir -p logs metrics state
+
+      # Descarga del artifact anterior en una carpeta temporal
       - name: Download previous state
         continue-on-error: true
         uses: dawidd6/action-download-artifact@v2
         with:
           workflow: krishna.yml
           name: krishna-state
-          path: state
+          path: artifact_restore    # 🔁 carpeta temporal
           check_artifacts: true
           search_artifacts: true
+
+      # Copia solo lo necesario (state/ y metrics/) sin sobrescribir otros archivos
+      - name: Restore state from artifact
+        if: success()
+        run: |
+          if [ -d artifact_restore/state ]; then
+            cp -r artifact_restore/state/* state/ 2>/dev/null || true
+          fi
+          if [ -d artifact_restore/metrics ]; then
+            cp -r artifact_restore/metrics/* metrics/ 2>/dev/null || true
+          fi
+
       - name: Run Bot
         run: python main_live.py
         env:
@@ -33,8 +54,8 @@ jobs:
           OKX_SECRET_KEY: ${{ secrets.OKX_SECRET_KEY }}
           OKX_PASSPHRASE: ${{ secrets.OKX_PASSPHRASE }}
           OKX_DEMO: ${{ secrets.OKX_DEMO || '1' }}
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+
+      # Subida de artifact para la próxima ejecución
       - name: Upload state artifact
         uses: actions/upload-artifact@v4
         if: always()
@@ -42,6 +63,16 @@ jobs:
           name: krishna-state
           path: |
             state/
-            logs/
             metrics/
+            logs/
           retention-days: 30
+
+      # Commit automático de state/ y metrics/ al repositorio
+      - name: Persist state to repository
+        if: always()
+        run: |
+          git config user.email "bot@krishna.omega"
+          git config user.name "KrishnaBot"
+          git add state/ metrics/ 2>/dev/null || true
+          git commit -m "📊 Update state $(date -u +'%Y-%m-%d %H:%M UTC')" || echo "No changes to commit"
+          git push origin HEAD:main

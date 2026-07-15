@@ -1,7 +1,7 @@
 """
 Archivo: src/repair_manager.py
 Proyecto: Krishna Omega Ultra
-Descripción: Reconstrucción de posiciones con tolerancia a fallos.
+Descripción: Reconstrucción de posiciones con máxima tolerancia a fallos.
 """
 from datetime import datetime
 from src.config import *
@@ -27,7 +27,7 @@ def repair_orders(exchange, open_positions_local):
         size = float(ep['pos'])
         logger.warning(f"Reconstruyendo posición swap: {sym} {side} size={size}")
 
-        # Intentar obtener órdenes algo con seguridad
+        # Intentar obtener órdenes algo (ignorar errores)
         algo_orders = []
         try:
             algo_orders = exchange.get_algo_orders(inst_id=ep['instId'])

@@ -1,0 +1,68 @@
+2026-07-14 21:00:06,016 - src.exchange_okx - WARNING - Librería okx no encontrada. Usando cliente manual con ISO 8601.
+2026-07-14 21:00:06,265 - src.exchange_okx - INFO - Sincronización horaria: offset -0.082s
+2026-07-14 21:00:06,265 - __main__ - INFO - 🚀 KRISHNA OMEGA ULTRA INICIADO
+2026-07-14 21:00:06,458 - src.repair_manager - WARNING - Reconstruyendo posición huérfana: ADA short 126.58 @ 0.1632
+2026-07-14 21:00:06,668 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:07,901 - src.exchange_okx - INFO - Sincronización horaria: offset -0.085s
+2026-07-14 21:00:08,096 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:10,332 - src.exchange_okx - INFO - Sincronización horaria: offset -0.093s
+2026-07-14 21:00:10,528 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:10,773 - __main__ - INFO - Capital de referencia ajustado a 3.72 USDT
+2026-07-14 21:00:13,925 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:15,162 - src.exchange_okx - INFO - Sincronización horaria: offset -0.088s
+2026-07-14 21:00:15,343 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:17,564 - src.exchange_okx - INFO - Sincronización horaria: offset -0.088s
+2026-07-14 21:00:17,762 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:17,762 - __main__ - WARNING - ADA: falta protección (SL:False TP:False). Recreando...
+2026-07-14 21:00:17,941 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:19,188 - src.exchange_okx - INFO - Sincronización horaria: offset -0.090s
+2026-07-14 21:00:19,385 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:21,628 - src.exchange_okx - INFO - Sincronización horaria: offset -0.099s
+2026-07-14 21:00:21,821 - src.exchange_okx - ERROR - Manual API error 51000: Parameter ordType error (path: /api/v5/trade/orders-algo-pending?instId=ADA-USDT-SWAP&instType=SWAP)
+2026-07-14 21:00:21,965 - src.exchange_okx - ERROR - Manual API error 51000: Parameter posSide error (path: /api/v5/trade/close-position)
+2026-07-14 21:00:23,194 - src.exchange_okx - INFO - Sincronización horaria: offset -0.085s
+2026-07-14 21:00:23,480 - src.exchange_okx - ERROR - Manual API error 51000: Parameter posSide error (path: /api/v5/trade/close-position)
+2026-07-14 21:00:25,698 - src.exchange_okx - INFO - Sincronización horaria: offset -0.086s
+2026-07-14 21:00:25,841 - src.exchange_okx - ERROR - Manual API error 51000: Parameter posSide error (path: /api/v5/trade/close-position)
+2026-07-14 21:00:25,841 - __main__ - WARNING - No se confirmó cierre manual de ADA. Confiando en protección automática.
+2026-07-14 21:00:26,410 - src.exchange_okx - INFO - Apalancamiento configurado: LTC long 10x
+2026-07-14 21:00:26,585 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:00:27,830 - src.exchange_okx - INFO - Sincronización horaria: offset -0.095s
+2026-07-14 21:00:27,969 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:00:30,189 - src.exchange_okx - INFO - Sincronización horaria: offset -0.088s
+2026-07-14 21:00:30,489 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:00:30,489 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784062830377'}], 'inTime': '1784062830377582', 'msg': 'All operations failed', 'outTime': '1784062830377783'}
+2026-07-14 21:05:03,324 - src.exchange_okx - INFO - Apalancamiento configurado: SOL long 10x
+2026-07-14 21:05:03,598 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:05:04,822 - src.exchange_okx - INFO - Sincronización horaria: offset -0.088s
+2026-07-14 21:05:05,096 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:05:07,328 - src.exchange_okx - INFO - Sincronización horaria: offset -0.083s
+2026-07-14 21:05:07,614 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:05:07,614 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784063107505'}], 'inTime': '1784063107505158', 'msg': 'All operations failed', 'outTime': '1784063107505378'}
+2026-07-14 21:10:03,184 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:10:04,487 - src.exchange_okx - INFO - Sincronización horaria: offset -0.090s
+2026-07-14 21:10:04,620 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:10:06,845 - src.exchange_okx - INFO - Sincronización horaria: offset -0.091s
+2026-07-14 21:10:07,138 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:10:07,138 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784063407024'}], 'inTime': '1784063407024626', 'msg': 'All operations failed', 'outTime': '1784063407024834'}
+2026-07-14 21:15:02,714 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:15:03,947 - src.exchange_okx - INFO - Sincronización horaria: offset -0.097s
+2026-07-14 21:15:04,221 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:15:06,495 - src.exchange_okx - INFO - Sincronización horaria: offset -0.083s
+2026-07-14 21:15:06,636 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:15:06,636 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784063706573'}], 'inTime': '1784063706573621', 'msg': 'All operations failed', 'outTime': '1784063706573786'}
+2026-07-14 21:20:03,580 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:20:04,802 - src.exchange_okx - INFO - Sincronización horaria: offset -0.087s
+2026-07-14 21:20:05,098 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:20:07,424 - src.exchange_okx - INFO - Sincronización horaria: offset -0.087s
+2026-07-14 21:20:07,697 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:20:07,698 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784064007594'}], 'inTime': '1784064007594143', 'msg': 'All operations failed', 'outTime': '1784064007594324'}
+2026-07-14 21:25:02,836 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:25:04,071 - src.exchange_okx - INFO - Sincronización horaria: offset -0.099s
+2026-07-14 21:25:04,206 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:25:06,428 - src.exchange_okx - INFO - Sincronización horaria: offset -0.089s
+2026-07-14 21:25:06,712 - src.exchange_okx - ERROR - Manual API error 1: All operations failed (path: /api/v5/trade/order)
+2026-07-14 21:25:06,712 - __main__ - ERROR - Error en orden de mercado: {'code': '1', 'data': [{'clOrdId': '', 'ordId': '', 'sCode': '51121', 'sMsg': 'Order quantity must be a multiple of the lot size.', 'subCode': '', 'tag': '', 'ts': '1784064306603'}], 'inTime': '1784064306602962', 'msg': 'All operations failed', 'outTime': '1784064306603218'}
+2026-07-14 21:30:00,225 - src.risk_manager - CRITICAL - KILL SWITCH activado. DD: 75.10%
+2026-07-14 21:30:00,225 - __main__ - CRITICAL - Kill switch activado. Deteniendo bot.
+2026-07-14 21:30:00,226 - __main__ - INFO - Métricas finales guardadas: {}

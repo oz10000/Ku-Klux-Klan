@@ -1,0 +1,6 @@
+2026-07-14 20:17:46,797 - src.exchange_okx - WARNING - Librería okx no encontrada. Usando cliente manual con ISO 8601.
+2026-07-14 20:17:47,170 - src.exchange_okx - INFO - Sincronización horaria: offset -0.131s
+2026-07-14 20:17:47,170 - __main__ - INFO - 🚀 KRISHNA OMEGA ULTRA INICIADO
+2026-07-14 20:17:47,612 - src.risk_manager - CRITICAL - KILL SWITCH activado. DD: 69.87%
+2026-07-14 20:17:47,613 - __main__ - CRITICAL - Kill switch activado. Deteniendo bot.
+2026-07-14 20:17:47,613 - __main__ - INFO - Métricas finales guardadas: {}

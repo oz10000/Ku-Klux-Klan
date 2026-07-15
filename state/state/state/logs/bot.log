@@ -1,0 +1,12 @@
+2026-07-14 20:02:15,246 - src.exchange_okx - WARNING - Librería okx no encontrada. Usando implementación manual con sincronización horaria.
+2026-07-14 20:02:15,644 - src.exchange_okx - INFO - Sincronización horaria: offset -0.120s
+2026-07-14 20:02:15,644 - __main__ - INFO - 🚀 KRISHNA OMEGA ULTRA INICIADO
+2026-07-14 20:02:15,861 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/positions?instType=SWAP)
+2026-07-14 20:02:17,173 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/positions?instType=SWAP)
+2026-07-14 20:02:19,356 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/positions?instType=SWAP)
+2026-07-14 20:02:19,545 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/balance?ccy=USDT)
+2026-07-14 20:02:20,836 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/balance?ccy=USDT)
+2026-07-14 20:02:23,138 - src.exchange_okx - ERROR - Manual API error 50102: Timestamp request expired (path: /api/v5/account/balance?ccy=USDT)
+2026-07-14 20:02:23,138 - src.risk_manager - CRITICAL - KILL SWITCH activado. DD: 100.00%
+2026-07-14 20:02:23,138 - __main__ - CRITICAL - Kill switch activado. Deteniendo bot.
+2026-07-14 20:02:23,139 - __main__ - INFO - Métricas finales: {}

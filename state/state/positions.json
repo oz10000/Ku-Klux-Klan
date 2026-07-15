@@ -1,0 +1,17 @@
+[
+  {
+    "symbol": "ADA",
+    "side": "short",
+    "entry": 0.1632,
+    "size": 126.58,
+    "tp": 0.0,
+    "sl": 0.0,
+    "entry_time": "2026-07-14T21:00:10.529097",
+    "ord_id": null,
+    "sl_algo_id": null,
+    "tp_algo_id": null,
+    "pos_id": "3743345994097729537",
+    "be_activated": false,
+    "tp_trail_activated": false
+  }
+]

@@ -13,9 +13,13 @@ def show_risk(metrics, margin_factors):
     with col2:
         st.metric("Drawdown", f"{metrics.get('max_drawdown_pct', 0)}%")
     with col3:
-        st.metric("Kill Switch", "ACTIVO" if metrics.get('max_drawdown_pct', 0) >= 12 else "INACTIVO")
+        kill = "ACTIVO" if metrics.get('max_drawdown_pct', 0) >= 12 else "INACTIVO"
+        st.metric("Kill Switch", kill)
     st.subheader("Factores de margen")
     if margin_factors:
-        st.json(margin_factors)
+        try:
+            st.json(margin_factors)
+        except:
+            st.info("Sin datos")
     else:
         st.info("Sin datos")

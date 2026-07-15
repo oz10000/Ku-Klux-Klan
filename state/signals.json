@@ -1,1 +1,112 @@
-[]
+[
+  {
+    "symbol": "ETH",
+    "direction": "Long",
+    "entry": 1924.17,
+    "tp": 1940.545,
+    "sl": 1916.31,
+    "score": 0.4527372315857924,
+    "time_score": 45.0,
+    "volume_ratio": 0.28737974973442104
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.1648,
+    "tp": 0.16600833333333334,
+    "sl": 0.16422,
+    "score": 0.6744313483480028,
+    "time_score": 45.0,
+    "volume_ratio": 0.21152037539144963
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.1652,
+    "tp": 0.16649166666666668,
+    "sl": 0.16458,
+    "score": 0.7232168023151582,
+    "time_score": 45.0,
+    "volume_ratio": 0.2758624195274198
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.1648,
+    "tp": 0.16621666666666668,
+    "sl": 0.16412,
+    "score": 0.6669508875663588,
+    "time_score": 45.0,
+    "volume_ratio": 0.027833900380833245
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.165,
+    "tp": 0.16637500000000002,
+    "sl": 0.16433999999999999,
+    "score": 0.6763832571799705,
+    "time_score": 45.0,
+    "volume_ratio": 0.0
+  },
+  {
+    "symbol": "XRP",
+    "direction": "Long",
+    "entry": 1.1179,
+    "tp": 1.122275,
+    "sl": 1.1158,
+    "score": 0.5901618445702768,
+    "time_score": 45.0,
+    "volume_ratio": 0.006653678826625556
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.1648,
+    "tp": 0.1663416666666667,
+    "sl": 0.16405999999999998,
+    "score": 0.618054958063605,
+    "time_score": 45.0,
+    "volume_ratio": 0.49707368530138574
+  },
+  {
+    "symbol": "ADA",
+    "direction": "Long",
+    "entry": 0.1648,
+    "tp": 0.1663416666666667,
+    "sl": 0.16405999999999998,
+    "score": 0.618054958063605,
+    "time_score": 45.0,
+    "volume_ratio": 0.49707368530138574
+  },
+  {
+    "symbol": "XRP",
+    "direction": "Long",
+    "entry": 1.1179,
+    "tp": 1.1224833333333333,
+    "sl": 1.1157,
+    "score": 0.5865968611894028,
+    "time_score": 45.0,
+    "volume_ratio": 0.1328755743439175
+  },
+  {
+    "symbol": "XRP",
+    "direction": "Long",
+    "entry": 1.1186,
+    "tp": 1.1232458333333333,
+    "sl": 1.11637,
+    "score": 0.6368765061761844,
+    "time_score": 45.0,
+    "volume_ratio": 0.13554280631095497
+  },
+  {
+    "symbol": "ETH",
+    "direction": "Long",
+    "entry": 1928.2,
+    "tp": 1943.3791666666668,
+    "sl": 1920.914,
+    "score": 0.5902633554364646,
+    "time_score": 45.0,
+    "volume_ratio": 0.11555347693598239
+  }
+]

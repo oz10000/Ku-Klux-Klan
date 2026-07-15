@@ -1,0 +1,6 @@
+{
+  "ETH": {
+    "factor": 0.98,
+    "consecutive_success": 1
+  }
+}

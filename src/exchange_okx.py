@@ -1,8 +1,7 @@
 """
 Archivo: src/exchange_okx.py
 Proyecto: Krishna Omega Ultra — Final Certified
-Descripción: Cliente OKX API v5 completo, con manejo de errores mejorado,
-reintentos inteligentes y correcciones validadas en OKX Demo.
+Descripción: Cliente OKX API v5 completo con manejo inteligente de errores.
 """
 import time
 import base64
@@ -54,7 +53,6 @@ class OKXClient:
             self._server_time_offset = 0.0
 
     def _iso_ts(self):
-        # Uso moderno sin utcfromtimestamp
         now = datetime.fromtimestamp(time.time() + self._server_time_offset, tz=timezone.utc)
         return now.strftime('%Y-%m-%dT%H:%M:%S.%f')[:-3] + 'Z'
 
@@ -63,10 +61,6 @@ class OKXClient:
         return base64.b64encode(hmac.new(self.secret.encode(), message.encode(), hashlib.sha256).digest()).decode()
 
     def _request(self, method, path, params=None, body=None, retries=3):
-        """
-        Realiza una petición a OKX con reintentos, resincronización horaria
-        y manejo inteligente de errores comunes (ordType faltante, timestamp, etc.)
-        """
         for attempt in range(retries):
             if attempt > 0:
                 self._sync_time()
@@ -93,7 +87,6 @@ class OKXClient:
                     resp = self.session.post(url, headers=headers, data=body_str, timeout=15)
                 data = resp.json()
                 if data.get('code') != '0':
-                    # Extraer sCode y sMsg del primer elemento de data (si existe)
                     err_data = data.get('data', [{}])[0] if data.get('data') else {}
                     s_code = err_data.get('sCode', '')
                     s_msg = err_data.get('sMsg', '')
@@ -101,16 +94,16 @@ class OKXClient:
                         f"API error {data.get('code')}: {data.get('msg')} "
                         f"| sCode={s_code} | sMsg={s_msg} (path: {request_path})"
                     )
-                    # Manejar error específico de ordType faltante en orders-algo-pending
+                    # 🔁 Reintento automático cuando falta ordType en orders-algo-pending
                     if ('ordType' in data.get('msg', '').lower() and
                         method == 'GET' and 'orders-algo-pending' in path):
                         if params is None:
                             params = {}
                         params['ordType'] = 'conditional'
                         logger.info("Reintentando con ordType='conditional'")
-                        # Volver a llamar con los nuevos params
-                        return self._request(method, path, params=params, body=body, retries=retries-attempt-1)
-                    # Reintento estándar
+                        # Llamada recursiva con los nuevos parámetros
+                        return self._request(method, path, params=params, body=body,
+                                             retries=retries - attempt - 1)
                     if attempt < retries - 1:
                         time.sleep(2 ** attempt)
                         continue
@@ -132,7 +125,7 @@ class OKXClient:
             return {}
 
     # --------------------------------------------------------------
-    # Self test de conectividad
+    # Self test
     # --------------------------------------------------------------
     def self_test(self):
         logger.info("🔍 Ejecutando self test...")
@@ -183,7 +176,7 @@ class OKXClient:
         return True
 
     # --------------------------------------------------------------
-    # Apalancamiento
+    # Métodos de trading (idénticos a la última versión corregida)
     # --------------------------------------------------------------
     def set_leverage(self, symbol, leverage, pos_side):
         cache_key = (symbol, pos_side)
@@ -205,9 +198,6 @@ class OKXClient:
             logger.error(f"Error set_leverage: {resp.get('msg')}")
             return False
 
-    # --------------------------------------------------------------
-    # Información de instrumentos
-    # --------------------------------------------------------------
     def get_instrument_info(self, symbol):
         if symbol not in self._instrument_cache:
             resp = self._public_request('GET', '/api/v5/public/instruments',
@@ -230,9 +220,6 @@ class OKXClient:
             return float(resp['data'][0]['last'])
         return None
 
-    # --------------------------------------------------------------
-    # Balance
-    # --------------------------------------------------------------
     def get_balance(self, ccy='USDT'):
         resp = self._request('GET', '/api/v5/account/balance', params={'ccy': ccy})
         details = resp.get('data', [{}])[0].get('details', [])
@@ -241,9 +228,6 @@ class OKXClient:
                 return float(d['availBal'])
         return 0.0
 
-    # --------------------------------------------------------------
-    # Órdenes de mercado
-    # --------------------------------------------------------------
     def place_market_order(self, symbol, side, size, mode='swap', tp_price=None, sl_price=None, pos_side=None):
         inst_id = self._swap_id(symbol) if mode == 'swap' else self._spot_id(symbol)
         body = {
@@ -266,9 +250,6 @@ class OKXClient:
             body['attachAlgoOrds'] = attach
         return self._request('POST', '/api/v5/trade/order', body=body)
 
-    # --------------------------------------------------------------
-    # Cierre de posiciones
-    # --------------------------------------------------------------
     def close_position(self, symbol, pos_id=None, pos_side=None, size=None, mode='swap'):
         if mode == 'swap':
             if not pos_id or not pos_side:
@@ -287,26 +268,16 @@ class OKXClient:
                 return {'code': '-1'}
             return self.place_market_order(symbol, 'sell', size, mode='spot')
 
-    # --------------------------------------------------------------
-    # Posiciones
-    # --------------------------------------------------------------
     def get_positions(self, mode='swap'):
         if mode == 'swap':
             return self._request('GET', '/api/v5/account/positions', params={'instType': 'SWAP'}).get('data', [])
         return []
 
-    # --------------------------------------------------------------
-    # Órdenes algorítmicas (TP/SL) — CORREGIDO
-    # --------------------------------------------------------------
     def create_algo_order(self, symbol, pos_side, size, tp_price=None, sl_price=None):
-        """
-        Crea una orden condicional (TP/SL) para cerrar la posición.
-        side debe ser 'sell' para cerrar long, 'buy' para cerrar short.
-        """
         if not tp_price and not sl_price:
             return None
         inst_id = self._swap_id(symbol)
-        close_side = 'sell' if pos_side == 'long' else 'buy'   # ← CORRECCIÓN
+        close_side = 'sell' if pos_side == 'long' else 'buy'
         body = {
             'instId': inst_id,
             'tdMode': 'isolated',
@@ -327,7 +298,6 @@ class OKXClient:
         params = {'instType': 'SWAP'}
         if inst_id:
             params['instId'] = inst_id
-        # La primera llamada puede fallar con 51000; _request lo manejará añadiendo ordType.
         resp = self._request('GET', '/api/v5/trade/orders-algo-pending', params=params)
         orders = resp.get('data', []) if resp else []
         if algo_ids:
@@ -351,9 +321,6 @@ class OKXClient:
             break
         return resp
 
-    # --------------------------------------------------------------
-    # Velas históricas
-    # --------------------------------------------------------------
     def fetch_candles(self, symbol, bar='5m', limit=200):
         inst_id = self._swap_id(symbol)
         resp = self._request('GET', '/api/v5/market/candles',

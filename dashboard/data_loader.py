@@ -8,5 +8,8 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.state_manager import StateManager
 
 def load_all():
-    sm = StateManager()
-    return sm.load_all()
+    try:
+        sm = StateManager()
+        return sm.load_all()
+    except Exception as e:
+        return {'trades': [], 'positions': [], 'metrics': {}, 'margin_factors': {}, 'logs': ''}

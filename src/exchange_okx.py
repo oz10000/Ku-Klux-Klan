@@ -1,15 +1,9 @@
 """
 Archivo: src/exchange_okx.py
 Proyecto: Krishna Omega Ultra — Final Certified
-Descripción: Cliente OKX API v5 completo con manejo inteligente de errores.
+Descripción: Cliente OKX API v5 con ordType forzado para evitar errores 51000.
 """
-import time
-import base64
-import hmac
-import hashlib
-import json
-import requests
-import urllib.parse
+import time, base64, hmac, hashlib, json, requests, urllib.parse
 from datetime import datetime, timezone
 import pandas as pd
 from src.config import *
@@ -31,18 +25,9 @@ class OKXClient:
         self._server_time_offset = 0.0
         self._sync_time()
 
-    # --------------------------------------------------------------
-    # Helpers
-    # --------------------------------------------------------------
-    def _swap_id(self, sym):
-        return f"{sym}-USDT-SWAP"
+    def _swap_id(self, sym): return f"{sym}-USDT-SWAP"
+    def _spot_id(self, sym): return f"{sym}-USDT"
 
-    def _spot_id(self, sym):
-        return f"{sym}-USDT"
-
-    # --------------------------------------------------------------
-    # Sincronización horaria y firma
-    # --------------------------------------------------------------
     def _sync_time(self):
         try:
             resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=10)
@@ -94,16 +79,6 @@ class OKXClient:
                         f"API error {data.get('code')}: {data.get('msg')} "
                         f"| sCode={s_code} | sMsg={s_msg} (path: {request_path})"
                     )
-                    # 🔁 Reintento automático cuando falta ordType en orders-algo-pending
-                    if ('ordType' in data.get('msg', '').lower() and
-                        method == 'GET' and 'orders-algo-pending' in path):
-                        if params is None:
-                            params = {}
-                        params['ordType'] = 'conditional'
-                        logger.info("Reintentando con ordType='conditional'")
-                        # Llamada recursiva con los nuevos parámetros
-                        return self._request(method, path, params=params, body=body,
-                                             retries=retries - attempt - 1)
                     if attempt < retries - 1:
                         time.sleep(2 ** attempt)
                         continue
@@ -176,7 +151,7 @@ class OKXClient:
         return True
 
     # --------------------------------------------------------------
-    # Métodos de trading (idénticos a la última versión corregida)
+    # Métodos de trading
     # --------------------------------------------------------------
     def set_leverage(self, symbol, leverage, pos_side):
         cache_key = (symbol, pos_side)
@@ -295,7 +270,8 @@ class OKXClient:
         return self._request('POST', '/api/v5/trade/order-algo', body=body)
 
     def get_algo_orders(self, inst_id=None, algo_ids=None):
-        params = {'instType': 'SWAP'}
+        # 🔧 Forzar ordType='conditional' para evitar el error 51000
+        params = {'instType': 'SWAP', 'ordType': 'conditional'}
         if inst_id:
             params['instId'] = inst_id
         resp = self._request('GET', '/api/v5/trade/orders-algo-pending', params=params)

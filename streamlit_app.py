@@ -1,8 +1,7 @@
 """
 Archivo: streamlit_app.py
 Proyecto: Krishna Omega Ultra — Dashboard Streamlit Final
-Descripción: Interfaz profesional negro/verde. Robusta, sin hardcodeos,
-tolera la ausencia de datos y evita errores de formato.
+Descripción: Interfaz profesional negro/verde. Robusta, tolerante a datos vacíos.
 """
 import streamlit as st
 import pandas as pd
@@ -35,12 +34,13 @@ st.markdown("""
 
 st.title("🐺 KRISHNA OMEGA ULTRA — Terminal Dashboard")
 
-# Cargar datos de forma segura
+# Cargar datos con valores por defecto robustos
 data = load_all()
-metrics = data.get('metrics', {})
-trades = data.get('trades', [])
-positions = data.get('positions', [])
-margin_factors = data.get('margin_factors', {})
+metrics = data.get('metrics') or {}
+trades = data.get('trades') or []
+positions = data.get('positions') or []
+margin_factors = data.get('margin_factors') or {}
+logs_text = data.get('logs') or ''
 
 # Refresco manual
 if st.button("🔄 REFRESCAR DATOS"):
@@ -68,7 +68,7 @@ with tab1:
     st.subheader("RENDIMIENTO EN TIEMPO REAL")
     col1, col2, col3, col4 = st.columns(4)
 
-    # Calcular métricas horarias/diarias solo si hay un start_time válido
+    # Calcular métricas horarias/diarias de forma segura
     try:
         start_str = data.get('start_time')
         if start_str:
@@ -116,7 +116,7 @@ with tab6:
 # ───────────────────── TAB 7 ─────────────────────
 with tab7:
     st.header("LOGS DEL SISTEMA")
-    st.text_area("Salida de consola", data.get('logs', ''), height=500)
+    st.text_area("Salida de consola", logs_text, height=500)
 
 # Auto‑refresco cada 10 segundos
 st.markdown("""

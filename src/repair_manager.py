@@ -1,7 +1,7 @@
 """
 Archivo: src/repair_manager.py
 Proyecto: Krishna Omega Ultra
-Descripción: Reconstrucción de posiciones con TrailingEngine.
+Descripción: Reconstrucción de posiciones con tolerancia a fallos.
 """
 from datetime import datetime
 from src.config import *
@@ -26,7 +26,14 @@ def repair_orders(exchange, open_positions_local):
         entry_price = float(ep['avgPx'])
         size = float(ep['pos'])
         logger.warning(f"Reconstruyendo posición swap: {sym} {side} size={size}")
-        algo_orders = exchange.get_algo_orders(inst_id=ep['instId'])
+
+        # Intentar obtener órdenes algo con seguridad
+        algo_orders = []
+        try:
+            algo_orders = exchange.get_algo_orders(inst_id=ep['instId'])
+        except Exception as e:
+            logger.error(f"No se pudieron leer órdenes algo para {sym}: {e}")
+
         sl_algo_id = tp_algo_id = None
         sl_price = tp_price = 0.0
         for ao in algo_orders:
@@ -36,6 +43,7 @@ def repair_orders(exchange, open_positions_local):
             if ao.get('tpTriggerPx') and ao.get('tpTriggerPx') != '0':
                 tp_algo_id = ao['algoId']
                 tp_price = float(ao['tpTriggerPx'])
+
         pos = Position(sym, side, entry_price, size, tp_price, sl_price, datetime.utcnow(),
                        ord_id=None, sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
         pos.trailing = TrailingEngine(entry_price, datetime.utcnow(), sym, side)

@@ -1,7 +1,7 @@
 """
 Archivo: src/config.py
-Proyecto: Krishna Omega Ultra — Final Certified
-Descripción: Configuración global con todas las constantes necesarias.
+Proyecto: Krishna Omega Ultra V9.1 — Compound Growth Engine
+Descripción: Configuración global adaptada a microcapital.
 """
 import os
 from dotenv import load_dotenv
@@ -22,14 +22,14 @@ TIMEFRAME_CONFIRM   = '15m'
 TIMEFRAME_TRAILING  = '1m'
 
 INITIAL_CAPITAL = 1000.0
-LEVERAGE = 10
-MAX_POSITIONS = 2
+LEVERAGE = 12                       # Apalancamiento óptimo para microcapital
+MAX_POSITIONS = 1                   # Una sola posición para cuentas pequeñas
 KILL_SWITCH_DD_PCT = 12.0
 COMMISSION_RATE = 0.0008
 SLIPPAGE_PCT = 0.001
 
 # Sizing adaptativo
-INITIAL_MARGIN_FACTOR = 0.98
+INITIAL_MARGIN_FACTOR = 0.99        # 99% del margen disponible
 FACTOR_STEP = 0.005
 FACTOR_INCREMENT = 0.002
 MAX_MARGIN_FACTOR = 0.99
@@ -57,15 +57,43 @@ TRAIL_STOP_MAX_MULT = 2.0
 TRAIL_STOP_MIN_MULT = 0.8
 TRAIL_TP_BASE_MULT = 2.0
 TRAIL_TP_MIN_MULT = 1.2
-BREAK_EVEN_ACTIVATION_PCT = 0.8
-BREAK_EVEN_BUFFER_PCT = 0.3
-MAX_HOLD_MINUTES = 75
-BREAK_EVEN_MINUTES = 14          # <--- Constante restaurada
+BREAK_EVEN_ACTIVATION_PCT = 0.5
+BREAK_EVEN_BUFFER_PCT = 0.2
+BREAK_EVEN_MINUTES = 10
+
+# Timeout adaptativo
+TIMEOUT_BASE = 75
+TIMEOUT_EXTENDED = 90
+TIMEOUT_REDUCED = 45
+
+# Velocity Exit
+VELOCITY_EXIT_ENABLED = True
+VELOCITY_EXIT_MIN_PROFIT_PCT = 0.35
+VELOCITY_EXIT_MAX_MINUTES = 10
+VELOCITY_EXIT_MIN_ADX = 25
+VELOCITY_EXIT_MIN_KER = 0.5
 
 # Scoring horario 24/7
 TIME_SCORE_ENABLED = True
 TIME_SCORE_THRESHOLD = 40
 TIME_SCORE_MIN_FOR_ENTRY = 0.55
+
+# Opportunity Priority Engine
+EXTENSION_PENALTY_ENABLED = True
+VWAP_EXTENSION_THRESHOLD = 2.0
+EXTENSION_PENALTY_FACTOR = 0.7
+
+# Microcapital Stage Manager
+MICRO_CAPITAL_THRESHOLD = 10.0          # Por debajo, activos caros excluidos
+STAGE_THRESHOLDS = {
+    'micro': 5.0,
+    'growth': 20.0
+}
+STAGE_SCORES = {
+    'micro': 0.85,
+    'growth': 0.80,
+    'normal': 0.38
+}
 
 # Pesos scoring
 PIDELTA_WEIGHTS = {

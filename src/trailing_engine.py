@@ -1,7 +1,8 @@
 """
 Archivo: src/trailing_engine.py
-Proyecto: Krishna Omega Ultra
+Proyecto: Krishna Omega Ultra V9.1
 Descripción: Motor de stops dinámicos multi‑timeframe.
+Incluye Break Even, Trailing Stop, Trailing TP, Velocity Exit y timeout adaptativo.
 """
 import numpy as np
 from datetime import datetime
@@ -29,13 +30,16 @@ class TrailingEngine:
         low = candle_5m['l']
         elapsed_min = (datetime.utcnow() - self.entry_time).total_seconds() / 60.0
 
+        # ATRs
         atr_5 = self._safe_atr(df_5m, ATR_PERIOD)
         atr_1 = self._safe_atr(df_1m, ATR_PERIOD) if df_1m is not None and len(df_1m) > 20 else atr_5
         atr_15 = self._safe_atr(df_15m, ATR_PERIOD) if df_15m is not None and len(df_15m) > 20 else atr_5
 
+        # ADX y KER
         adx_val = self._safe_adx(df_5m)
         ker_val = self._safe_ker(df_5m)
 
+        # Cálculo dinámico del trailing stop
         base_mult = TRAIL_STOP_BASE_MULT
         if adx_val > 30:
             base_mult *= 0.7
@@ -53,6 +57,7 @@ class TrailingEngine:
         trail_distance = max(trail_distance, min_price_distance)
         self.last_trail_distance = trail_distance
 
+        # Calcular nuevo SL
         if self.side == 'long':
             new_sl = close - trail_distance
             if self.current_sl is None or new_sl > self.current_sl:
@@ -62,11 +67,20 @@ class TrailingEngine:
             if self.current_sl is None or new_sl < self.current_sl:
                 self.current_sl = new_sl
 
+        # Verificar SL
         if self.side == 'long' and low <= self.current_sl:
             return {'action': 'CLOSE', 'price': self.current_sl, 'reason': 'SL'}
         elif self.side == 'short' and high >= self.current_sl:
             return {'action': 'CLOSE', 'price': self.current_sl, 'reason': 'SL'}
 
+        # ---------- Velocity Momentum Exit ----------
+        if VELOCITY_EXIT_ENABLED and not self.be_activated and not self.current_tp_trail_active:
+            profit_pct = (close - self.entry) / self.entry * 100 if self.side == 'long' else (self.entry - close) / self.entry * 100
+            if profit_pct >= VELOCITY_EXIT_MIN_PROFIT_PCT and elapsed_min <= VELOCITY_EXIT_MAX_MINUTES:
+                if adx_val >= VELOCITY_EXIT_MIN_ADX and ker_val >= VELOCITY_EXIT_MIN_KER:
+                    return {'action': 'CLOSE', 'price': close, 'reason': 'VelocityExit'}
+
+        # Trailing TP
         if not self.current_tp_trail_active:
             tp_activation_distance = TP_MULT_INIT * atr_5
             if (self.side == 'long' and close >= self.entry + tp_activation_distance) or \
@@ -90,6 +104,7 @@ class TrailingEngine:
                     self.current_tp_sl = new_tp_sl
                     return {'action': 'MOVE_SL', 'price': new_tp_sl}
 
+        # Break Even
         if not self.be_activated and elapsed_min >= BREAK_EVEN_MINUTES:
             profit_pct = (close - self.entry) / self.entry * 100 if self.side == 'long' else (self.entry - close) / self.entry * 100
             if profit_pct >= BREAK_EVEN_ACTIVATION_PCT:
@@ -99,7 +114,15 @@ class TrailingEngine:
                     self.current_sl = be_sl
                     return {'action': 'MOVE_SL', 'price': be_sl}
 
-        if elapsed_min >= MAX_HOLD_MINUTES:
+        # Timeout adaptativo (CORREGIDO: usa las nuevas constantes)
+        if adx_val > 28 and ker_val > 0.6:
+            current_timeout = TIMEOUT_EXTENDED
+        elif adx_val < 20 or ker_val < 0.4:
+            current_timeout = TIMEOUT_REDUCED
+        else:
+            current_timeout = TIMEOUT_BASE
+
+        if elapsed_min >= current_timeout:
             return {'action': 'CLOSE', 'price': close, 'reason': 'Timeout'}
 
         return None

@@ -1,7 +1,7 @@
 """
 Archivo: src/risk_manager.py
 Proyecto: Krishna Omega Ultra
-Descripción: Gestión de riesgo con sizing adaptativo y aprendizaje por símbolo.
+Descripción: Gestión de riesgo con kill‑switch adaptativo (no detiene el bot).
 """
 import json, os
 from src.config import *
@@ -13,7 +13,7 @@ class RiskManager:
     def __init__(self, initial_capital: float):
         self.initial = initial_capital
         self.current = initial_capital
-        self.peak = initial_capital
+        self.peak = initial_capital          # Pico dinámico real
         self.kill = False
         self.utilization_cache: dict = {}
         self._cache_file = "state/margin_factors.json"
@@ -29,10 +29,14 @@ class RiskManager:
             return False
         dd = (self.peak - self.current) / self.peak * 100
         if dd >= KILL_SWITCH_DD_PCT:
-            self.kill = True
-            logger.critical(f"KILL SWITCH activado. DD: {dd:.2f}%")
+            if not self.kill:
+                self.kill = True
+                logger.critical(f"KILL SWITCH activado. DD: {dd:.2f}% (peak: {self.peak:.2f} USDT)")
             return True
-        return False
+        if self.kill and dd < KILL_SWITCH_DD_PCT:
+            self.kill = False
+            logger.info("Kill switch desactivado. DD por debajo del umbral.")
+        return self.kill
 
     def calculate_size(self, entry_price: float, symbol: str, exchange, factor: float) -> float:
         if self.kill or self.current <= 0:

@@ -3560,5 +3560,31 @@
       "msg": "",
       "outTime": "1784138518168730"
     }
+  },
+  {
+    "time": "2026-07-16T05:25:55.434385",
+    "symbol": "BNB",
+    "side": "buy",
+    "size": 3.0,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3747263512118009856",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784179555259"
+        }
+      ],
+      "inTime": "1784179555232061",
+      "msg": "",
+      "outTime": "1784179555289232"
+    }
   }
 ]

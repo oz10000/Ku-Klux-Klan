@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "symbol": "XRP",
+    "side": "long",
+    "entry": 1.1093,
+    "size": 8.55,
+    "tp": 1.131,
+    "sl": 1.0866,
+    "entry_time": "2026-07-16T01:40:48.479333",
+    "ord_id": null,
+    "sl_algo_id": "3746785952199430144",
+    "tp_algo_id": "3746785952165875712",
+    "pos_id": "3746629674132021248",
+    "closed": false,
+    "exit_price": 0.0,
+    "reason": ""
+  }
+]

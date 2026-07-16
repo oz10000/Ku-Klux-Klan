@@ -1,0 +1,18 @@
+[
+  {
+    "symbol": "BTC",
+    "side": "long",
+    "entry": 63769.8,
+    "size": 0.96,
+    "tp": 65072.9,
+    "sl": 63434.6,
+    "entry_time": "2026-07-16T23:59:03.013993",
+    "ord_id": null,
+    "sl_algo_id": "3747161302779645952",
+    "tp_algo_id": "3749478068436451328",
+    "pos_id": "3746389479495278592",
+    "closed": false,
+    "exit_price": 0.0,
+    "reason": ""
+  }
+]

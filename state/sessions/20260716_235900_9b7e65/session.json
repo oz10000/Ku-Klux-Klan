@@ -1,0 +1,14 @@
+{
+  "session_id": "20260716_235900_9b7e65",
+  "start_time": "2026-07-16T23:59:00.728559",
+  "commit_hash": null,
+  "version": "V9.1.1",
+  "initial_balance": 27.11397779579667,
+  "final_balance": 0.0,
+  "reference_capital": 27.11397779579667,
+  "peak_balance": 27.11397779579667,
+  "total_signals": 0,
+  "total_orders": 0,
+  "total_positions": 1,
+  "total_closed_trades": 0
+}

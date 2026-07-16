@@ -1,0 +1,272 @@
+[
+  {
+    "time": "2026-07-16T20:20:07.043454",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.56,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.092961072921753,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784233206947"
+        }
+      ],
+      "inTime": "1784233206947691",
+      "msg": "All operations failed",
+      "outTime": "1784233206947893"
+    }
+  },
+  {
+    "time": "2026-07-16T20:25:14.438292",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.060539960861206,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784233514346"
+        }
+      ],
+      "inTime": "1784233514345193",
+      "msg": "All operations failed",
+      "outTime": "1784233514346207"
+    }
+  },
+  {
+    "time": "2026-07-16T20:30:21.491479",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.011740446090698,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784233821398"
+        }
+      ],
+      "inTime": "1784233821398498",
+      "msg": "All operations failed",
+      "outTime": "1784233821398690"
+    }
+  },
+  {
+    "time": "2026-07-16T20:35:29.190117",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.0433619022369385,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784234129097"
+        }
+      ],
+      "inTime": "1784234129097687",
+      "msg": "All operations failed",
+      "outTime": "1784234129097889"
+    }
+  },
+  {
+    "time": "2026-07-16T20:40:36.015598",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.090390682220459,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784234435922"
+        }
+      ],
+      "inTime": "1784234435921856",
+      "msg": "All operations failed",
+      "outTime": "1784234435922077"
+    }
+  },
+  {
+    "time": "2026-07-16T20:45:42.942992",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.004018068313599,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784234742858"
+        }
+      ],
+      "inTime": "1784234742857859",
+      "msg": "All operations failed",
+      "outTime": "1784234742858144"
+    }
+  },
+  {
+    "time": "2026-07-16T20:50:49.673151",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.04003643989563,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784235049586"
+        }
+      ],
+      "inTime": "1784235049586512",
+      "msg": "All operations failed",
+      "outTime": "1784235049586706"
+    }
+  },
+  {
+    "time": "2026-07-16T20:55:56.702866",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.006285905838013,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784235356615"
+        }
+      ],
+      "inTime": "1784235356614804",
+      "msg": "All operations failed",
+      "outTime": "1784235356615004"
+    }
+  },
+  {
+    "time": "2026-07-16T21:01:04.310269",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.130265712738037,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784235664221"
+        }
+      ],
+      "inTime": "1784235664221262",
+      "msg": "All operations failed",
+      "outTime": "1784235664221511"
+    }
+  },
+  {
+    "time": "2026-07-16T21:06:11.488308",
+    "symbol": "TRX",
+    "side": "buy",
+    "size": 4.55,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "latency": 4.06013035774231,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51050",
+          "sMsg": "Your TP price should be higher than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784235971401"
+        }
+      ],
+      "inTime": "1784235971401407",
+      "msg": "All operations failed",
+      "outTime": "1784235971401641"
+    }
+  }
+]

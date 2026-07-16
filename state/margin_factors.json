@@ -2,9 +2,5 @@
   "ETH": {
     "factor": 0.98,
     "consecutive_success": 1
-  },
-  "BNB": {
-    "factor": 0.99,
-    "consecutive_success": 1
   }
 }

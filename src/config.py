@@ -1,7 +1,8 @@
 """
 Archivo: src/config.py
-Proyecto: Krishna Omega Ultra V9.1.1
-Descripción: Configuración global con gestión de sesiones y Kill‑Switch adaptativo.
+Proyecto: Krishna Omega Ultra V9.1.1 — Compound Growth Engine
+Descripción: Configuración global adaptada a microcapital.
+Incluye distancias mínimas garantizadas para TP/SL (corrección error 51050).
 """
 import os
 from dotenv import load_dotenv
@@ -21,14 +22,15 @@ TIMEFRAME_PRIMARY   = '5m'
 TIMEFRAME_CONFIRM   = '15m'
 TIMEFRAME_TRAILING  = '1m'
 
-INITIAL_CAPITAL = 1000.0      # Valor de referencia para backtesting; no se usa en vivo
-LEVERAGE = 12
-MAX_POSITIONS = 1
+INITIAL_CAPITAL = 1000.0
+LEVERAGE = 12                       # Apalancamiento óptimo para microcapital
+MAX_POSITIONS = 1                   # Una sola posición para cuentas pequeñas
+KILL_SWITCH_DD_PCT = 12.0
 COMMISSION_RATE = 0.0008
 SLIPPAGE_PCT = 0.001
 
 # Sizing adaptativo
-INITIAL_MARGIN_FACTOR = 0.99
+INITIAL_MARGIN_FACTOR = 0.99        # 99% del margen disponible
 FACTOR_STEP = 0.005
 FACTOR_INCREMENT = 0.002
 MAX_MARGIN_FACTOR = 0.99
@@ -83,19 +85,28 @@ VWAP_EXTENSION_THRESHOLD = 2.0
 EXTENSION_PENALTY_FACTOR = 0.7
 
 # Microcapital Stage Manager
-MICRO_CAPITAL_THRESHOLD = 10.0
-STAGE_THRESHOLDS = {'micro': 5.0, 'growth': 20.0}
-STAGE_SCORES = {'micro': 0.85, 'growth': 0.80, 'normal': 0.38}
+MICRO_CAPITAL_THRESHOLD = 10.0          # Por debajo, activos caros excluidos
+STAGE_THRESHOLDS = {
+    'micro': 5.0,
+    'growth': 20.0
+}
+STAGE_SCORES = {
+    'micro': 0.85,
+    'growth': 0.80,
+    'normal': 0.38
+}
+
+# Distancias mínimas garantizadas para TP/SL (evitan error 51050 en activos de baja volatilidad)
+MIN_TP_DISTANCE_PCT = 0.005   # 0.5% mínimo para Long (por encima de entry)
+MIN_SL_DISTANCE_PCT = 0.003   # 0.3% mínimo
 
 # Pesos scoring
 PIDELTA_WEIGHTS = {
-    'velocity_momentum': 0.25, 'adx': 0.20, 'ker': 0.15,
-    'macro': 0.10, 'atr_rel': 0.10, 'vwap_z': 0.10, 'momentum': 0.10
+    'velocity_momentum': 0.25,
+    'adx': 0.20,
+    'ker': 0.15,
+    'macro': 0.10,
+    'atr_rel': 0.10,
+    'vwap_z': 0.10,
+    'momentum': 0.10
 }
-
-# Sesiones independientes
-SESSION_BASE_DIR = "state/sessions"
-
-# Kill‑Switch adaptativo
-KILL_SWITCH_BASE_DD_PCT = 12.0
-KILL_SWITCH_MICRO_DD_PCT = 40.0

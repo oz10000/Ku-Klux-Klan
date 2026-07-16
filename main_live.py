@@ -2,7 +2,7 @@
 """
 Archivo: main_live.py
 Proyecto: Krishna Omega Ultra
-Descripción: Orquestación del bot con persistencia completa vía StateManager.
+Descripción: Bot de trading con ejecución continua dentro del timeout de GH Actions.
 """
 import time, os, json, subprocess
 from datetime import datetime, timedelta
@@ -51,18 +51,16 @@ class Dashboard:
         self.start_time = datetime.utcnow()
 
     def record_trade(self, pnl):
-        pass  # se guarda en state_manager
+        pass
 
     def print_summary(self):
         data = self.sm.load_all()
         metrics = data.get('metrics', {})
         trades = data.get('trades', [])
         now = datetime.utcnow()
-        # cálculo simple
         print("\n" + "="*60)
         print(f"🐺 KRISHNA OMEGA ULTRA — Dashboard a las {now.strftime('%H:%M:%S')}")
         print("="*60)
-        # PnL hora aproximado
         hours = max((now - self.start_time).total_seconds() / 3600, 1)
         pnl_hour = metrics.get('net_pnl', 0) / hours
         trades_hour = len(trades) / hours
@@ -99,6 +97,8 @@ class TradingBot:
         return self._data_1m.get(key)
 
     def handle_event(self, pos, event):
+        if pos.closed:          # Evitar doble cierre
+            return
         if event is None:
             return
         action = event['action']
@@ -118,7 +118,7 @@ class TradingBot:
             if action == 'ACTIVATE_TP_TRAIL':
                 pos.trailing.current_tp_trail_active = True
         elif action == 'CLOSE':
-            if pos.pos_id:
+            if pos.pos_id and not pos.closed:
                 self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
             if pos.side == 'long':
                 pnl_gross = (price - pos.entry) * pos.size
@@ -224,79 +224,81 @@ class TradingBot:
         last_dashboard_time = datetime.utcnow()
         while self.running:
             now = datetime.utcnow()
-            if now.hour < 14 and now.hour > 0:
-                time.sleep(60); continue
+            # Sin filtro horario; el scoring horario ya gestiona la calidad de la señal
 
             bal = self.ex.get_balance()
             self.rm.update(bal)
             self.equity.append(bal)
-            if self.rm.check_kill():
-                logger.critical("Kill switch activado. Deteniendo bot.")
-                break
 
-            d5, d15 = self.fetch_data()
+            kill_active = self.rm.check_kill()
+            if kill_active:
+                logger.warning("Kill switch activo: no se abrirán nuevas posiciones.")
+                # Aún podemos cerrar posiciones existentes y actualizar trailing
+            else:
+                d5, d15 = self.fetch_data()
+                self.verify_protection()
 
-            for pos in self.open_positions[:]:
-                if pos.closed: continue
-                symbol = pos.symbol
-                if symbol not in d5: continue
-                df5 = d5[symbol]
-                candle_5m = df5.iloc[-1] if not df5.empty else None
-                if candle_5m is None: continue
-                df1 = self._get_1m_data(symbol)
-                df15 = d15.get(symbol)
-                event = pos.trailing.evaluate(candle_5m, df5, df1, df15)
-                self.handle_event(pos, event)
+                for pos in self.open_positions[:]:
+                    if pos.closed: continue
+                    symbol = pos.symbol
+                    if symbol not in d5: continue
+                    df5 = d5[symbol]
+                    candle_5m = df5.iloc[-1] if not df5.empty else None
+                    if candle_5m is None: continue
+                    df1 = self._get_1m_data(symbol)
+                    df15 = d15.get(symbol)
+                    event = pos.trailing.evaluate(candle_5m, df5, df1, df15)
+                    self.handle_event(pos, event)
 
-            if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
-                sig = self.strat.generate_signal(d5, d15)
-                if sig:
-                    self.sm.save_signal(sig)
-                    pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
-                    if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
-                        logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
-                        continue
-                    resp, size = self.place_order_with_retry(
-                        sig['symbol'],
-                        'buy' if sig['direction'] == 'Long' else 'sell',
-                        sig['entry'], sig['tp'], sig['sl'], pos_side
-                    )
-                    if resp is None:
-                        continue
-                    time.sleep(1)
-                    positions = self.ex.get_positions()
-                    pos_id = None
-                    for p in positions:
-                        if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
-                            pos_id = p['posId']
-                            break
-                    if not pos_id:
-                        time.sleep(2)
+                if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
+                    sig = self.strat.generate_signal(d5, d15)
+                    if sig:
+                        self.sm.save_signal(sig)
+                        pos_side = 'long' if sig['direction'].lower() == 'long' else 'short'
+                        if not self.ex.set_leverage(sig['symbol'], LEVERAGE, pos_side):
+                            logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
+                            continue
+                        resp, size = self.place_order_with_retry(
+                            sig['symbol'],
+                            'buy' if sig['direction'] == 'Long' else 'sell',
+                            sig['entry'], sig['tp'], sig['sl'], pos_side
+                        )
+                        if resp is None:
+                            continue
+                        time.sleep(1)
                         positions = self.ex.get_positions()
+                        pos_id = None
                         for p in positions:
                             if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
                                 pos_id = p['posId']
                                 break
-                    if not pos_id:
-                        logger.error("No se pudo obtener pos_id. Abortando entrada.")
-                        continue
-                    algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, size,
-                                                          tp_price=sig['tp'], sl_price=sig['sl'])
-                    sl_algo_id = tp_algo_id = None
-                    if algo_resp and algo_resp.get('code') == '0':
-                        for algo in algo_resp['data']:
-                            if algo.get('slTriggerPx','0') != '0': sl_algo_id = algo['algoId']
-                            if algo.get('tpTriggerPx','0') != '0': tp_algo_id = algo['algoId']
-                    else:
-                        logger.error("Fallo al crear órdenes TP/SL.")
-                    pos = Position(sig['symbol'], sig['direction'].lower(),
-                                   sig['entry'], size, sig['tp'], sig['sl'],
-                                   datetime.utcnow(), ord_id=None,
-                                   sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
-                    pos.trailing = TrailingEngine(sig['entry'], datetime.utcnow(), sig['symbol'], sig['direction'].lower())
-                    self.open_positions.append(pos)
-                    self.sm.save_positions(self.open_positions)
-                    logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={size})")
+                        if not pos_id:
+                            time.sleep(2)
+                            positions = self.ex.get_positions()
+                            for p in positions:
+                                if p['instId'] == f"{sig['symbol']}-USDT-SWAP" and p['posSide'] == pos_side:
+                                    pos_id = p['posId']
+                                    break
+                        if not pos_id:
+                            logger.error("No se pudo obtener pos_id. Abortando entrada.")
+                            continue
+                        algo_resp = self.ex.create_algo_order(sig['symbol'], pos_side, size,
+                                                              tp_price=sig['tp'], sl_price=sig['sl'])
+                        sl_algo_id = tp_algo_id = None
+                        if algo_resp and algo_resp.get('code') == '0':
+                            for algo in algo_resp['data']:
+                                if algo.get('slTriggerPx','0') != '0': sl_algo_id = algo['algoId']
+                                if algo.get('tpTriggerPx','0') != '0': tp_algo_id = algo['algoId']
+                        else:
+                            logger.error("Fallo al crear órdenes TP/SL.")
+                        pos = Position(sig['symbol'], sig['direction'].lower(),
+                                       sig['entry'], size, sig['tp'], sig['sl'],
+                                       datetime.utcnow(), ord_id=None,
+                                       sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
+                        pos.trailing = TrailingEngine(sig['entry'], datetime.utcnow(), sig['symbol'], sig['direction'].lower())
+                        self.open_positions.append(pos)
+                        self.sm.save_positions(self.open_positions)
+                        logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={size})")
 
             self.sm.save_positions(self.open_positions)
             push_state_to_git()
@@ -305,10 +307,7 @@ class TradingBot:
                 self.dashboard.print_summary()
                 last_dashboard_time = now
 
-            next_run = now.replace(second=0, microsecond=0) + timedelta(minutes=5)
-            sleep_secs = (next_run - datetime.utcnow()).total_seconds()
-            if sleep_secs > 0:
-                time.sleep(sleep_secs)
+            time.sleep(300)
 
         metrics = compute_all(self.trades, self.equity, INITIAL_CAPITAL)
         save_report(metrics)

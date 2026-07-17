@@ -1,0 +1,18 @@
+[
+  {
+    "symbol": "SOL",
+    "side": "long",
+    "entry": 74.77,
+    "size": 6.71,
+    "tp": 76.25,
+    "sl": 73.26,
+    "entry_time": "2026-07-17T11:13:31.507970",
+    "ord_id": null,
+    "sl_algo_id": "3750819215058702337",
+    "tp_algo_id": "3750819215058702336",
+    "pos_id": "3750044463613054977",
+    "closed": false,
+    "exit_price": 0.0,
+    "reason": ""
+  }
+]

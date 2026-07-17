@@ -2,7 +2,7 @@
 Archivo: src/config.py
 Proyecto: Krishna Omega Ultra V9.1.1 — Compound Growth Engine
 Descripción: Configuración global adaptada a microcapital.
-Incluye distancias mínimas garantizadas para TP/SL (corrección error 51050).
+Incluye constantes del Kill‑Switch adaptativo y distancias mínimas para TP/SL.
 """
 import os
 from dotenv import load_dotenv
@@ -25,7 +25,7 @@ TIMEFRAME_TRAILING  = '1m'
 INITIAL_CAPITAL = 1000.0
 LEVERAGE = 12                       # Apalancamiento óptimo para microcapital
 MAX_POSITIONS = 1                   # Una sola posición para cuentas pequeñas
-KILL_SWITCH_DD_PCT = 12.0
+KILL_SWITCH_DD_PCT = 12.0           # umbral clásico (para cuentas grandes)
 COMMISSION_RATE = 0.0008
 SLIPPAGE_PCT = 0.001
 
@@ -96,9 +96,13 @@ STAGE_SCORES = {
     'normal': 0.38
 }
 
-# Distancias mínimas garantizadas para TP/SL (evitan error 51050 en activos de baja volatilidad)
+# Distancias mínimas garantizadas para TP/SL (evitan error 51050)
 MIN_TP_DISTANCE_PCT = 0.005   # 0.5% mínimo para Long (por encima de entry)
 MIN_SL_DISTANCE_PCT = 0.003   # 0.3% mínimo
+
+# Kill‑Switch adaptativo para microcapital
+KILL_SWITCH_BASE_DD_PCT = 12.0          # umbral para cuentas >200 USDT
+KILL_SWITCH_MICRO_DD_PCT = 40.0         # umbral para cuentas <20 USDT (más permisivo)
 
 # Pesos scoring
 PIDELTA_WEIGHTS = {

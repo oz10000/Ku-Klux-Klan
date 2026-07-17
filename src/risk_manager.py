@@ -1,25 +1,22 @@
 """
 Archivo: src/risk_manager.py
 Proyecto: Krishna Omega Ultra V9.1.1
-Descripción: Gestión de riesgo con sizing corregido (incluye ctVal),
-Kill‑Switch adaptativo y persistencia de capital de referencia.
+Descripción: Gestión de riesgo con sizing adaptativo y Kill‑Switch dinámico.
 """
 import json, os
-from datetime import datetime
 from src.config import *
 from src.logger import get_logger
 
 logger = get_logger(__name__)
 
 class RiskManager:
-    def __init__(self, initial_capital: float, state_manager=None):
+    def __init__(self, initial_capital: float):
         self.initial = initial_capital
         self.current = initial_capital
         self.peak = initial_capital
         self.kill = False
         self.utilization_cache: dict = {}
         self._cache_file = "state/margin_factors.json"
-        self.sm = state_manager
         self._load_cache()
 
     def update(self, balance: float):
@@ -32,25 +29,19 @@ class RiskManager:
             return False
         dd = (self.peak - self.current) / self.peak * 100
 
+        # Umbral dinámico según capital (evita bloqueos en microcuentas)
         if self.current < 20.0:
-            threshold = KILL_SWITCH_MICRO_DD_PCT
+            threshold = 40.0
         elif self.current < 200.0:
             ratio = (self.current - 20.0) / 180.0
-            threshold = KILL_SWITCH_MICRO_DD_PCT - ratio * (KILL_SWITCH_MICRO_DD_PCT - KILL_SWITCH_BASE_DD_PCT)
+            threshold = 40.0 - ratio * (40.0 - KILL_SWITCH_DD_PCT)
         else:
-            threshold = KILL_SWITCH_BASE_DD_PCT
+            threshold = KILL_SWITCH_DD_PCT
 
         if dd >= threshold:
             if not self.kill:
                 self.kill = True
                 logger.critical(f"KILL SWITCH activado. DD: {dd:.2f}% (umbral: {threshold:.0f}%)")
-                if self.sm:
-                    self.sm.save_risk_event({
-                        'time': datetime.utcnow().isoformat(),
-                        'balance': self.current,
-                        'drawdown': dd,
-                        'reason': f'DD >= {threshold:.0f}%'
-                    })
             return True
         if self.kill and dd < threshold:
             self.kill = False
@@ -64,25 +55,19 @@ class RiskManager:
         info = exchange.get_instrument_info(symbol)
         if not info:
             return 0.0
-        min_sz = info['minSz']
-        lot_sz = info['lotSz']
-        ct_val = info.get('ctVal', 1.0)
-
+        min_sz, lot_sz = info['minSz'], info['lotSz']
         max_margin = self.current * factor
         max_notional = max_margin * LEVERAGE
-        contracts = max_notional / (entry_price * ct_val)
-        if contracts < min_sz:
+        qty = max_notional / entry_price
+        if qty < min_sz:
             return 0.0
-        qty = (contracts // lot_sz) * lot_sz
+        qty = (qty // lot_sz) * lot_sz
         if qty < min_sz:
             qty = min_sz
         return round(qty, 8)
 
     def get_factor(self, symbol: str) -> float:
-        entry = self.utilization_cache.get(symbol)
-        if entry:
-            return entry["factor"]
-        return INITIAL_MARGIN_FACTOR
+        return self.utilization_cache.get(symbol, {}).get("factor", INITIAL_MARGIN_FACTOR)
 
     def set_factor(self, symbol: str, factor: float):
         self.utilization_cache[symbol] = {"factor": factor, "consecutive_success": 0}
@@ -94,10 +79,8 @@ class RiskManager:
             entry = {"factor": INITIAL_MARGIN_FACTOR, "consecutive_success": 0}
         entry["consecutive_success"] += 1
         if entry["consecutive_success"] >= CONSECUTIVE_SUCCESS_TO_INCREASE:
-            new_factor = min(MAX_MARGIN_FACTOR, entry["factor"] + FACTOR_INCREMENT)
-            entry["factor"] = new_factor
+            entry["factor"] = min(MAX_MARGIN_FACTOR, entry["factor"] + FACTOR_INCREMENT)
             entry["consecutive_success"] = 0
-            logger.info(f"{symbol}: factor aumentado a {new_factor:.4f}")
         self.utilization_cache[symbol] = entry
         self._save_cache()
 
@@ -112,14 +95,13 @@ class RiskManager:
             try:
                 with open(self._cache_file) as f:
                     self.utilization_cache = json.load(f)
-                logger.info("Caché de factores de margen cargada")
-            except Exception as e:
-                logger.error(f"Error al cargar caché: {e}")
+            except:
+                pass
 
     def _save_cache(self):
         try:
             os.makedirs(os.path.dirname(self._cache_file), exist_ok=True)
             with open(self._cache_file, "w") as f:
                 json.dump(self.utilization_cache, f, indent=2)
-        except Exception as e:
-            logger.error(f"Error al guardar caché: {e}")
+        except:
+            pass

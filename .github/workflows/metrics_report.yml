@@ -1,21 +1,17 @@
-name: Métricas OKX cada 5 horas
+name: Reconstruir métricas (manual)
 
 on:
-  schedule:
-    - cron: "0 */5 * * *"          # Cada 5 horas
-  workflow_dispatch:                # Permite ejecutarlo manualmente
-
-concurrency:
-  group: metrics-reconstructor
-  cancel-in-progress: false
-
-permissions:
-  contents: write
+  workflow_dispatch:
+    inputs:
+      hours:
+        description: 'Horas hacia atrás a analizar'
+        required: true
+        default: '5'
 
 jobs:
   generate-metrics:
     runs-on: ubuntu-latest
-    timeout-minutes: 15            # Suficiente para 5 h de datos
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -24,19 +20,19 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Instalar dependencias
+      - name: Instalar requests
         run: pip install requests
 
-      - name: Ejecutar reconstructor de métricas
+      - name: Ejecutar reconstructor
         env:
           OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
           OKX_SECRET_KEY: ${{ secrets.OKX_SECRET_KEY }}
           OKX_PASSPHRASE: ${{ secrets.OKX_PASSPHRASE }}
           OKX_DEMO: ${{ secrets.OKX_DEMO || '1' }}
-          HOURS: "5"                # ← cambia aquí el número de horas si quieres
+          HOURS: ${{ github.event.inputs.hours }}
         run: python okx_metrics_reconstructor.py
 
-      - name: Guardar reporte como artifact
+      - name: Guardar reporte
         uses: actions/upload-artifact@v4
         if: always()
         with:

@@ -2,5 +2,9 @@
   "ETH": {
     "factor": 0.98,
     "consecutive_success": 1
+  },
+  "LTC": {
+    "factor": 0.97,
+    "consecutive_success": 1
   }
 }

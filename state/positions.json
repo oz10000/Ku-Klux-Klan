@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "symbol": "LTC",
+    "side": "long",
+    "entry": 47.03,
+    "size": 17.4,
+    "tp": 47.41641666666667,
+    "sl": 46.84452,
+    "entry_time": "2026-07-18T16:56:16.340606",
+    "ord_id": null,
+    "sl_algo_id": null,
+    "tp_algo_id": null,
+    "pos_id": "3754439045058629633",
+    "closed": false,
+    "exit_price": 0.0,
+    "reason": ""
+  }
+]

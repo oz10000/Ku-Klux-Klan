@@ -10,5 +10,9 @@
   "SOL": {
     "factor": 0.9349999999999999,
     "consecutive_success": 1
+  },
+  "BNB": {
+    "factor": 0.99,
+    "consecutive_success": 1
   }
 }

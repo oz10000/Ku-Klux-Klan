@@ -1,16 +1,16 @@
 [
   {
-    "symbol": "LTC",
+    "symbol": "SUI",
     "side": "long",
-    "entry": 47.03,
-    "size": 17.4,
-    "tp": 47.41641666666667,
-    "sl": 46.84452,
-    "entry_time": "2026-07-18T16:56:16.340606",
+    "entry": 0.75314,
+    "size": 904.0,
+    "tp": 0.7578129166666667,
+    "sl": 0.75088058,
+    "entry_time": "2026-07-19T11:19:15.630001",
     "ord_id": null,
     "sl_algo_id": null,
     "tp_algo_id": null,
-    "pos_id": "3754439045058629633",
+    "pos_id": "3754850851891679233",
     "closed": false,
     "exit_price": 0.0,
     "reason": ""

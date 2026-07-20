@@ -3,16 +3,12 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "SUI": {
-    "factor": 0.955,
+  "AVAX": {
+    "factor": 0.95,
     "consecutive_success": 1
   },
   "SOL": {
     "factor": 0.9349999999999999,
-    "consecutive_success": 1
-  },
-  "BNB": {
-    "factor": 0.99,
     "consecutive_success": 1
   }
 }

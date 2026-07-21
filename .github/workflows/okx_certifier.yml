@@ -1,0 +1,44 @@
+name: OKX Certifier 24/7
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Modo (FULL_CERTIFICATION para primera ejecución, CONTINUOUS para monitoreo)'
+        required: true
+        default: 'FULL_CERTIFICATION'
+  schedule:
+    - cron: '0 */5 * * *'
+
+concurrency:
+  group: okx-certifier
+  cancel-in-progress: false
+
+permissions:
+  contents: read          # solo lectura, no escribe en el repo
+
+jobs:
+  certify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60   # tiempo suficiente para probar todos los activos
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install requests numpy pandas python-dotenv
+      - name: Run Certifier
+        env:
+          OKX_API_KEY: ${{ secrets.OKX_API_KEY }}
+          OKX_SECRET_KEY: ${{ secrets.OKX_SECRET_KEY }}
+          OKX_PASSPHRASE: ${{ secrets.OKX_PASSPHRASE }}
+          OKX_DEMO: ${{ secrets.OKX_DEMO || '1' }}
+          CERTIFIER_MODE: ${{ github.event.inputs.mode || 'CONTINUOUS' }}
+        run: python tools/okx_certifier/okx_certifier.py
+      - name: Upload Certification Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: okx-certification-report
+          path: tools/okx_certifier/okx_certification_report.log
+          retention-days: 30

@@ -1,7 +1,7 @@
 """
 Archivo: src/exchange_okx.py
 Proyecto: Krishna Omega Ultra V9.1.1 — Final Certified
-Descripción: Cliente OKX API v5 completo. Self‑test seguro (sin órdenes).
+Descripción: Cliente OKX API v5. Self‑test seguro (solo lectura).
 """
 import time
 import base64
@@ -115,7 +115,7 @@ class OKXClient:
             return {}
 
     # --------------------------------------------------------------
-    # Self test SEGURO (sin órdenes reales)
+    # Self test SEGURO – solo lectura, sin operaciones de escritura
     # --------------------------------------------------------------
     def self_test(self):
         logger.info("🔍 Ejecutando self test...")
@@ -135,10 +135,6 @@ class OKXClient:
             logger.error("✖ No se pudo obtener información de DOGE")
             return False
         logger.info("✔ Instrumento DOGE OK")
-        if not self.set_leverage('DOGE', LEVERAGE, 'long'):
-            logger.error("✖ Fallo al configurar apalancamiento")
-            return False
-        # Verificar que podemos leer posiciones (permiso de lectura)
         positions = self.get_positions()
         logger.info(f"✔ Lectura de posiciones OK ({len(positions)} posiciones)")
         logger.info("✅ Self test completado exitosamente (sin órdenes)")
@@ -243,7 +239,6 @@ class OKXClient:
                 'posSide': pos_side
             }
             resp = self._request('POST', '/api/v5/trade/close-position', body=body)
-            # Si la posición ya fue cerrada por TP/SL, consideramos éxito
             if resp.get('code') == '51023':
                 logger.warning(f"Posición {pos_id} ya estaba cerrada (51023).")
                 return {'code': '0'}

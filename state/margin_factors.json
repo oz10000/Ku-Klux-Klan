@@ -2,13 +2,5 @@
   "ETH": {
     "factor": 0.98,
     "consecutive_success": 1
-  },
-  "SOL": {
-    "factor": 0.9349999999999999,
-    "consecutive_success": 1
-  },
-  "AVAX": {
-    "factor": 0.955,
-    "consecutive_success": 1
   }
 }

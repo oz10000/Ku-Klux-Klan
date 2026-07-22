@@ -2,5 +2,13 @@
   "ETH": {
     "factor": 0.98,
     "consecutive_success": 1
+  },
+  "BTC": {
+    "factor": 0.99,
+    "consecutive_success": 1
+  },
+  "SUI": {
+    "factor": 0.955,
+    "consecutive_success": 1
   }
 }

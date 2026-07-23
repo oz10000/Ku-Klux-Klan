@@ -3562,62 +3562,10 @@
     }
   },
   {
-    "time": "2026-07-22T10:06:34.033821",
-    "symbol": "ADA",
-    "side": "buy",
-    "size": 216930.6,
-    "factor": 0.99,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51004",
-          "sMsg": "Order failed. For isolated long/short mode of ADA-USDT-SWAP, the sum of current order size, position quantity in the same direction, and pending orders in the same direction can\u2019t be more than 70,000(contracts) which is the maximum position amount under current leverage. Please lower the leverage or use a new sub-account to place the order again (current leverage: 12\u00d7, current order size: 216,930.6 contracts, position quantity in the same direction: 0 contracts, pending orders in the same direction: 0 contracts).",
-          "subCode": "1101",
-          "tag": "",
-          "ts": "1784714793933"
-        }
-      ],
-      "inTime": "1784714793933859",
-      "msg": "All operations failed",
-      "outTime": "1784714793935666"
-    }
-  },
-  {
-    "time": "2026-07-22T10:21:47.951670",
-    "symbol": "ETH",
-    "side": "buy",
-    "size": 19.33,
-    "factor": 0.98,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3765253807807893504",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1784715707851"
-        }
-      ],
-      "inTime": "1784715707850940",
-      "msg": "",
-      "outTime": "1784715707853246"
-    }
-  },
-  {
-    "time": "2026-07-22T11:07:43.054371",
+    "time": "2026-07-22T22:02:05.387893",
     "symbol": "DOGE",
     "side": "buy",
-    "size": 519206.66,
+    "size": 173258.03,
     "factor": 0.99,
     "attempt": 1,
     "success": false,
@@ -3631,19 +3579,45 @@
           "sMsg": "Market order amount exceeds the maximum amount. ",
           "subCode": "",
           "tag": "",
-          "ts": "1784718462954"
+          "ts": "1784757725289"
         }
       ],
-      "inTime": "1784718462953836",
+      "inTime": "1784757725288006",
       "msg": "All operations failed",
-      "outTime": "1784718462955708"
+      "outTime": "1784757725289548"
     }
   },
   {
-    "time": "2026-07-22T11:48:23.512614",
+    "time": "2026-07-22T22:07:30.882786",
+    "symbol": "DOGE",
+    "side": "buy",
+    "size": 173232.13,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51202",
+          "sMsg": "Market order amount exceeds the maximum amount. ",
+          "subCode": "",
+          "tag": "",
+          "ts": "1784758050765"
+        }
+      ],
+      "inTime": "1784758050765056",
+      "msg": "All operations failed",
+      "outTime": "1784758050765912"
+    }
+  },
+  {
+    "time": "2026-07-22T22:07:35.666702",
     "symbol": "LINK",
     "side": "buy",
-    "size": 4284.9,
+    "size": 1403.2,
     "factor": 0.99,
     "attempt": 1,
     "success": false,
@@ -3657,19 +3631,19 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1784720903413"
+          "ts": "1784758055553"
         }
       ],
-      "inTime": "1784720903412936",
+      "inTime": "1784758055553385",
       "msg": "All operations failed",
-      "outTime": "1784720903414634"
+      "outTime": "1784758055554224"
     }
   },
   {
-    "time": "2026-07-22T11:48:27.643041",
+    "time": "2026-07-22T22:07:40.034905",
     "symbol": "LINK",
     "side": "buy",
-    "size": 4263.2,
+    "size": 1396.1,
     "factor": 0.985,
     "attempt": 2,
     "success": false,
@@ -3683,19 +3657,19 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1784720907542"
+          "ts": "1784758059923"
         }
       ],
-      "inTime": "1784720907541822",
+      "inTime": "1784758059922981",
       "msg": "All operations failed",
-      "outTime": "1784720907543228"
+      "outTime": "1784758059923766"
     }
   },
   {
-    "time": "2026-07-22T11:48:31.851994",
+    "time": "2026-07-22T22:07:44.286686",
     "symbol": "LINK",
     "side": "buy",
-    "size": 4241.6,
+    "size": 1389.0,
     "factor": 0.98,
     "attempt": 3,
     "success": false,
@@ -3709,19 +3683,19 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1784720911752"
+          "ts": "1784758064159"
         }
       ],
-      "inTime": "1784720911751923",
+      "inTime": "1784758064158581",
       "msg": "All operations failed",
-      "outTime": "1784720911753653"
+      "outTime": "1784758064159300"
     }
   },
   {
-    "time": "2026-07-22T11:48:32.057228",
+    "time": "2026-07-22T22:07:44.528220",
     "symbol": "LINK",
     "side": "buy",
-    "size": 4220.0,
+    "size": 1381.9,
     "factor": 0.975,
     "attempt": 4,
     "success": true,
@@ -3730,17 +3704,17 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3765428428662345728",
+          "ordId": "3766675058287943680",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1784720911958"
+          "ts": "1784758064416"
         }
       ],
-      "inTime": "1784720911958660",
+      "inTime": "1784758064415473",
       "msg": "",
-      "outTime": "1784720911961273"
+      "outTime": "1784758064417666"
     }
   }
 ]

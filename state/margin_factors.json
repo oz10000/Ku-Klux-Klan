@@ -3,8 +3,8 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "LINK": {
-    "factor": 0.975,
+  "AVAX": {
+    "factor": 0.955,
     "consecutive_success": 1
   }
 }

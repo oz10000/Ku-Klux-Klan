@@ -3,8 +3,12 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "AVAX": {
-    "factor": 0.955,
+  "LTC": {
+    "factor": 0.975,
+    "consecutive_success": 1
+  },
+  "BNB": {
+    "factor": 0.99,
     "consecutive_success": 1
   }
 }

@@ -3,20 +3,12 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "BNB": {
-    "factor": 0.99,
-    "consecutive_success": 1
-  },
-  "SUI": {
-    "factor": 0.955,
-    "consecutive_success": 1
-  },
-  "BTC": {
-    "factor": 0.99,
-    "consecutive_success": 1
-  },
   "LTC": {
-    "factor": 0.98,
+    "factor": 0.97,
+    "consecutive_success": 1
+  },
+  "LINK": {
+    "factor": 0.97,
     "consecutive_success": 1
   }
 }

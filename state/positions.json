@@ -1,16 +1,16 @@
 [
   {
-    "symbol": "ETH",
+    "symbol": "SOL",
     "side": "long",
-    "entry": 1921.36,
-    "size": 3.5,
-    "tp": 1932.712083333333,
-    "sl": 1915.59592,
-    "entry_time": "2026-07-26T21:42:11.673351",
+    "entry": 76.51,
+    "size": 80.92,
+    "tp": 76.89255,
+    "sl": 76.28047000000001,
+    "entry_time": "2026-07-27T09:53:16.805488",
     "ord_id": null,
     "sl_algo_id": null,
     "tp_algo_id": null,
-    "pos_id": "3778219987992547329",
+    "pos_id": "3779691851608723457",
     "closed": false,
     "exit_price": 0.0,
     "reason": ""

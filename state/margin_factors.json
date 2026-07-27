@@ -3,12 +3,8 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "LTC": {
-    "factor": 0.97,
-    "consecutive_success": 1
-  },
-  "LINK": {
-    "factor": 0.97,
+  "SOL": {
+    "factor": 0.9349999999999999,
     "consecutive_success": 1
   }
 }

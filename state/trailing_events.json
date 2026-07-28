@@ -1,1 +1,44 @@
-[]
+[
+  {
+    "time": "2026-07-28T16:21:25.878654",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 73.83666666666666
+  },
+  {
+    "time": "2026-07-28T16:41:36.325886",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 73.89166666666667
+  },
+  {
+    "time": "2026-07-28T16:46:39.266503",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 73.89666666666666
+  },
+  {
+    "time": "2026-07-28T16:51:42.175804",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 74.065
+  },
+  {
+    "time": "2026-07-28T16:56:45.101089",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 74.08500000000001
+  },
+  {
+    "time": "2026-07-28T20:01:07.723442",
+    "symbol": "BNB",
+    "action": "ACTIVATE_TP_TRAIL",
+    "new_sl": 570.45
+  },
+  {
+    "time": "2026-07-28T20:06:20.257786",
+    "symbol": "BNB",
+    "action": "MOVE_SL",
+    "new_sl": 570.75
+  }
+]

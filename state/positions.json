@@ -1,16 +1,16 @@
 [
   {
-    "symbol": "AVAX",
+    "symbol": "LTC",
     "side": "long",
-    "entry": 6.604,
-    "size": 864.0,
-    "tp": 6.679208333333333,
-    "sl": 6.5679,
-    "entry_time": "2026-07-27T19:39:49.683710",
+    "entry": 46.33,
+    "size": 107.6,
+    "tp": 46.56164999999999,
+    "sl": 46.19101,
+    "entry_time": "2026-07-28T06:55:46.448537",
     "ord_id": null,
     "sl_algo_id": null,
     "tp_algo_id": null,
-    "pos_id": "3780482415434371072",
+    "pos_id": "3782233591947431937",
     "closed": false,
     "exit_price": 0.0,
     "reason": ""

@@ -7,8 +7,8 @@
     "factor": 0.955,
     "consecutive_success": 1
   },
-  "BNB": {
-    "factor": 0.99,
+  "LTC": {
+    "factor": 0.97,
     "consecutive_success": 1
   }
 }

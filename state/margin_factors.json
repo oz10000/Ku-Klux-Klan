@@ -7,8 +7,8 @@
     "factor": 0.99,
     "consecutive_success": 1
   },
-  "AVAX": {
-    "factor": 0.955,
+  "BTC": {
+    "factor": 0.99,
     "consecutive_success": 1
   }
 }

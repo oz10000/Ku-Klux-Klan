@@ -3,12 +3,8 @@
     "factor": 0.98,
     "consecutive_success": 1
   },
-  "BNB": {
-    "factor": 0.99,
-    "consecutive_success": 1
-  },
-  "BTC": {
-    "factor": 0.99,
+  "SOL": {
+    "factor": 0.9349999999999999,
     "consecutive_success": 1
   }
 }

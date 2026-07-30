@@ -1,5 +1,5 @@
 # trailing_engine.py
-# Krishna Omega Ultra V9.1.1 — Trailing ultra-agresivo con actualización continua
+# Krishna Omega Ultra V9.1.1 – Trailing con validación de tipos
 
 import numpy as np
 from datetime import datetime
@@ -10,7 +10,7 @@ class TrailingEngine:
     def __init__(self, entry_price, entry_time, symbol, side):
         self.entry = entry_price
         self.side = side
-        self.entry_time = entry_time
+        self.entry_time = entry_time if isinstance(entry_time, datetime) else datetime.utcnow()
         self.symbol = symbol
         self.current_sl = None
         self.current_tp = None
@@ -20,9 +20,25 @@ class TrailingEngine:
         self.mfe = 0.0
         self.mae = 0.0
         self.elapsed_minutes = 0.0
-        self.last_adjustment_time = entry_time
+        self.last_adjustment_time = self.entry_time
+        self.tp = None
+        self.sl = None
 
     def update(self, current_price, current_time):
+        """Actualiza métricas con conversión segura de tipos."""
+        # Convertir current_time a datetime si es necesario
+        if isinstance(current_time, (int, float)):
+            current_time = datetime.fromtimestamp(current_time)
+        elif hasattr(current_time, 'to_pydatetime'):
+            current_time = current_time.to_pydatetime()
+        elif not isinstance(current_time, datetime):
+            # Si es otro tipo, asumir que es datetime o usar ahora
+            current_time = datetime.utcnow()
+
+        # Asegurar que entry_time sea datetime
+        if not isinstance(self.entry_time, datetime):
+            self.entry_time = datetime.utcnow()
+
         if self.side == "long":
             self.mfe = max(self.mfe, (current_price - self.entry) / self.entry * 100)
             self.mae = min(self.mae, (current_price - self.entry) / self.entry * 100)
@@ -32,27 +48,41 @@ class TrailingEngine:
         self.elapsed_minutes = (current_time - self.entry_time).total_seconds() / 60.0
 
     def evaluate(self, candle, df5, df1=None, df15=None):
-        current_price = candle["close"] if isinstance(candle, dict) else candle["c"]
-        current_time = candle.name if hasattr(candle, "name") else datetime.utcnow()
+        """Evalúa trailing y retorna evento."""
+        # Obtener precio y tiempo de la vela
+        if isinstance(candle, dict):
+            current_price = candle.get("close", 0)
+            current_time = candle.get("time", datetime.utcnow())
+        else:
+            # Asumimos que es una Serie de pandas
+            current_price = candle["close"] if "close" in candle else candle.get("c", 0)
+            # Obtener tiempo del índice
+            if hasattr(candle, "name"):
+                current_time = candle.name
+            else:
+                current_time = datetime.utcnow()
 
-        # Obtener TP/SL de la posición (se pasan como atributos desde main_live)
-        tp = getattr(self, "tp", None)
-        sl = getattr(self, "sl", None)
+        # Validar current_time
+        if not isinstance(current_time, datetime):
+            try:
+                current_time = pd.to_datetime(current_time).to_pydatetime()
+            except:
+                current_time = datetime.utcnow()
 
         self.update(current_price, current_time)
 
-        # 1. TP/SL fijos
-        if tp and sl:
+        # TP/SL fijos
+        if self.tp is not None and self.sl is not None:
             if self.side == "long":
-                if current_price >= tp:
-                    return {"action": "CLOSE", "price": tp, "reason": "TP"}
-                if current_price <= sl:
-                    return {"action": "CLOSE", "price": sl, "reason": "SL"}
+                if current_price >= self.tp:
+                    return {"action": "CLOSE", "price": self.tp, "reason": "TP"}
+                if current_price <= self.sl:
+                    return {"action": "CLOSE", "price": self.sl, "reason": "SL"}
             else:
-                if current_price <= tp:
-                    return {"action": "CLOSE", "price": tp, "reason": "TP"}
-                if current_price >= sl:
-                    return {"action": "CLOSE", "price": sl, "reason": "SL"}
+                if current_price <= self.tp:
+                    return {"action": "CLOSE", "price": self.tp, "reason": "TP"}
+                if current_price >= self.sl:
+                    return {"action": "CLOSE", "price": self.sl, "reason": "SL"}
 
         # Indicadores
         if df5 is not None and len(df5) > 50:
@@ -64,7 +94,7 @@ class TrailingEngine:
             adx_val = 25
             ker_val = 0.5
 
-        # 2. Trailing ultra-agresivo (actualización continua)
+        # Trailing ultra-agresivo
         mult = self._calc_trail_mult(adx_val, ker_val)
         trail_distance = max(mult * atr_val, current_price * 0.002)
 
@@ -78,14 +108,13 @@ class TrailingEngine:
             if self.current_sl is None or new_sl < self.current_sl:
                 self.current_sl = new_sl
 
-        # Emitir MOVE_SL si hay mejora
-        if new_sl is not None and (self.current_sl is not None):
-            if self.side == "long" and new_sl > getattr(self, "sl", 0) + 0.01:
+        if new_sl is not None and self.current_sl is not None:
+            if self.side == "long" and new_sl > self.sl + 0.01:
                 return {"action": "MOVE_SL", "price": self.current_sl, "reason": "TRAIL_UPDATE"}
-            if self.side == "short" and new_sl < getattr(self, "sl", 0) - 0.01:
+            if self.side == "short" and new_sl < self.sl - 0.01:
                 return {"action": "MOVE_SL", "price": self.current_sl, "reason": "TRAIL_UPDATE"}
 
-        # 3. Velocity Exit
+        # Velocity Exit
         profit_pct = self._get_profit_pct(current_price)
         if (
             VELOCITY_EXIT_ENABLED
@@ -98,7 +127,7 @@ class TrailingEngine:
         ):
             return {"action": "CLOSE", "price": current_price, "reason": "VelocityExit"}
 
-        # 4. Break Even
+        # Break Even
         if not self.be_activated and self.elapsed_minutes >= BE_MINUTES:
             if profit_pct >= BE_ACTIVATION_PCT:
                 self.be_activated = True
@@ -107,12 +136,12 @@ class TrailingEngine:
                     self.current_sl = be_sl
                     return {"action": "MOVE_SL", "price": be_sl, "reason": "BE"}
 
-        # 5. Timeout
+        # Timeout
         timeout = TIMEOUT_EXTENDED if (adx_val > 28 and ker_val > 0.6) else TIMEOUT_REDUCED if (adx_val < 20 or ker_val < 0.4) else TIMEOUT_BASE
         if self.elapsed_minutes >= timeout:
             return {"action": "CLOSE", "price": current_price, "reason": "Timeout"}
 
-        # 6. Trailing TP
+        # Trailing TP
         if not self.tp_trail_active and profit_pct > 1.5:
             self.tp_trail_active = True
             self.trail_level = current_price - (1.5 * atr_val) if self.side == "long" else current_price + (1.5 * atr_val)

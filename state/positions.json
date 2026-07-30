@@ -1,16 +1,16 @@
 [
   {
-    "symbol": "ETH",
+    "symbol": "BTC",
     "side": "long",
-    "entry": 1900.0,
-    "size": 2.5,
-    "tp": 1911.1,
-    "sl": 1894.3,
-    "entry_time": "2026-07-29T22:00:39.733511",
+    "entry": 64493.3,
+    "size": 0.06,
+    "tp": 64815.7665,
+    "sl": 64299.820100000004,
+    "entry_time": "2026-07-30T09:29:12.944730",
     "ord_id": null,
     "sl_algo_id": null,
     "tp_algo_id": null,
-    "pos_id": "3786483032489426944",
+    "pos_id": "3787492929221918720",
     "closed": false,
     "exit_price": 0.0,
     "reason": ""

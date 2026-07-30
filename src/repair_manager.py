@@ -1,55 +1,88 @@
-"""
-Archivo: src/repair_manager.py
-Proyecto: Krishna Omega Ultra
-Descripción: Reconstrucción de posiciones con máxima tolerancia a fallos.
-"""
+# repair_manager.py
+# Krishna Omega Ultra V9.1.1 – Reparación de posiciones huérfanas
+
 from datetime import datetime
-from src.config import *
 from src.position_manager import Position
 from src.trailing_engine import TrailingEngine
 from src.logger import get_logger
 
 logger = get_logger(__name__)
 
-def repair_orders(exchange, open_positions_local):
-    exchange_positions = exchange.get_positions(mode='swap')
-    local_pos_ids = {p.pos_id for p in open_positions_local if p.pos_id}
+def repair_orders(exchange, open_positions):
+    """
+    Reconstruye posiciones desde el exchange y las agrega a open_positions.
+    """
+    positions_data = exchange.get_positions()
+    if not positions_data:
+        logger.info("No hay posiciones activas en el exchange.")
+        return
 
-    for ep in exchange_positions:
-        if float(ep.get('pos', 0)) == 0:
+    # Mapear símbolos existentes en open_positions
+    existing_symbols = {p.symbol for p in open_positions if not p.closed}
+
+    for p in positions_data:
+        symbol = p["instId"].replace("-USDT-SWAP", "")
+        if symbol in existing_symbols:
+            continue  # Ya está en la lista
+
+        pos_side = p["posSide"]
+        size = float(p["pos"])
+        if size == 0:
             continue
-        sym = ep['instId'].replace('-USDT-SWAP', '')
-        side = ep['posSide']
-        pos_id = ep['posId']
-        if pos_id in local_pos_ids:
-            continue
-        entry_price = float(ep['avgPx'])
-        size = float(ep['pos'])
-        logger.warning(f"Reconstruyendo posición swap: {sym} {side} size={size}")
 
-        # Intentar obtener órdenes algo (ignorar errores)
-        algo_orders = []
-        try:
-            algo_orders = exchange.get_algo_orders(inst_id=ep['instId'])
-        except Exception as e:
-            logger.error(f"No se pudieron leer órdenes algo para {sym}: {e}")
+        entry_price = float(p["avgPx"])
+        pos_id = p["posId"]
 
-        sl_algo_id = tp_algo_id = None
-        sl_price = tp_price = 0.0
-        for ao in algo_orders:
-            if ao.get('slTriggerPx') and ao.get('slTriggerPx') != '0':
-                sl_algo_id = ao['algoId']
-                sl_price = float(ao['slTriggerPx'])
-            if ao.get('tpTriggerPx') and ao.get('tpTriggerPx') != '0':
-                tp_algo_id = ao['algoId']
-                tp_price = float(ao['tpTriggerPx'])
+        logger.warning(f"Reconstruyendo posición swap: {symbol} {pos_side} size={size}")
 
-        pos = Position(sym, side, entry_price, size, tp_price, sl_price, datetime.utcnow(),
-                       ord_id=None, sl_algo_id=sl_algo_id, tp_algo_id=tp_algo_id, pos_id=pos_id)
-        pos.trailing = TrailingEngine(entry_price, datetime.utcnow(), sym, side)
-        if sl_price > 0:
-            pos.trailing.current_sl = sl_price
-        if tp_price > 0:
-            pos.trailing.current_tp_trail_active = True
-            pos.trailing.current_tp_sl = tp_price
-        open_positions_local.append(pos)
+        # Crear objeto Position con datos básicos
+        pos = Position(
+            symbol=symbol,
+            side=pos_side,
+            entry=entry_price,
+            size=size,
+            tp=0.0,      # Se ajustará después
+            sl=0.0,
+            open_time=datetime.utcnow(),
+            ord_id=None,
+            sl_algo_id=None,
+            tp_algo_id=None,
+            pos_id=pos_id,
+        )
+        pos.closed = False
+        # Crear TrailingEngine
+        pos.trailing = TrailingEngine(entry_price, datetime.utcnow(), symbol, pos_side)
+        # Obtener TP/SL pendientes desde el exchange (si existen)
+        algo_orders = exchange.get_algo_orders(inst_id=p["instId"])
+        for algo in algo_orders:
+            if algo.get("slTriggerPx", "0") != "0":
+                pos.sl = float(algo["slTriggerPx"])
+                pos.sl_algo_id = algo["algoId"]
+            if algo.get("tpTriggerPx", "0") != "0":
+                pos.tp = float(algo["tpTriggerPx"])
+                pos.tp_algo_id = algo["algoId"]
+
+        # Si no hay TP/SL, usar valores por defecto (según estrategia)
+        if pos.tp == 0.0 or pos.sl == 0.0:
+            # Calcular ATR aproximado
+            df5 = exchange.fetch_candles(symbol, "5m", 60)
+            if df5 is not None and len(df5) > 20:
+                from src.indicators import atr
+                atr_val = atr(df5, 12).iloc[-1]
+                if pos.side == "long":
+                    pos.tp = entry_price + atr_val * 2.5
+                    pos.sl = entry_price - atr_val * 1.2
+                else:
+                    pos.tp = entry_price - atr_val * 2.5
+                    pos.sl = entry_price + atr_val * 1.2
+
+        open_positions.append(pos)
+        logger.info(f"Posición reconstruida: {symbol} {pos_side} entry={entry_price} size={size}")
+
+    # Sincronizar trailing de todas las posiciones
+    for pos in open_positions:
+        if pos.trailing is None:
+            pos.trailing = TrailingEngine(pos.entry, pos.open_time, pos.symbol, pos.side)
+        pos.trailing.tp = pos.tp
+        pos.trailing.sl = pos.sl
+        pos.trailing.entry_time = pos.open_time

@@ -1,152 +1,153 @@
-"""
-Archivo: src/trailing_engine.py
-Proyecto: Krishna Omega Ultra V9.1
-Descripción: Motor de stops dinámicos multi‑timeframe.
-Incluye Break Even, Trailing Stop, Trailing TP, Velocity Exit y timeout adaptativo.
-"""
+# trailing_engine.py
+# Krishna Omega Ultra V9.1.1 — Trailing ultra-agresivo con actualización continua
+
 import numpy as np
 from datetime import datetime
-from src.indicators import *
+from src.indicators import atr, adx, ker
 from src.config import *
-from src.logger import get_logger
-
-logger = get_logger(__name__)
 
 class TrailingEngine:
-    def __init__(self, entry_price: float, entry_time: datetime, symbol: str, side: str):
+    def __init__(self, entry_price, entry_time, symbol, side):
         self.entry = entry_price
         self.side = side
-        self.symbol = symbol
         self.entry_time = entry_time
+        self.symbol = symbol
         self.current_sl = None
-        self.current_tp_trail_active = False
-        self.current_tp_sl = None
+        self.current_tp = None
         self.be_activated = False
-        self.last_trail_distance = None
+        self.tp_trail_active = False
+        self.trail_level = None
+        self.mfe = 0.0
+        self.mae = 0.0
+        self.elapsed_minutes = 0.0
+        self.last_adjustment_time = entry_time
 
-    def evaluate(self, candle_5m: dict, df_5m, df_1m, df_15m) -> dict:
-        close = candle_5m['c']
-        high = candle_5m['h']
-        low = candle_5m['l']
-        elapsed_min = (datetime.utcnow() - self.entry_time).total_seconds() / 60.0
+    def update(self, current_price, current_time):
+        if self.side == "long":
+            self.mfe = max(self.mfe, (current_price - self.entry) / self.entry * 100)
+            self.mae = min(self.mae, (current_price - self.entry) / self.entry * 100)
+        else:
+            self.mfe = max(self.mfe, (self.entry - current_price) / self.entry * 100)
+            self.mae = min(self.mae, (self.entry - current_price) / self.entry * 100)
+        self.elapsed_minutes = (current_time - self.entry_time).total_seconds() / 60.0
 
-        # ATRs
-        atr_5 = self._safe_atr(df_5m, ATR_PERIOD)
-        atr_1 = self._safe_atr(df_1m, ATR_PERIOD) if df_1m is not None and len(df_1m) > 20 else atr_5
-        atr_15 = self._safe_atr(df_15m, ATR_PERIOD) if df_15m is not None and len(df_15m) > 20 else atr_5
+    def evaluate(self, candle, df5, df1=None, df15=None):
+        current_price = candle["close"] if isinstance(candle, dict) else candle["c"]
+        current_time = candle.name if hasattr(candle, "name") else datetime.utcnow()
 
-        # ADX y KER
-        adx_val = self._safe_adx(df_5m)
-        ker_val = self._safe_ker(df_5m)
+        # Obtener TP/SL de la posición (se pasan como atributos desde main_live)
+        tp = getattr(self, "tp", None)
+        sl = getattr(self, "sl", None)
 
-        # Cálculo dinámico del trailing stop
-        base_mult = TRAIL_STOP_BASE_MULT
-        if adx_val > 30:
-            base_mult *= 0.7
-        elif adx_val > 25:
-            base_mult *= 0.85
-        if ker_val > 0.6:
-            base_mult *= 0.8
-        if df_1m is not None and len(df_1m) > 3:
-            roc_1m = (df_1m['c'].iloc[-1] / df_1m['c'].iloc[-4] - 1) * 100
-            if abs(roc_1m) > 0.5:
-                base_mult *= 0.9
-        base_mult = max(TRAIL_STOP_MIN_MULT, min(TRAIL_STOP_MAX_MULT, base_mult))
-        trail_distance = base_mult * atr_5
-        min_price_distance = close * 0.003
-        trail_distance = max(trail_distance, min_price_distance)
-        self.last_trail_distance = trail_distance
+        self.update(current_price, current_time)
 
-        # Calcular nuevo SL
-        if self.side == 'long':
-            new_sl = close - trail_distance
+        # 1. TP/SL fijos
+        if tp and sl:
+            if self.side == "long":
+                if current_price >= tp:
+                    return {"action": "CLOSE", "price": tp, "reason": "TP"}
+                if current_price <= sl:
+                    return {"action": "CLOSE", "price": sl, "reason": "SL"}
+            else:
+                if current_price <= tp:
+                    return {"action": "CLOSE", "price": tp, "reason": "TP"}
+                if current_price >= sl:
+                    return {"action": "CLOSE", "price": sl, "reason": "SL"}
+
+        # Indicadores
+        if df5 is not None and len(df5) > 50:
+            atr_val = atr(df5, 12).iloc[-1]
+            adx_val = adx(df5, 24).iloc[-1]
+            ker_val = ker(df5["close"], 10).iloc[-1]
+        else:
+            atr_val = 0.01
+            adx_val = 25
+            ker_val = 0.5
+
+        # 2. Trailing ultra-agresivo (actualización continua)
+        mult = self._calc_trail_mult(adx_val, ker_val)
+        trail_distance = max(mult * atr_val, current_price * 0.002)
+
+        new_sl = None
+        if self.side == "long":
+            new_sl = current_price - trail_distance
             if self.current_sl is None or new_sl > self.current_sl:
                 self.current_sl = new_sl
         else:
-            new_sl = close + trail_distance
+            new_sl = current_price + trail_distance
             if self.current_sl is None or new_sl < self.current_sl:
                 self.current_sl = new_sl
 
-        # Verificar SL
-        if self.side == 'long' and low <= self.current_sl:
-            return {'action': 'CLOSE', 'price': self.current_sl, 'reason': 'SL'}
-        elif self.side == 'short' and high >= self.current_sl:
-            return {'action': 'CLOSE', 'price': self.current_sl, 'reason': 'SL'}
+        # Emitir MOVE_SL si hay mejora
+        if new_sl is not None and (self.current_sl is not None):
+            if self.side == "long" and new_sl > getattr(self, "sl", 0) + 0.01:
+                return {"action": "MOVE_SL", "price": self.current_sl, "reason": "TRAIL_UPDATE"}
+            if self.side == "short" and new_sl < getattr(self, "sl", 0) - 0.01:
+                return {"action": "MOVE_SL", "price": self.current_sl, "reason": "TRAIL_UPDATE"}
 
-        # ---------- Velocity Momentum Exit ----------
-        if VELOCITY_EXIT_ENABLED and not self.be_activated and not self.current_tp_trail_active:
-            profit_pct = (close - self.entry) / self.entry * 100 if self.side == 'long' else (self.entry - close) / self.entry * 100
-            if profit_pct >= VELOCITY_EXIT_MIN_PROFIT_PCT and elapsed_min <= VELOCITY_EXIT_MAX_MINUTES:
-                if adx_val >= VELOCITY_EXIT_MIN_ADX and ker_val >= VELOCITY_EXIT_MIN_KER:
-                    return {'action': 'CLOSE', 'price': close, 'reason': 'VelocityExit'}
+        # 3. Velocity Exit
+        profit_pct = self._get_profit_pct(current_price)
+        if (
+            VELOCITY_EXIT_ENABLED
+            and profit_pct >= VELOCITY_EXIT_MIN_PROFIT_PCT
+            and self.elapsed_minutes <= VELOCITY_EXIT_MAX_MINUTES
+            and adx_val >= VELOCITY_EXIT_MIN_ADX
+            and ker_val >= VELOCITY_EXIT_MIN_KER
+            and not self.be_activated
+            and not self.tp_trail_active
+        ):
+            return {"action": "CLOSE", "price": current_price, "reason": "VelocityExit"}
 
-        # Trailing TP
-        if not self.current_tp_trail_active:
-            tp_activation_distance = TP_MULT_INIT * atr_5
-            if (self.side == 'long' and close >= self.entry + tp_activation_distance) or \
-               (self.side == 'short' and close <= self.entry - tp_activation_distance):
-                self.current_tp_trail_active = True
-                self.current_tp_sl = close - (TRAIL_TP_BASE_MULT * atr_5) if self.side == 'long' else close + (TRAIL_TP_BASE_MULT * atr_5)
-                return {'action': 'ACTIVATE_TP_TRAIL', 'price': self.current_tp_sl}
-        else:
-            tp_mult = TRAIL_TP_BASE_MULT
-            if adx_val < 25:
-                tp_mult = max(TRAIL_TP_MIN_MULT, tp_mult * 0.8)
-            tp_distance = tp_mult * atr_5
-            if self.side == 'long':
-                new_tp_sl = close - tp_distance
-                if new_tp_sl > self.current_tp_sl:
-                    self.current_tp_sl = new_tp_sl
-                    return {'action': 'MOVE_SL', 'price': new_tp_sl}
-            else:
-                new_tp_sl = close + tp_distance
-                if new_tp_sl < self.current_tp_sl:
-                    self.current_tp_sl = new_tp_sl
-                    return {'action': 'MOVE_SL', 'price': new_tp_sl}
-
-        # Break Even
-        if not self.be_activated and elapsed_min >= BREAK_EVEN_MINUTES:
-            profit_pct = (close - self.entry) / self.entry * 100 if self.side == 'long' else (self.entry - close) / self.entry * 100
-            if profit_pct >= BREAK_EVEN_ACTIVATION_PCT:
+        # 4. Break Even
+        if not self.be_activated and self.elapsed_minutes >= BE_MINUTES:
+            if profit_pct >= BE_ACTIVATION_PCT:
                 self.be_activated = True
-                be_sl = self.entry * (1 + BREAK_EVEN_BUFFER_PCT / 100.0) if self.side == 'long' else self.entry * (1 - BREAK_EVEN_BUFFER_PCT / 100.0)
-                if self.current_sl is None or (self.side == 'long' and be_sl > self.current_sl) or (self.side == 'short' and be_sl < self.current_sl):
+                be_sl = self.entry * (1 + BE_BUFFER_PCT / 100) if self.side == "long" else self.entry * (1 - BE_BUFFER_PCT / 100)
+                if (self.side == "long" and be_sl > self.current_sl) or (self.side == "short" and be_sl < self.current_sl):
                     self.current_sl = be_sl
-                    return {'action': 'MOVE_SL', 'price': be_sl}
+                    return {"action": "MOVE_SL", "price": be_sl, "reason": "BE"}
 
-        # Timeout adaptativo (CORREGIDO: usa las nuevas constantes)
-        if adx_val > 28 and ker_val > 0.6:
-            current_timeout = TIMEOUT_EXTENDED
-        elif adx_val < 20 or ker_val < 0.4:
-            current_timeout = TIMEOUT_REDUCED
-        else:
-            current_timeout = TIMEOUT_BASE
+        # 5. Timeout
+        timeout = TIMEOUT_EXTENDED if (adx_val > 28 and ker_val > 0.6) else TIMEOUT_REDUCED if (adx_val < 20 or ker_val < 0.4) else TIMEOUT_BASE
+        if self.elapsed_minutes >= timeout:
+            return {"action": "CLOSE", "price": current_price, "reason": "Timeout"}
 
-        if elapsed_min >= current_timeout:
-            return {'action': 'CLOSE', 'price': close, 'reason': 'Timeout'}
+        # 6. Trailing TP
+        if not self.tp_trail_active and profit_pct > 1.5:
+            self.tp_trail_active = True
+            self.trail_level = current_price - (1.5 * atr_val) if self.side == "long" else current_price + (1.5 * atr_val)
+            return {"action": "ACTIVATE_TP_TRAIL", "price": self.trail_level}
+
+        if self.tp_trail_active:
+            if self.side == "long":
+                new_trail = current_price - (1.0 * atr_val)
+                if new_trail > self.trail_level:
+                    self.trail_level = new_trail
+                if current_price <= self.trail_level:
+                    return {"action": "CLOSE", "price": self.trail_level, "reason": "TPTrail"}
+            else:
+                new_trail = current_price + (1.0 * atr_val)
+                if new_trail < self.trail_level:
+                    self.trail_level = new_trail
+                if current_price >= self.trail_level:
+                    return {"action": "CLOSE", "price": self.trail_level, "reason": "TPTrail"}
 
         return None
 
-    def _safe_atr(self, df, period):
-        if df is None or len(df) < period:
-            return 0.01
-        try:
-            return atr(df, period).iloc[-1]
-        except:
-            return 0.01
+    def _calc_trail_mult(self, adx_val, ker_val):
+        mult = TRAIL_BASE_MULT
+        if adx_val > 30:
+            mult *= 0.6
+        elif adx_val > 25:
+            mult *= 0.7
+        if ker_val > 0.6:
+            mult *= 0.7
+        elif ker_val > 0.5:
+            mult *= 0.8
+        return max(TRAIL_MIN_MULT, min(TRAIL_MAX_MULT, mult))
 
-    def _safe_adx(self, df):
-        if df is None or len(df) < 20:
-            return 25
-        try:
-            return adx(df, ADX_THRESHOLD).iloc[-1]
-        except:
-            return 25
-
-    def _safe_ker(self, df):
-        if df is None or len(df) < 20:
-            return 0.5
-        try:
-            return ker(df['c'], KER_PERIOD).iloc[-1]
-        except:
-            return 0.5
+    def _get_profit_pct(self, current_price):
+        if self.side == "long":
+            return (current_price - self.entry) / self.entry * 100
+        else:
+            return (self.entry - current_price) / self.entry * 100

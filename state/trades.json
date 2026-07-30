@@ -25,32 +25,5 @@
     "reason": "Timeout",
     "hold_minutes": 166.64305963333334,
     "time": "2026-07-15T20:48:38.262703"
-  },
-  {
-    "symbol": "AVAX",
-    "entry": 6.464,
-    "exit": 6.45,
-    "pnl_net": -13.693652000000169,
-    "reason": "Timeout",
-    "hold_minutes": 45.73207645,
-    "time": "2026-07-30T06:31:31.126416"
-  },
-  {
-    "symbol": "LTC",
-    "entry": 45.53,
-    "exit": 45.33,
-    "pnl_net": -23.012113600000276,
-    "reason": "Timeout",
-    "hold_minutes": 60.70588395,
-    "time": "2026-07-30T08:13:17.246009"
-  },
-  {
-    "symbol": "BNB",
-    "entry": 575.6,
-    "exit": 578.3,
-    "pnl_net": 15.661519999999523,
-    "reason": "Timeout",
-    "hold_minutes": 55.58354105,
-    "time": "2026-07-30T09:19:02.535313"
   }
 ]

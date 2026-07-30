@@ -1,162 +1,157 @@
-"""
-Archivo: src/strategy_rama_b.py
-Proyecto: Krishna Omega Ultra V9.1.1
-Descripción: Estrategia con umbral dinámico según etapa de capital.
-Incluye garantía de distancia mínima para TP/SL (corrección error 51050).
-"""
-import pandas as pd
+# strategy_rama_b.py
+# Krishna Omega Ultra V9.1.1 — Estrategia con filtros RSI, MACD y multi-timeframe
+
 import numpy as np
 from datetime import datetime
-from src.indicators import *
+from src.indicators import compute_score, adx, ker, ema, atr, rsi, macd
 from src.config import *
-
-
-def compute_time_score(hour_utc: int, adx_val: float, atr_pct: float,
-                       volume_ratio: float = 1.0) -> float:
-    score = 0.0
-    if 8 <= hour_utc < 14: score += 30
-    elif 14 <= hour_utc <= 22: score += 25
-    else: score += 10
-    if adx_val > 25: score += 20
-    if atr_pct > 1.5: score += 15
-    if volume_ratio > 1.2: score += 15
-    return min(100, score)
-
-
-def calculate_capital_stage(capital: float) -> str:
-    if capital < STAGE_THRESHOLDS['micro']: return 'micro'
-    elif capital < STAGE_THRESHOLDS['growth']: return 'growth'
-    else: return 'normal'
-
-
-def calculate_dynamic_entry_threshold(capital: float) -> float:
-    return STAGE_SCORES.get(calculate_capital_stage(capital), MIN_SCORE)
-
 
 class StrategyRamaB:
     def __init__(self, exchange):
-        self.exchange = exchange
+        self.ex = exchange
+        self.min_score = MIN_SCORE
+        self.adx_threshold = ADX_THRESHOLD
+        self.ker_threshold = KER_THRESHOLD
 
-    # ================================================================
-    # Método original (sin cambios, para backtest/optimizer)
-    # ================================================================
-    def generate_signal(self, data5, data15):
-        best, best_rank = None, -1e9
-        now_utc = datetime.utcnow()
-        for sym in UNIVERSO:
-            if sym not in data5 or sym not in data15: continue
-            df5 = data5[sym]
-            if len(df5) < 60: continue
-            sc = compute_score(df5)
-            if abs(sc) < MIN_SCORE: continue
-            adx_val = adx(df5, ADX_THRESHOLD).iloc[-1]
-            ker_val = ker(df5['c'], KER_PERIOD).iloc[-1]
-            if adx_val < ADX_THRESHOLD or ker_val < KER_THRESHOLD: continue
-            regime = classify_regime(df5)
-            if regime in ['Chop', 'Compresión']: continue
-            df15_sym = data15[sym]
-            if len(df15_sym) < 20: continue
-            ema15 = df15_sym['c'].ewm(span=20, adjust=False).mean().iloc[-1]
-            direction = 'Long' if sc > 0 else 'Short'
-            if (direction == 'Long' and df5.iloc[-1]['c'] < ema15) or \
-               (direction == 'Short' and df5.iloc[-1]['c'] > ema15): continue
-            if TIME_SCORE_ENABLED:
-                atr_pct_val = atr(df5, ATR_PERIOD).iloc[-1] / df5.iloc[-1]['c'] * 100
-                vol_ratio = 1.0
-                if 'vol' in df5.columns and len(df5) >= 20:
-                    avg_vol = df5['vol'].rolling(20).mean().iloc[-1]
-                    if avg_vol > 0: vol_ratio = df5['vol'].iloc[-1] / avg_vol
-                ts = compute_time_score(now_utc.hour, adx_val, atr_pct_val, vol_ratio)
-                if ts < TIME_SCORE_THRESHOLD and abs(sc) < TIME_SCORE_MIN_FOR_ENTRY: continue
-            atr_val = atr(df5, ATR_PERIOD).iloc[-1]
-            mac_val = macro(df5, MACRO_LOOKBACK).iloc[-1]
-            mom_val = df5['c'].pct_change(MOMENTUM_PERIOD).iloc[-1] * 100
-            vwz = abs(vwap_zscore(df5, VWAP_PERIOD).iloc[-1]) / 3.0
-            atr_rel = min(1.0, atr_val / df5.iloc[-1]['c'] * 100 / 3.5)
-            adx_n = min(1.0, adx_val / 40.0)
-            mom_n = min(1.0, abs(mom_val) / 5.0)
-            rank = (abs(sc) * 0.25 + adx_n * 0.20 + ker_val * 0.15 +
-                    mac_val * 0.10 + atr_rel * 0.10 + vwz * 0.10 + mom_n * 0.10)
-            if rank > best_rank:
-                best_rank = rank
-                entry = df5.iloc[-1]['c']
-                # Cálculo original de TP y SL
-                tp = entry + atr_val * TP_MULT_INIT if direction == 'Long' else entry - atr_val * TP_MULT_INIT
-                sl = entry - atr_val * SL_MULT if direction == 'Long' else entry + atr_val * SL_MULT
-
-                # ------------------------------------------------------------
-                # 🔒 Garantizar distancia mínima para evitar error 51050 de OKX
-                #    Solo se aplica cuando el ATR no proporciona margen suficiente.
-                #    Impacto sobre el edge: <0.5% (6 de 106 trades en backtest)
-                # ------------------------------------------------------------
-                if direction == 'Long':
-                    tp = max(tp, entry * (1 + MIN_TP_DISTANCE_PCT))
-                    sl = min(sl, entry * (1 - MIN_SL_DISTANCE_PCT))
-                else:  # Short
-                    tp = min(tp, entry * (1 - MIN_TP_DISTANCE_PCT))
-                    sl = max(sl, entry * (1 + MIN_SL_DISTANCE_PCT))
-
-                best = {'symbol': sym, 'direction': direction, 'entry': entry,
-                        'tp': tp, 'sl': sl, 'score': sc, 'rank': rank}
-        return best
-
-    # ================================================================
-    # Nuevo método para V9.1.1 (live) con la misma protección
-    # ================================================================
-    def generate_signals(self, data5, data15, capital: float = 1000.0):
+    def generate_signals(self, data_5m, data_15m, balance):
         signals = []
-        now_utc = datetime.utcnow()
-        threshold = calculate_dynamic_entry_threshold(capital)
-        for sym in UNIVERSO:
-            if sym not in data5 or sym not in data15: continue
-            df5 = data5[sym]
-            if len(df5) < 60: continue
-            sc = compute_score(df5)
-            if abs(sc) < threshold: continue
-            adx_val = adx(df5, ADX_THRESHOLD).iloc[-1]
-            ker_val = ker(df5['c'], KER_PERIOD).iloc[-1]
-            if adx_val < ADX_THRESHOLD or ker_val < KER_THRESHOLD: continue
-            regime = classify_regime(df5)
-            if regime in ['Chop', 'Compresión']: continue
-            df15_sym = data15[sym]
-            if len(df15_sym) < 20: continue
-            ema15 = df15_sym['c'].ewm(span=20, adjust=False).mean().iloc[-1]
-            direction = 'Long' if sc > 0 else 'Short'
-            if (direction == 'Long' and df5.iloc[-1]['c'] < ema15) or \
-               (direction == 'Short' and df5.iloc[-1]['c'] > ema15): continue
+        for symbol in UNIVERSO:
+            df5 = data_5m.get(symbol)
+            if df5 is None or len(df5) < 60:
+                continue
+
+            # ---------- 1. PiDelta Score ----------
+            score = compute_score(df5)
+            if abs(score) < self.min_score:
+                continue
+
+            # ---------- 2. ADX y KER ----------
+            adx_val = adx(df5, ADX_PERIOD).iloc[-1]
+            ker_val = ker(df5["close"], KER_PERIOD).iloc[-1]
+            if adx_val < self.adx_threshold or ker_val < self.ker_threshold:
+                continue
+
+            # ---------- 3. Régimen ----------
+            from src.regime_detector import classify_regime, get_regime_params
+
+            regime, _, _ = classify_regime(df5)
+            regime_params = get_regime_params(regime)
+            if regime_params.get("no_trade", False):
+                continue
+
+            # ---------- 4. Filtro horario ----------
+            now = datetime.utcnow()
+            hour = now.hour
+            day = now.weekday()
+            if hour < HOUR_START or hour > HOUR_END:
+                continue
+            if day not in ACTIVE_DAYS:
+                continue
+
+            # ---------- 5. RSI ----------
+            if RSI_ENABLED:
+                rsi_val = rsi(df5["close"], RSI_PERIOD).iloc[-1]
+                direction = "Long" if score > 0 else "Short"
+                if direction == "Long" and (rsi_val < RSI_OVERSOLD or rsi_val > 75):
+                    continue
+                if direction == "Short" and (rsi_val < 25 or rsi_val > RSI_OVERBOUGHT):
+                    continue
+
+            # ---------- 6. MACD ----------
+            if MACD_ENABLED:
+                macd_line, signal_line, _ = macd(df5["close"], MACD_FAST, MACD_SLOW, MACD_SIGNAL)
+                direction = "Long" if score > 0 else "Short"
+                if direction == "Long" and macd_line.iloc[-1] <= signal_line.iloc[-1]:
+                    continue
+                if direction == "Short" and macd_line.iloc[-1] >= signal_line.iloc[-1]:
+                    continue
+
+            # ---------- 7. Volatilidad (ATR%) ----------
+            entry = df5.iloc[-1]["close"]
+            atr_val = atr(df5, 12).iloc[-1]
+            atr_pct = atr_val / entry * 100
+            if atr_pct < 0.5 or atr_pct > 2.5:
+                continue
+
+            # ---------- 8. Confirmación en 15m ----------
+            df15 = data_15m.get(symbol)
+            if df15 is not None and len(df15) > 20:
+                ema15 = ema(df15["close"], 20).iloc[-1]
+                current = df5.iloc[-1]["close"]
+                if direction == "Long" and current < ema15:
+                    continue
+                if direction == "Short" and current > ema15:
+                    continue
+
+            # ---------- 9. Time Score ----------
             if TIME_SCORE_ENABLED:
-                atr_pct_val = atr(df5, ATR_PERIOD).iloc[-1] / df5.iloc[-1]['c'] * 100
+                hour_utc = datetime.utcnow().hour
                 vol_ratio = 1.0
-                if 'vol' in df5.columns and len(df5) >= 20:
-                    avg_vol = df5['vol'].rolling(20).mean().iloc[-1]
-                    if avg_vol > 0: vol_ratio = df5['vol'].iloc[-1] / avg_vol
-                ts = compute_time_score(now_utc.hour, adx_val, atr_pct_val, vol_ratio)
-                if ts < TIME_SCORE_THRESHOLD and abs(sc) < TIME_SCORE_MIN_FOR_ENTRY: continue
-            atr_val = atr(df5, ATR_PERIOD).iloc[-1]
-            mac_val = macro(df5, MACRO_LOOKBACK).iloc[-1]
-            mom_val = df5['c'].pct_change(MOMENTUM_PERIOD).iloc[-1] * 100
-            vwz = abs(vwap_zscore(df5, VWAP_PERIOD).iloc[-1]) / 3.0
-            atr_rel = min(1.0, atr_val / df5.iloc[-1]['c'] * 100 / 3.5)
-            adx_n = min(1.0, adx_val / 40.0)
-            mom_n = min(1.0, abs(mom_val) / 5.0)
-            rank = (abs(sc) * 0.25 + adx_n * 0.20 + ker_val * 0.15 +
-                    mac_val * 0.10 + atr_rel * 0.10 + vwz * 0.10 + mom_n * 0.10)
-            entry = df5.iloc[-1]['c']
-            # Cálculo original de TP y SL
-            tp = entry + atr_val * TP_MULT_INIT if direction == 'Long' else entry - atr_val * TP_MULT_INIT
-            sl = entry - atr_val * SL_MULT if direction == 'Long' else entry + atr_val * SL_MULT
+                if "volume" in df5.columns and len(df5) >= 20:
+                    avg_vol = df5["volume"].rolling(20).mean().iloc[-1]
+                    if avg_vol > 0:
+                        vol_ratio = df5["volume"].iloc[-1] / avg_vol
+                ts = self._compute_time_score(hour_utc, adx_val, atr_pct, vol_ratio)
+                if ts < TIME_SCORE_THRESHOLD and abs(score) < TIME_SCORE_MIN_FOR_ENTRY:
+                    continue
 
-            # ------------------------------------------------------------
-            # 🔒 Garantizar distancia mínima para evitar error 51050 de OKX
-            # ------------------------------------------------------------
-            if direction == 'Long':
-                tp = max(tp, entry * (1 + MIN_TP_DISTANCE_PCT))
-                sl = min(sl, entry * (1 - MIN_SL_DISTANCE_PCT))
-            else:  # Short
-                tp = min(tp, entry * (1 - MIN_TP_DISTANCE_PCT))
-                sl = max(sl, entry * (1 + MIN_SL_DISTANCE_PCT))
+            # ---------- 10. TP / SL ----------
+            tp_mult = regime_params.get("tp_mult", TP_MULT_INIT)
+            sl_mult = regime_params.get("sl_mult", SL_MULT_INIT)
+            if direction == "Long":
+                tp = max(entry + atr_val * tp_mult, entry * (1 + MIN_TP_DISTANCE_PCT))
+                sl = min(entry - atr_val * sl_mult, entry * (1 - MIN_SL_DISTANCE_PCT))
+            else:
+                tp = min(entry - atr_val * tp_mult, entry * (1 - MIN_TP_DISTANCE_PCT))
+                sl = max(entry + atr_val * sl_mult, entry * (1 + MIN_SL_DISTANCE_PCT))
 
-            signals.append({'symbol': sym, 'direction': direction, 'entry': entry,
-                            'tp': tp, 'sl': sl, 'score': sc, 'rank': rank})
-        signals.sort(key=lambda x: x['rank'], reverse=True)
+            # ---------- 11. Ranking ----------
+            opp_rank = self._opportunity_rank(df5, adx_val, ker_val, score)
+
+            signals.append(
+                {
+                    "symbol": symbol,
+                    "direction": direction,
+                    "entry": entry,
+                    "tp": tp,
+                    "sl": sl,
+                    "score": score,
+                    "regime": regime,
+                    "opportunity_rank": opp_rank,
+                    "atr": atr_val,
+                    "adx": adx_val,
+                    "ker": ker_val,
+                    "rsi": rsi_val if RSI_ENABLED else 0,
+                }
+            )
+
+        signals.sort(key=lambda x: x["opportunity_rank"], reverse=True)
         return signals
+
+    def _compute_time_score(self, hour_utc, adx_val, atr_pct, vol_ratio):
+        score = 0.0
+        if 10 <= hour_utc < 18:
+            score += 35
+        elif 8 <= hour_utc < 22:
+            score += 20
+        else:
+            score += 5
+        if adx_val > 28:
+            score += 25
+        elif adx_val > 24:
+            score += 15
+        if atr_pct > 2.0:
+            score += 20
+        elif atr_pct > 1.5:
+            score += 10
+        if vol_ratio > 1.5:
+            score += 20
+        elif vol_ratio > 1.2:
+            score += 10
+        return min(100, score)
+
+    def _opportunity_rank(self, df, adx_val, ker_val, score):
+        atr_pct = atr(df, 12).iloc[-1] / df.iloc[-1]["close"] * 100
+        vol_norm = min(1.0, atr_pct / 3.0)
+        adx_norm = min(1.0, adx_val / 40.0)
+        return adx_norm * 0.4 + ker_val * 0.3 + abs(score) * 0.2 + vol_norm * 0.1

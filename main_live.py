@@ -63,7 +63,10 @@ class Dashboard:
 
     def print_summary(self):
         data = self.sm.load_all()
+        # 🔧 CORRECCIÓN: validar que metrics sea un dict, no una lista
         metrics = data.get("metrics", {})
+        if not isinstance(metrics, dict):
+            metrics = {}
         trades = data.get("trades", [])
         now = datetime.utcnow()
         print("\n" + "=" * 60)
@@ -214,7 +217,6 @@ class TradingBot:
                 self.open_positions.remove(pos)
                 self.sm.save_positions(self.open_positions)
 
-    # 🔧 CORREGIDO: usar 'close' en lugar de 'c'
     def fetch_data(self):
         d5, d15 = {}, {}
         for sym in UNIVERSO:

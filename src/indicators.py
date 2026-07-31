@@ -1,10 +1,9 @@
 # indicators.py
-# Krishna Omega Ultra V9.1.1 — Indicadores técnicos (incluye RSI y MACD)
+# Krishna Omega Ultra V9.1.1 — Indicadores
 
 import numpy as np
 import pandas as pd
 
-# ---------- INDICADORES EXISTENTES ----------
 def atr(df, period=12):
     if len(df) < period + 1:
         return pd.Series([0.0] * len(df), index=df.index)
@@ -47,9 +46,7 @@ def vwap_zscore(df, period=20):
     std = df["close"].rolling(period).std()
     return (df["close"] - vwap) / (std + 1e-9)
 
-# ---------- NUEVOS INDICADORES ----------
 def rsi(close, period=14):
-    """Relative Strength Index"""
     if len(close) < period + 1:
         return pd.Series([50.0] * len(close), index=close.index)
     delta = close.diff()
@@ -59,7 +56,6 @@ def rsi(close, period=14):
     return 100 - (100 / (1 + rs))
 
 def macd(close, fast=12, slow=26, signal=9):
-    """MACD (Moving Average Convergence Divergence)"""
     if len(close) < slow + signal:
         return (
             pd.Series(0.0, index=close.index),
@@ -73,7 +69,6 @@ def macd(close, fast=12, slow=26, signal=9):
     histogram = macd_line - signal_line
     return macd_line, signal_line, histogram
 
-# ---------- PiDelta Score ----------
 def compute_score(df, weights=None):
     if len(df) < 50:
         return 0.0

@@ -1,5 +1,5 @@
 # main_live.py
-# Krishna Omega Ultra V9.1.1 — Bucle principal con validación de ejecución y trailing continuo
+# Krishna Omega Ultra V9.1.1 — Bucle principal
 
 #!/usr/bin/env python3
 
@@ -201,7 +201,7 @@ class TradingBot:
                     "exit": price,
                     "pnl_net": net,
                     "reason": reason,
-                    "hold_minutes": (datetime.utcnow() - pos.entry_time).total_seconds() / 60,
+                    "hold_minutes": (datetime.utcnow() - pos.open_time).total_seconds() / 60,
                     "time": datetime.utcnow().isoformat(),
                 }
                 self.trades.append(trade)
@@ -276,9 +276,13 @@ class TradingBot:
             return
 
         repair_orders(self.ex, self.open_positions)
+
         for pos in self.open_positions:
             if pos.trailing is None:
-                pos.trailing = TrailingEngine(pos.entry, pos.entry_time, pos.symbol, pos.side)
+                pos.trailing = TrailingEngine(pos.entry, pos.open_time, pos.symbol, pos.side)
+            pos.trailing.tp = pos.tp
+            pos.trailing.sl = pos.sl
+
         self.sm.save_positions(self.open_positions)
 
         initial_balance = self.ex.get_balance()
@@ -345,11 +349,9 @@ class TradingBot:
                             if resp is None:
                                 continue
 
-                            # Usar avg_price real si está disponible
                             entry_real = avg_price if avg_price else sig["entry"]
                             if avg_price:
                                 logger.info(f"Usando precio de ejecución real: {avg_price:.4f} (vs calculado {sig['entry']:.4f})")
-                                # Recalcular TP/SL basado en precio real si es necesario
                                 if abs(avg_price - sig["entry"]) / sig["entry"] > 0.001:
                                     atr_val = sig.get("atr", 0.01)
                                     if sig["direction"] == "Long":

@@ -1,5 +1,5 @@
 # position_manager.py
-# Krishna Omega Ultra V9.1.1 – Gestión de posiciones
+# Krishna Omega Ultra V9.1.1 — Gestión de posiciones
 
 import json
 import os

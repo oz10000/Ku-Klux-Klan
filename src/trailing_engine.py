@@ -1,5 +1,5 @@
 # trailing_engine.py
-# Krishna Omega Ultra V9.1.1 — Trailing con validación de tipos
+# Krishna Omega Ultra V9.1.1 – Trailing con validación de tipos
 
 import numpy as np
 from datetime import datetime
@@ -50,16 +50,18 @@ class TrailingEngine:
             self.mae = min(self.mae, (self.entry - current_price) / self.entry * 100)
         self.elapsed_minutes = (current_time - self.entry_time).total_seconds() / 60.0
 
+    # 🔧 CORREGIDO: acceso robusto a 'close' y 'c'
     def evaluate(self, candle, df5, df1=None, df15=None):
         if isinstance(candle, dict):
-            current_price = candle.get("close", 0)
+            current_price = candle.get("close", candle.get("c", 0))
             current_time = candle.get("time", datetime.utcnow())
         else:
-            current_price = candle["close"] if "close" in candle else candle.get("c", 0)
-            if hasattr(candle, "name"):
-                current_time = candle.name
-            else:
-                current_time = datetime.utcnow()
+            # Series de pandas
+            try:
+                current_price = candle["close"] if "close" in candle else candle["c"]
+            except:
+                current_price = 0
+            current_time = candle.name if hasattr(candle, "name") else datetime.utcnow()
 
         self.update(current_price, current_time)
 

@@ -1,5 +1,5 @@
 # exchange_okx.py
-# Krishna Omega Ultra V9.1.1 — Cliente OKX
+# Krishna Omega Ultra V9.1.1 — Cliente OKX con validación de ejecución
 
 import time
 import base64
@@ -219,7 +219,7 @@ class OKXClient:
         resp = self._request("GET", "/api/v5/trade/order", params={"instId": inst_id, "ordId": ord_id})
         if resp.get("code") == "0":
             data = resp.get("data", [])
-            if data and len(data) > 0:
+            if data:
                 return data[0]
         return None
 
@@ -293,6 +293,7 @@ class OKXClient:
             break
         return resp
 
+    # 🔧 CORREGIDO: nombres de columna estándar
     def fetch_candles(self, symbol, bar="5m", limit=200):
         inst_id = self._swap_id(symbol)
         resp = self._request("GET", "/api/v5/market/candles", params={"instId": inst_id, "bar": bar, "limit": limit})
@@ -303,4 +304,4 @@ class OKXClient:
         for d in reversed(data):
             ts = datetime.fromtimestamp(int(d[0]) / 1000, tz=timezone.utc)
             rows.append([ts, float(d[1]), float(d[2]), float(d[3]), float(d[4]), float(d[5])])
-        return pd.DataFrame(rows, columns=["ts", "o", "h", "l", "c", "vol"])
+        return pd.DataFrame(rows, columns=["ts", "open", "high", "low", "close", "volume"])

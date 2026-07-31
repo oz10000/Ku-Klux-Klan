@@ -1,5 +1,5 @@
 # exchange_okx.py
-# Krishna Omega Ultra V9.1.1 — Cliente OKX con validación de ejecución
+# Krishna Omega Ultra V9.1.1 — Cliente OKX
 
 import time
 import base64
@@ -29,14 +29,12 @@ class OKXClient:
         self._server_time_offset = 0.0
         self._sync_time()
 
-    # ---------- Helpers ----------
     def _swap_id(self, sym):
         return f"{sym}-USDT-SWAP"
 
     def _spot_id(self, sym):
         return f"{sym}-USDT"
 
-    # ---------- Sincronización horaria ----------
     def _sync_time(self):
         try:
             resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=10)
@@ -111,7 +109,6 @@ class OKXClient:
             logger.error(f"Public request error: {e}")
             return {}
 
-    # ---------- Self test (solo lectura) ----------
     def self_test(self):
         logger.info("🔍 Ejecutando self test...")
         try:
@@ -135,7 +132,6 @@ class OKXClient:
         logger.info("✅ Self test completado exitosamente (sin órdenes)")
         return True
 
-    # ---------- Apalancamiento ----------
     def set_leverage(self, symbol, leverage, pos_side):
         cache_key = (symbol, pos_side)
         if cache_key in self._leverage_cache:
@@ -151,7 +147,6 @@ class OKXClient:
             logger.error(f"Error set_leverage: {resp.get('msg')}")
             return False
 
-    # ---------- Información de instrumentos ----------
     def get_instrument_info(self, symbol):
         if symbol not in self._instrument_cache:
             resp = self._public_request(
@@ -177,7 +172,6 @@ class OKXClient:
             return float(resp["data"][0]["last"])
         return None
 
-    # ---------- Balance ----------
     def get_balance(self, ccy="USDT"):
         resp = self._request("GET", "/api/v5/account/balance", params={"ccy": ccy})
         details = resp.get("data", [{}])[0].get("details", [])
@@ -186,12 +180,7 @@ class OKXClient:
                 return float(d["availBal"])
         return 0.0
 
-    # ---------- Órdenes de mercado con validación de ejecución ----------
     def place_market_order(self, symbol, side, size, mode="swap", tp_price=None, sl_price=None, pos_side=None):
-        """
-        Coloca orden de mercado y retorna el precio promedio de ejecución (avgPx).
-        Retorna: (resp, avg_price) donde avg_price es float o None.
-        """
         inst_id = self._swap_id(symbol) if mode == "swap" else self._spot_id(symbol)
         body = {"instId": inst_id, "side": side, "ordType": "market", "sz": str(size)}
         if mode == "swap":
@@ -213,7 +202,7 @@ class OKXClient:
         if resp.get("code") == "0":
             ord_id = resp.get("data", [{}])[0].get("ordId")
             if ord_id:
-                time.sleep(1)  # Esperar ejecución
+                time.sleep(1)
                 detail = self.get_order_details(inst_id, ord_id)
                 if detail and detail.get("state") == "filled":
                     avg_px = float(detail.get("avgPx", 0))
@@ -227,15 +216,13 @@ class OKXClient:
         return resp, None
 
     def get_order_details(self, inst_id, ord_id):
-        """Consulta detalles de una orden específica."""
         resp = self._request("GET", "/api/v5/trade/order", params={"instId": inst_id, "ordId": ord_id})
         if resp.get("code") == "0":
             data = resp.get("data", [])
-            if data:
+            if data and len(data) > 0:
                 return data[0]
         return None
 
-    # ---------- Cierre de posiciones ----------
     def close_position(self, symbol, pos_id=None, pos_side=None, size=None, mode="swap"):
         if mode == "swap":
             if not pos_id or not pos_side:
@@ -253,13 +240,11 @@ class OKXClient:
                 return {"code": "-1"}
             return self.place_market_order(symbol, "sell", size, mode="spot")
 
-    # ---------- Posiciones ----------
     def get_positions(self, mode="swap"):
         if mode == "swap":
             return self._request("GET", "/api/v5/account/positions", params={"instType": "SWAP"}).get("data", [])
         return []
 
-    # ---------- Órdenes algorítmicas ----------
     def create_algo_order(self, symbol, pos_side, size, tp_price=None, sl_price=None):
         if not tp_price and not sl_price:
             return None
@@ -308,7 +293,6 @@ class OKXClient:
             break
         return resp
 
-    # ---------- Velas ----------
     def fetch_candles(self, symbol, bar="5m", limit=200):
         inst_id = self._swap_id(symbol)
         resp = self._request("GET", "/api/v5/market/candles", params={"instId": inst_id, "bar": bar, "limit": limit})

@@ -1,5 +1,5 @@
 # main_live.py
-# Krishna Omega Ultra V9.1.1 — Bucle principal
+# Krishna Omega Ultra V9.1.1 — Bucle principal con validación de ejecución y trailing continuo
 
 #!/usr/bin/env python3
 
@@ -214,6 +214,7 @@ class TradingBot:
                 self.open_positions.remove(pos)
                 self.sm.save_positions(self.open_positions)
 
+    # 🔧 CORREGIDO: usar 'close' en lugar de 'c'
     def fetch_data(self):
         d5, d15 = {}, {}
         for sym in UNIVERSO:
@@ -221,9 +222,9 @@ class TradingBot:
             if df5 is not None and len(df5) >= 60:
                 d5[sym] = df5
                 idx = df5.set_index("ts")
-                df15 = idx["c"].resample("15min", label="right").last().dropna()
+                df15 = idx["close"].resample("15min", label="right").last().dropna()
                 if len(df15) >= 20:
-                    d15[sym] = pd.DataFrame({"c": df15})
+                    d15[sym] = pd.DataFrame({"close": df15})
         return d5, d15
 
     def place_order_with_retry(self, symbol, side, entry_price, tp, sl, pos_side):
@@ -276,13 +277,9 @@ class TradingBot:
             return
 
         repair_orders(self.ex, self.open_positions)
-
         for pos in self.open_positions:
             if pos.trailing is None:
                 pos.trailing = TrailingEngine(pos.entry, pos.open_time, pos.symbol, pos.side)
-            pos.trailing.tp = pos.tp
-            pos.trailing.sl = pos.sl
-
         self.sm.save_positions(self.open_positions)
 
         initial_balance = self.ex.get_balance()

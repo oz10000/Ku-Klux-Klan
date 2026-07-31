@@ -1,5 +1,5 @@
 # config.py
-# Krishna Omega Ultra V9.1.1 — Configuración optimizada para Win Rate ≥ 90%
+# Krishna Omega Ultra V9.1.1 — Configuración completa
 
 import os
 from dotenv import load_dotenv
@@ -17,13 +17,10 @@ INITIAL_CAPITAL = float(os.getenv("INITIAL_CAPITAL", "10.0"))
 MAX_POSITIONS = 1
 MAX_DAILY_LOSS_PCT = 10.0
 RISK_PER_TRADE_PCT = 1.5
-LEVERAGE = 3  # Reducido para mayor seguridad
+LEVERAGE = 3
 
-# ========== ACTIVOS (TOP 10 DE MAYOR LIQUIDEZ) ==========
-UNIVERSO = [
-    "BTC", "ETH", "SOL", "BNB", "XRP",
-    "ADA", "LINK", "LTC", "TRX", "DOT"
-]
+# ========== ACTIVOS ==========
+UNIVERSO = ["BTC", "ETH", "SOL", "BNB", "XRP", "ADA", "LINK", "LTC", "TRX", "DOT"]
 
 # ========== TIMEFRAMES ==========
 TIMEFRAME_PRIMARY = "5m"
@@ -41,22 +38,22 @@ MACRO_LOOKBACK = 18
 EMA_FAST = 22
 EMA_SLOW = 50
 
-# ========== UMBRALES OPTIMIZADOS ==========
-MIN_SCORE = 0.45              # Aumentado desde 0.38
+# ========== UMBRALES ==========
+MIN_SCORE = 0.45
 ADX_THRESHOLD = 24
 KER_THRESHOLD = 0.52
 MIN_VOLUME_RATIO = 1.2
 TIME_SCORE_ENABLED = True
-TIME_SCORE_THRESHOLD = 30     # Reducido desde 40
+TIME_SCORE_THRESHOLD = 30
 TIME_SCORE_MIN_FOR_ENTRY = 0.50
 
-# ========== RSI (NUEVO) ==========
+# ========== RSI ==========
 RSI_PERIOD = 14
 RSI_OVERSOLD = 30
 RSI_OVERBOUGHT = 70
 RSI_ENABLED = True
 
-# ========== MACD (NUEVO) ==========
+# ========== MACD ==========
 MACD_FAST = 12
 MACD_SLOW = 26
 MACD_SIGNAL = 9
@@ -68,11 +65,11 @@ SL_MULT_INIT = 1.2
 MIN_TP_DISTANCE_PCT = 0.005
 MIN_SL_DISTANCE_PCT = 0.003
 
-# ========== TRAILING STOP ==========
+# ========== TRAILING ==========
 TRAIL_BASE_MULT = 1.5
-TRAIL_MIN_MULT = 0.3          # Nuevo: trailing ultra-agresivo
-TRAIL_MAX_MULT = 1.2          # Nuevo: límite superior
-BE_ACTIVATION_PCT = 0.2       # Reducido desde 0.5
+TRAIL_MIN_MULT = 0.3
+TRAIL_MAX_MULT = 1.2
+BE_ACTIVATION_PCT = 0.2
 BE_BUFFER_PCT = 0.1
 BE_MINUTES = 5
 
@@ -96,10 +93,10 @@ SLEEP_INTERVAL = 300
 # ========== FILTRO HORARIO ==========
 HOUR_START = 10
 HOUR_END = 18
-ACTIVE_DAYS = [1, 2, 3, 4]    # Martes a Viernes
+ACTIVE_DAYS = [1, 2, 3, 4]  # Martes a Viernes
 
 # ========== GIT PUSH ==========
-GIT_PUSH_INTERVAL = 10        # Cada 10 ciclos (antes era cada ciclo)
+GIT_PUSH_INTERVAL = 10
 
 # ========== SIZING ==========
 INITIAL_MARGIN_FACTOR = 0.99

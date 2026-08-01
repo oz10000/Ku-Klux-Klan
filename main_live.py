@@ -1,5 +1,5 @@
 # main_live.py
-# Krishna Omega Ultra V9.1.1 — Bucle principal con validación de ejecución y trailing continuo
+# Krishna Omega Ultra V9.1.1 — Bucle principal con throttling y dashboard optimizado
 
 #!/usr/bin/env python3
 
@@ -57,18 +57,28 @@ class Dashboard:
         self.sm = sm
         self.start_time = datetime.utcnow()
         self.initial_balance = initial_balance
+        self.last_print_time = None
+        self.last_trade_count = 0
+        self.print_interval = 20  # 🔥 Reducido a cada 20 ciclos (antes cada ciclo)
 
     def record_trade(self, pnl):
         pass
 
-    def print_summary(self):
+    def print_summary(self, force=False):
         data = self.sm.load_all()
-        # 🔧 CORRECCIÓN: validar que metrics sea un dict, no una lista
         metrics = data.get("metrics", {})
         if not isinstance(metrics, dict):
             metrics = {}
         trades = data.get("trades", [])
         now = datetime.utcnow()
+
+        trade_count = len(trades)
+        if not force and trade_count == self.last_trade_count:
+            if self.last_print_time and (now - self.last_print_time).total_seconds() < 600:
+                return
+        self.last_trade_count = trade_count
+        self.last_print_time = now
+
         print("\n" + "=" * 60)
         print(f" KRISHNA OMEGA ULTRA V9.1.1 — Session {self.start_time.strftime('%Y%m%d_%H%M%S')}")
         print("=" * 60)
@@ -99,13 +109,20 @@ class TradingBot:
         self._data_1m = {}
         self.stage = "normal"
         self.sm.save_positions(self.open_positions)
+        self.consecutive_timeouts = 0
+        self._last_order_time = 0
+        self._min_order_interval = 5  # segundos entre órdenes (throttling)
 
     def verify_protection(self):
         for pos in self.open_positions:
             if pos.closed:
                 continue
             inst_id = f"{pos.symbol}-USDT-SWAP"
-            existing_algos = self.ex.get_algo_orders(inst_id, [pos.sl_algo_id, pos.tp_algo_id])
+            try:
+                existing_algos = self.ex.get_algo_orders(inst_id, [pos.sl_algo_id, pos.tp_algo_id])
+            except Exception as e:
+                logger.warning(f"Error al verificar protección de {pos.symbol}: {e}")
+                continue
             sl_found = any(a["algoId"] == pos.sl_algo_id and a.get("slTriggerPx", "0") != "0" for a in existing_algos) if pos.sl_algo_id else False
             tp_found = any(a["algoId"] == pos.tp_algo_id and a.get("tpTriggerPx", "0") != "0" for a in existing_algos) if pos.tp_algo_id else False
             if not sl_found or not tp_found:
@@ -129,20 +146,23 @@ class TradingBot:
                     if new_tp >= last_price:
                         new_tp = last_price * 0.98
                         pos.tp = new_tp
-                self.ex.create_algo_order(
-                    pos.symbol,
-                    pos.side,
-                    pos.size,
-                    tp_price=new_tp if not tp_found else None,
-                    sl_price=new_sl if not sl_found else None,
-                )
-                new_algos = self.ex.get_algo_orders(inst_id)
-                for a in new_algos:
-                    if a.get("slTriggerPx", "0") != "0":
-                        pos.sl_algo_id = a["algoId"]
-                    if a.get("tpTriggerPx", "0") != "0":
-                        pos.tp_algo_id = a["algoId"]
-                self.store.save(self.open_positions)
+                try:
+                    self.ex.create_algo_order(
+                        pos.symbol,
+                        pos.side,
+                        pos.size,
+                        tp_price=new_tp if not tp_found else None,
+                        sl_price=new_sl if not sl_found else None,
+                    )
+                    new_algos = self.ex.get_algo_orders(inst_id)
+                    for a in new_algos:
+                        if a.get("slTriggerPx", "0") != "0":
+                            pos.sl_algo_id = a["algoId"]
+                        if a.get("tpTriggerPx", "0") != "0":
+                            pos.tp_algo_id = a["algoId"]
+                    self.store.save(self.open_positions)
+                except Exception as e:
+                    logger.error(f"Error recreando protección para {pos.symbol}: {e}")
 
     def _apply_micro_filter(self, signals):
         filtered = []
@@ -160,13 +180,17 @@ class TradingBot:
         now = datetime.utcnow()
         key = (symbol, now.replace(second=0, microsecond=0))
         if key not in self._data_1m:
-            df1 = self.ex.fetch_candles(symbol, "1m", 60)
-            if df1 is not None and len(df1) >= 20:
-                self._data_1m[key] = df1
-            else:
-                time.sleep(1)
+            try:
                 df1 = self.ex.fetch_candles(symbol, "1m", 60)
-                self._data_1m[key] = df1 if (df1 is not None and len(df1) >= 20) else None
+                if df1 is not None and len(df1) >= 20:
+                    self._data_1m[key] = df1
+                else:
+                    time.sleep(2)
+                    df1 = self.ex.fetch_candles(symbol, "1m", 60)
+                    self._data_1m[key] = df1 if (df1 is not None and len(df1) >= 20) else None
+            except Exception as e:
+                logger.warning(f"Error obteniendo 1m para {symbol}: {e}")
+                self._data_1m[key] = None
         return self._data_1m.get(key)
 
     def handle_event(self, pos, event):
@@ -178,97 +202,125 @@ class TradingBot:
 
         if action in ("MOVE_SL", "ACTIVATE_TP_TRAIL"):
             if pos.sl_algo_id:
-                self.ex.amend_algo_order(f"{pos.symbol}-USDT-SWAP", pos.sl_algo_id, new_sl=price)
-                logger.info(f"SL movido a {price:.4f} para {pos.symbol}")
-                pos.sl = price
-                self.sm.save_trailing_event({
-                    "time": datetime.utcnow().isoformat(),
-                    "symbol": pos.symbol,
-                    "action": action,
-                    "new_sl": price,
-                })
+                try:
+                    self.ex.amend_algo_order(f"{pos.symbol}-USDT-SWAP", pos.sl_algo_id, new_sl=price)
+                    logger.info(f"SL movido a {price:.4f} para {pos.symbol}")
+                    pos.sl = price
+                    self.sm.save_trailing_event({
+                        "time": datetime.utcnow().isoformat(),
+                        "symbol": pos.symbol,
+                        "action": action,
+                        "new_sl": price,
+                    })
+                except Exception as e:
+                    logger.error(f"Error moviendo SL de {pos.symbol}: {e}")
             if action == "ACTIVATE_TP_TRAIL":
                 pos.trailing.tp_trail_active = True
         elif action == "CLOSE":
             if pos.pos_id and not pos.closed:
-                self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
-                if pos.side == "long":
-                    pnl_gross = (price - pos.entry) * pos.size
-                else:
-                    pnl_gross = (pos.entry - price) * pos.size
-                comm = pos.size * price * COMMISSION_RATE
-                net = pnl_gross - comm
-                trade = {
-                    "symbol": pos.symbol,
-                    "entry": pos.entry,
-                    "exit": price,
-                    "pnl_net": net,
-                    "reason": reason,
-                    "hold_minutes": (datetime.utcnow() - pos.open_time).total_seconds() / 60,
-                    "time": datetime.utcnow().isoformat(),
-                }
-                self.trades.append(trade)
-                self.sm.save_trade(trade)
-                logger.info(f"Posición cerrada: {pos.symbol} {reason} PnL: {net:.2f}")
-                self.dashboard.print_summary() if self.dashboard else None
-                pos.closed = True
-                pos.exit_price = price
-                pos.reason = reason
-                self.open_positions.remove(pos)
-                self.sm.save_positions(self.open_positions)
+                try:
+                    self.ex.close_position(pos.symbol, pos_id=pos.pos_id, pos_side=pos.side)
+                    if pos.side == "long":
+                        pnl_gross = (price - pos.entry) * pos.size
+                    else:
+                        pnl_gross = (pos.entry - price) * pos.size
+                    comm = pos.size * price * COMMISSION_RATE
+                    net = pnl_gross - comm
+                    trade = {
+                        "symbol": pos.symbol,
+                        "entry": pos.entry,
+                        "exit": price,
+                        "pnl_net": net,
+                        "reason": reason,
+                        "hold_minutes": (datetime.utcnow() - pos.open_time).total_seconds() / 60,
+                        "time": datetime.utcnow().isoformat(),
+                    }
+                    self.trades.append(trade)
+                    self.sm.save_trade(trade)
+                    logger.info(f"Posición cerrada: {pos.symbol} {reason} PnL: {net:.2f}")
+                    if self.dashboard:
+                        self.dashboard.print_summary(force=True)
+                    pos.closed = True
+                    pos.exit_price = price
+                    pos.reason = reason
+                    self.open_positions.remove(pos)
+                    self.sm.save_positions(self.open_positions)
+                except Exception as e:
+                    logger.error(f"Error cerrando posición {pos.symbol}: {e}")
 
     def fetch_data(self):
         d5, d15 = {}, {}
         for sym in UNIVERSO:
-            df5 = self.ex.fetch_candles(sym, "5m", 200)
-            if df5 is not None and len(df5) >= 60:
-                d5[sym] = df5
-                idx = df5.set_index("ts")
-                df15 = idx["close"].resample("15min", label="right").last().dropna()
-                if len(df15) >= 20:
-                    d15[sym] = pd.DataFrame({"close": df15})
+            try:
+                df5 = self.ex.fetch_candles(sym, "5m", 200)
+                if df5 is not None and len(df5) >= 60:
+                    d5[sym] = df5
+                    idx = df5.set_index("ts")
+                    df15 = idx["close"].resample("15min", label="right").last().dropna()
+                    if len(df15) >= 20:
+                        d15[sym] = pd.DataFrame({"close": df15})
+            except Exception as e:
+                logger.warning(f"Error obteniendo datos para {sym}: {e}")
+                self.consecutive_timeouts += 1
+                if self.consecutive_timeouts > 5:
+                    logger.critical("Demasiados timeouts consecutivos. Esperando 30 segundos...")
+                    time.sleep(30)
+                    self.consecutive_timeouts = 0
         return d5, d15
 
     def place_order_with_retry(self, symbol, side, entry_price, tp, sl, pos_side):
+        # 🔥 Throttling: esperar si se ha enviado una orden recientemente
+        now = time.time()
+        if now - self._last_order_time < self._min_order_interval:
+            time.sleep(self._min_order_interval - (now - self._last_order_time))
+        self._last_order_time = time.time()
+
         factor = self.rm.get_factor(symbol)
         logger.info(f"{symbol}: factor inicial {factor:.4f}")
         for attempt in range(MAX_SIZE_RETRIES):
-            size = self.rm.calculate_size(entry_price, symbol, self.ex, factor)
-            if size <= 0:
-                logger.error(f"{symbol}: tamaño inválido con factor {factor:.4f}")
-                factor = max(MIN_MARGIN_FACTOR, factor - FACTOR_STEP)
-                continue
-            info = self.ex.get_instrument_info(symbol)
-            margin_required = (size * entry_price) / LEVERAGE if info else 0
-            logger.info(f"Intento {attempt + 1}: factor={factor:.4f} size={size} margen_req={margin_required:.2f} margen_disp={self.rm.current:.2f}")
-            resp, avg_price = self.ex.place_market_order(symbol, side, size, mode="swap", tp_price=tp, sl_price=sl, pos_side=pos_side)
-            self.sm.save_order({
-                "time": datetime.utcnow().isoformat(),
-                "symbol": symbol,
-                "side": side,
-                "size": size,
-                "factor": factor,
-                "attempt": attempt + 1,
-                "success": resp.get("code") == "0",
-                "response": resp,
-                "avg_price": avg_price,
-            })
-            if resp.get("code") == "0":
-                self.rm.set_factor(symbol, factor)
-                self.rm.record_success(symbol)
-                return resp, size, avg_price
-            elif resp.get("code") == "1":
-                s_code = resp.get("data", [{}])[0].get("sCode", "")
-                if s_code == "51008":
-                    logger.warning(f"{symbol}: 51008 – reduciendo factor")
-                    self.rm.record_failure(symbol)
+            try:
+                size = self.rm.calculate_size(entry_price, symbol, self.ex, factor)
+                if size <= 0:
+                    logger.error(f"{symbol}: tamaño inválido con factor {factor:.4f}")
                     factor = max(MIN_MARGIN_FACTOR, factor - FACTOR_STEP)
+                    continue
+                info = self.ex.get_instrument_info(symbol)
+                margin_required = (size * entry_price) / LEVERAGE if info else 0
+                logger.info(f"Intento {attempt + 1}: factor={factor:.4f} size={size} margen_req={margin_required:.2f} margen_disp={self.rm.current:.2f}")
+                resp, avg_price = self.ex.place_market_order(
+                    symbol, side, size, mode="swap", tp_price=tp, sl_price=sl, pos_side=pos_side
+                )
+                self.sm.save_order({
+                    "time": datetime.utcnow().isoformat(),
+                    "symbol": symbol,
+                    "side": side,
+                    "size": size,
+                    "factor": factor,
+                    "attempt": attempt + 1,
+                    "success": resp.get("code") == "0",
+                    "response": resp,
+                    "avg_price": avg_price,
+                })
+                if resp.get("code") == "0":
+                    self.rm.set_factor(symbol, factor)
+                    self.rm.record_success(symbol)
+                    self.consecutive_timeouts = 0
+                    return resp, size, avg_price
+                elif resp.get("code") == "1":
+                    s_code = resp.get("data", [{}])[0].get("sCode", "")
+                    if s_code == "51008":
+                        logger.warning(f"{symbol}: 51008 – reduciendo factor")
+                        self.rm.record_failure(symbol)
+                        factor = max(MIN_MARGIN_FACTOR, factor - FACTOR_STEP)
+                    else:
+                        logger.error(f"{symbol}: error {s_code}")
+                        return None, 0, None
                 else:
-                    logger.error(f"{symbol}: error {s_code}")
+                    logger.error(f"Error en orden: {resp}")
                     return None, 0, None
-            else:
-                logger.error(f"Error en orden: {resp}")
-                return None, 0, None
+            except Exception as e:
+                logger.error(f"Excepción al colocar orden para {symbol}: {e}")
+                time.sleep(2 ** attempt)
         logger.error(f"{symbol}: no se encontró tamaño válido")
         return None, 0, None
 
@@ -296,129 +348,141 @@ class TradingBot:
             self.dashboard = Dashboard(self.sm, 0.0)
 
         last_dashboard_time = datetime.utcnow()
+        cycle = 0
         while self.running:
-            now = datetime.utcnow()
-            bal = self.ex.get_balance()
-            self.rm.update(bal)
-            self.equity.append(bal)
-            self.stage = calculate_capital_stage(bal) if bal > 0 else "micro"
-            kill_active = self.rm.check_kill()
-            if kill_active:
-                logger.warning("Kill switch activo: no se abrirán nuevas posiciones.")
-            else:
-                d5, d15 = self.fetch_data()
-                self.verify_protection()
-                for pos in self.open_positions[:]:
-                    if pos.closed:
-                        continue
-                    symbol = pos.symbol
-                    if symbol not in d5:
-                        continue
-                    df5 = d5[symbol]
-                    candle_5m = df5.iloc[-1] if not df5.empty else None
-                    if candle_5m is None:
-                        continue
-                    df1 = self._get_1m_data(symbol)
-                    df15 = d15.get(symbol)
-                    event = pos.trailing.evaluate(candle_5m, df5, df1, df15)
-                    self.handle_event(pos, event)
-
-                if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
-                    signals = self.strat.generate_signals(d5, d15, bal)
-                    if signals:
-                        if bal < MICRO_CAPITAL_THRESHOLD:
-                            signals = self._apply_micro_filter(signals)
-                        signals = rank_signals(signals, d5)
-                        for sig in signals:
-                            if len([p for p in self.open_positions if not p.closed]) >= MAX_POSITIONS:
-                                break
-                            self.sm.save_signal(sig)
-                            pos_side = "long" if sig["direction"].lower() == "long" else "short"
-                            if not self.ex.set_leverage(sig["symbol"], LEVERAGE, pos_side):
-                                logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
+            try:
+                cycle += 1
+                now = datetime.utcnow()
+                bal = self.ex.get_balance()
+                self.rm.update(bal)
+                self.equity.append(bal)
+                self.stage = calculate_capital_stage(bal) if bal > 0 else "micro"
+                kill_active = self.rm.check_kill()
+                if kill_active:
+                    logger.warning("Kill switch activo: no se abrirán nuevas posiciones.")
+                else:
+                    d5, d15 = self.fetch_data()
+                    if d5:
+                        self.verify_protection()
+                        for pos in self.open_positions[:]:
+                            if pos.closed:
                                 continue
-                            resp, size, avg_price = self.place_order_with_retry(
-                                sig["symbol"],
-                                "buy" if sig["direction"] == "Long" else "sell",
-                                sig["entry"],
-                                sig["tp"],
-                                sig["sl"],
-                                pos_side,
-                            )
-                            if resp is None:
+                            symbol = pos.symbol
+                            if symbol not in d5:
                                 continue
+                            df5 = d5[symbol]
+                            candle_5m = df5.iloc[-1] if not df5.empty else None
+                            if candle_5m is None:
+                                continue
+                            df1 = self._get_1m_data(symbol)
+                            df15 = d15.get(symbol)
+                            try:
+                                event = pos.trailing.evaluate(candle_5m, df5, df1, df15)
+                                self.handle_event(pos, event)
+                            except Exception as e:
+                                logger.error(f"Error evaluando trailing para {symbol}: {e}")
 
-                            entry_real = avg_price if avg_price else sig["entry"]
-                            if avg_price:
-                                logger.info(f"Usando precio de ejecución real: {avg_price:.4f} (vs calculado {sig['entry']:.4f})")
-                                if abs(avg_price - sig["entry"]) / sig["entry"] > 0.001:
-                                    atr_val = sig.get("atr", 0.01)
-                                    if sig["direction"] == "Long":
-                                        tp_real = avg_price + atr_val * TP_MULT_INIT
-                                        sl_real = avg_price - atr_val * SL_MULT_INIT
-                                    else:
-                                        tp_real = avg_price - atr_val * TP_MULT_INIT
-                                        sl_real = avg_price + atr_val * SL_MULT_INIT
-                                    sig["tp"] = tp_real
-                                    sig["sl"] = sl_real
-
-                            time.sleep(1)
-                            positions = self.ex.get_positions()
-                            pos_id = None
-                            for p in positions:
-                                if p["instId"] == f"{sig['symbol']}-USDT-SWAP" and p["posSide"] == pos_side:
-                                    pos_id = p["posId"]
-                                    break
-                            if not pos_id:
-                                time.sleep(2)
-                                positions = self.ex.get_positions()
-                                for p in positions:
-                                    if p["instId"] == f"{sig['symbol']}-USDT-SWAP" and p["posSide"] == pos_side:
-                                        pos_id = p["posId"]
+                        if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
+                            signals = self.strat.generate_signals(d5, d15, bal)
+                            if signals:
+                                if bal < MICRO_CAPITAL_THRESHOLD:
+                                    signals = self._apply_micro_filter(signals)
+                                signals = rank_signals(signals, d5)
+                                for sig in signals:
+                                    if len([p for p in self.open_positions if not p.closed]) >= MAX_POSITIONS:
                                         break
-                            if not pos_id:
-                                logger.error("No se pudo obtener pos_id. Abortando entrada.")
-                                continue
+                                    self.sm.save_signal(sig)
+                                    pos_side = "long" if sig["direction"].lower() == "long" else "short"
+                                    if not self.ex.set_leverage(sig["symbol"], LEVERAGE, pos_side):
+                                        logger.error(f"No se pudo configurar apalancamiento para {sig['symbol']}. Cancelando.")
+                                        continue
+                                    resp, size, avg_price = self.place_order_with_retry(
+                                        sig["symbol"],
+                                        "buy" if sig["direction"] == "Long" else "sell",
+                                        sig["entry"],
+                                        sig["tp"],
+                                        sig["sl"],
+                                        pos_side,
+                                    )
+                                    if resp is None:
+                                        continue
 
-                            algo_resp = self.ex.create_algo_order(
-                                sig["symbol"], pos_side, size, tp_price=sig["tp"], sl_price=sig["sl"]
-                            )
-                            sl_algo_id = tp_algo_id = None
-                            if algo_resp and algo_resp.get("code") == "0":
-                                for algo in algo_resp["data"]:
-                                    if algo.get("slTriggerPx", "0") != "0":
-                                        sl_algo_id = algo["algoId"]
-                                    if algo.get("tpTriggerPx", "0") != "0":
-                                        tp_algo_id = algo["algoId"]
-                            else:
-                                logger.error("Fallo al crear órdenes TP/SL.")
+                                    entry_real = avg_price if avg_price else sig["entry"]
+                                    if avg_price:
+                                        logger.info(f"Usando precio de ejecución real: {avg_price:.4f} (vs calculado {sig['entry']:.4f})")
+                                        if abs(avg_price - sig["entry"]) / sig["entry"] > 0.001:
+                                            atr_val = sig.get("atr", 0.01)
+                                            if sig["direction"] == "Long":
+                                                tp_real = avg_price + atr_val * TP_MULT_INIT
+                                                sl_real = avg_price - atr_val * SL_MULT_INIT
+                                            else:
+                                                tp_real = avg_price - atr_val * TP_MULT_INIT
+                                                sl_real = avg_price + atr_val * SL_MULT_INIT
+                                            sig["tp"] = tp_real
+                                            sig["sl"] = sl_real
 
-                            pos = Position(
-                                sig["symbol"],
-                                sig["direction"].lower(),
-                                entry_real,
-                                size,
-                                sig["tp"],
-                                sig["sl"],
-                                datetime.utcnow(),
-                                ord_id=None,
-                                sl_algo_id=sl_algo_id,
-                                tp_algo_id=tp_algo_id,
-                                pos_id=pos_id,
-                            )
-                            pos.trailing = TrailingEngine(entry_real, datetime.utcnow(), sig["symbol"], sig["direction"].lower())
-                            pos.trailing.tp = sig["tp"]
-                            pos.trailing.sl = sig["sl"]
-                            self.open_positions.append(pos)
-                            self.sm.save_positions(self.open_positions)
-                            logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={size})")
+                                    time.sleep(1)
+                                    positions = self.ex.get_positions()
+                                    pos_id = None
+                                    for p in positions:
+                                        if p["instId"] == f"{sig['symbol']}-USDT-SWAP" and p["posSide"] == pos_side:
+                                            pos_id = p["posId"]
+                                            break
+                                    if not pos_id:
+                                        time.sleep(2)
+                                        positions = self.ex.get_positions()
+                                        for p in positions:
+                                            if p["instId"] == f"{sig['symbol']}-USDT-SWAP" and p["posSide"] == pos_side:
+                                                pos_id = p["posId"]
+                                                break
+                                    if not pos_id:
+                                        logger.error("No se pudo obtener pos_id. Abortando entrada.")
+                                        continue
 
-            self.sm.save_positions(self.open_positions)
-            push_state_to_git()
-            if (now - last_dashboard_time).total_seconds() >= 300:
-                self.dashboard.print_summary()
-                last_dashboard_time = now
-            time.sleep(SLEEP_INTERVAL)
+                                    algo_resp = self.ex.create_algo_order(
+                                        sig["symbol"], pos_side, size, tp_price=sig["tp"], sl_price=sig["sl"]
+                                    )
+                                    sl_algo_id = tp_algo_id = None
+                                    if algo_resp and algo_resp.get("code") == "0":
+                                        for algo in algo_resp["data"]:
+                                            if algo.get("slTriggerPx", "0") != "0":
+                                                sl_algo_id = algo["algoId"]
+                                            if algo.get("tpTriggerPx", "0") != "0":
+                                                tp_algo_id = algo["algoId"]
+                                    else:
+                                        logger.error("Fallo al crear órdenes TP/SL.")
+
+                                    pos = Position(
+                                        sig["symbol"],
+                                        sig["direction"].lower(),
+                                        entry_real,
+                                        size,
+                                        sig["tp"],
+                                        sig["sl"],
+                                        datetime.utcnow(),
+                                        ord_id=None,
+                                        sl_algo_id=sl_algo_id,
+                                        tp_algo_id=tp_algo_id,
+                                        pos_id=pos_id,
+                                    )
+                                    pos.trailing = TrailingEngine(entry_real, datetime.utcnow(), sig["symbol"], sig["direction"].lower())
+                                    pos.trailing.tp = sig["tp"]
+                                    pos.trailing.sl = sig["sl"]
+                                    self.open_positions.append(pos)
+                                    self.sm.save_positions(self.open_positions)
+                                    logger.info(f"Nueva posición: {sig['symbol']} {sig['direction']} (sz={size})")
+
+                self.sm.save_positions(self.open_positions)
+                push_state_to_git()
+                if self.dashboard and (cycle % self.dashboard.print_interval == 0):
+                    self.dashboard.print_summary(force=True)
+                time.sleep(SLEEP_INTERVAL)
+            except KeyboardInterrupt:
+                logger.info("🛑 Bot detenido por usuario.")
+                break
+            except Exception as e:
+                logger.error(f"Error inesperado en ciclo principal: {e}", exc_info=True)
+                time.sleep(60)
 
         final_equity = self.ex.get_balance()
         metrics = compute_all(self.trades, self.equity, self.dashboard.initial_balance)

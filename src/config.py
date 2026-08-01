@@ -15,7 +15,7 @@ load_dotenv()
 # =============================================================================
 # MODO DE OPERACIÓN (CAMBIAR AQUÍ PARA SELECCIONAR PERFIL)
 # =============================================================================
-MODE_SELECTION = "ULTRA"  # Opciones: "DEBUG", "LIGHT", "ULTRA"
+MODE_SELECTION = "DEBUG"  # Opciones: "DEBUG", "LIGHT", "ULTRA"
 
 # =============================================================================
 # EXCHANGE

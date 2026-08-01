@@ -26,19 +26,22 @@ class StrategyRamaB:
             if abs(score) < self.min_score:
                 continue
 
-            # ---------- 2. ADX y KER ----------
+            # ---------- 2. Dirección (definida ANTES de cualquier filtro) ----------
+            direction = "Long" if score > 0 else "Short"
+
+            # ---------- 3. ADX y KER ----------
             adx_val = adx(df5, ADX_PERIOD).iloc[-1]
             ker_val = ker(df5["close"], KER_PERIOD).iloc[-1]
             if adx_val < self.adx_threshold or ker_val < self.ker_threshold:
                 continue
 
-            # ---------- 3. Régimen ----------
+            # ---------- 4. Régimen ----------
             regime, _, _ = classify_regime(df5)
             regime_params = get_regime_params(regime)
             if regime_params.get("no_trade", False):
                 continue
 
-            # ---------- 4. Filtro horario ----------
+            # ---------- 5. Filtro horario ----------
             now = datetime.utcnow()
             hour = now.hour
             day = now.weekday()
@@ -47,34 +50,30 @@ class StrategyRamaB:
             if day not in ACTIVE_DAYS:
                 continue
 
-            # ---------- 5. RSI ----------
+            # ---------- 6. RSI ----------
             if RSI_ENABLED:
                 rsi_val = rsi(df5["close"], RSI_PERIOD).iloc[-1]
-                direction = "Long" if score > 0 else "Short"
                 if direction == "Long" and (rsi_val < RSI_OVERSOLD or rsi_val > 75):
                     continue
                 if direction == "Short" and (rsi_val < 25 or rsi_val > RSI_OVERBOUGHT):
                     continue
 
-            # ---------- 6. MACD ----------
+            # ---------- 7. MACD ----------
             if MACD_ENABLED:
                 macd_line, signal_line, _ = macd(df5["close"], MACD_FAST, MACD_SLOW, MACD_SIGNAL)
-                direction = "Long" if score > 0 else "Short"
                 if direction == "Long" and macd_line.iloc[-1] <= signal_line.iloc[-1]:
                     continue
                 if direction == "Short" and macd_line.iloc[-1] >= signal_line.iloc[-1]:
                     continue
 
-            # ---------- 7. Volatilidad (ATR%) ----------
+            # ---------- 8. Volatilidad (ATR%) ----------
             entry = df5.iloc[-1]["close"]
             atr_val = atr(df5, 12).iloc[-1]
             atr_pct = atr_val / entry * 100
-            # 🔥 Ampliado rango para DEBUG
             if atr_pct < 0.3 or atr_pct > 3.5:
                 continue
 
-            # ---------- 8. Confirmación en 15m (opcional) ----------
-            # 🔥 Desactivado en DEBUG para más señales
+            # ---------- 9. Confirmación en 15m (opcional) ----------
             if MODE_SELECTION != "DEBUG":
                 df15 = data_15m.get(symbol)
                 if df15 is not None and len(df15) > 20:
@@ -85,7 +84,7 @@ class StrategyRamaB:
                     if direction == "Short" and current > ema15:
                         continue
 
-            # ---------- 9. Time Score ----------
+            # ---------- 10. Time Score ----------
             if TIME_SCORE_ENABLED:
                 hour_utc = datetime.utcnow().hour
                 vol_ratio = 1.0
@@ -97,7 +96,7 @@ class StrategyRamaB:
                 if ts < TIME_SCORE_THRESHOLD and abs(score) < TIME_SCORE_MIN_FOR_ENTRY:
                     continue
 
-            # ---------- 10. TP / SL ----------
+            # ---------- 11. TP / SL ----------
             tp_mult = regime_params.get("tp_mult", TP_MULT_INIT)
             sl_mult = regime_params.get("sl_mult", SL_MULT_INIT)
             if direction == "Long":
@@ -107,7 +106,7 @@ class StrategyRamaB:
                 tp = min(entry - atr_val * tp_mult, entry * (1 - MIN_TP_DISTANCE_PCT))
                 sl = max(entry + atr_val * sl_mult, entry * (1 + MIN_SL_DISTANCE_PCT))
 
-            # ---------- 11. Ranking ----------
+            # ---------- 12. Ranking ----------
             opp_rank = self._opportunity_rank(df5, adx_val, ker_val, score)
 
             signals.append(

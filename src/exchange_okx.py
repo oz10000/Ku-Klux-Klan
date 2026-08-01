@@ -1,5 +1,5 @@
 # exchange_okx.py
-# Krishna Omega Ultra V9.1.1 — Cliente OKX con validación de ejecución
+# Krishna Omega Ultra V9.1.1 — Cliente OKX con timeout 60s y reconexión
 
 import time
 import base64
@@ -27,6 +27,7 @@ class OKXClient:
         self.session = requests.Session()
         self.session.headers.update({"User-Agent": "KrishnaOmega/2.0"})
         self._server_time_offset = 0.0
+        self._timeout = 60  # 🔥 AUMENTADO A 60 SEGUNDOS
         self._sync_time()
 
     def _swap_id(self, sym):
@@ -37,7 +38,7 @@ class OKXClient:
 
     def _sync_time(self):
         try:
-            resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=10)
+            resp = requests.get(f"{self.base_url}/api/v5/public/time", timeout=self._timeout)
             server_ts = float(resp.json()["data"][0]["ts"]) / 1000.0
             self._server_time_offset = server_ts - time.time()
             logger.info(f"Sincronización horaria: offset {self._server_time_offset:.3f}s")
@@ -77,9 +78,9 @@ class OKXClient:
             url = self.base_url + request_path
             try:
                 if method == "GET":
-                    resp = self.session.get(url, headers=headers, timeout=15)
+                    resp = self.session.get(url, headers=headers, timeout=self._timeout)
                 else:
-                    resp = self.session.post(url, headers=headers, data=body_str, timeout=15)
+                    resp = self.session.post(url, headers=headers, data=body_str, timeout=self._timeout)
                 data = resp.json()
                 if data.get("code") != "0":
                     err_data = data.get("data", [{}])[0] if data.get("data") else {}
@@ -93,9 +94,18 @@ class OKXClient:
                         time.sleep(2 ** attempt)
                         continue
                 return data
+            except requests.exceptions.Timeout:
+                logger.error(f"Timeout en {request_path} (intento {attempt+1}/{retries})")
+                if attempt < retries - 1:
+                    time.sleep(2 ** attempt)
+                    continue
+                else:
+                    raise
             except Exception as e:
                 logger.error(f"Request exception: {e}")
-                time.sleep(2 ** attempt)
+                if attempt < retries - 1:
+                    time.sleep(2 ** attempt)
+                    continue
         return {"code": "-1", "msg": "Retries exhausted"}
 
     def _public_request(self, method, path, params=None):
@@ -103,7 +113,7 @@ class OKXClient:
         if params:
             url += "?" + urllib.parse.urlencode(sorted(params.items()))
         try:
-            resp = requests.get(url, timeout=10)
+            resp = requests.get(url, timeout=self._timeout)
             return resp.json()
         except Exception as e:
             logger.error(f"Public request error: {e}")
@@ -293,7 +303,6 @@ class OKXClient:
             break
         return resp
 
-    # 🔧 CORREGIDO: nombres de columna estándar
     def fetch_candles(self, symbol, bar="5m", limit=200):
         inst_id = self._swap_id(symbol)
         resp = self._request("GET", "/api/v5/market/candles", params={"instId": inst_id, "bar": bar, "limit": limit})

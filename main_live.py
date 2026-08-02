@@ -1,10 +1,11 @@
 # main_live.py
-# Krishna Omega Ultra V9.1.1 — Bucle principal con throttling y dashboard optimizado
+# Krishna Omega Ultra V9.1.1 — Bucle principal con limpieza de estado en DEBUG
 
 #!/usr/bin/env python3
 
 import time
 import os
+import shutil
 import subprocess
 from datetime import datetime
 import pandas as pd
@@ -26,6 +27,20 @@ GITHUB_TOKEN = os.getenv("GH_TOKEN")
 REPO = os.getenv("GITHUB_REPOSITORY", "")
 STATE_BRANCH = "state-storage"
 _git_push_counter = 0
+
+# 🔥 LIMPIAR ESTADO EN MODO DEBUG
+if MODE_SELECTION == "DEBUG":
+    state_dir = "state"
+    metrics_dir = "metrics"
+    if os.path.exists(state_dir):
+        shutil.rmtree(state_dir)
+        logger.info("🧹 Estado antiguo eliminado (DEBUG mode)")
+    if os.path.exists(metrics_dir):
+        shutil.rmtree(metrics_dir)
+        logger.info("🧹 Métricas antiguas eliminadas (DEBUG mode)")
+    # Recrear directorios vacíos
+    os.makedirs(state_dir, exist_ok=True)
+    os.makedirs(metrics_dir, exist_ok=True)
 
 def push_state_to_git():
     global _git_push_counter
@@ -59,7 +74,7 @@ class Dashboard:
         self.initial_balance = initial_balance
         self.last_print_time = None
         self.last_trade_count = 0
-        self.print_interval = 20  # 🔥 Reducido a cada 20 ciclos (antes cada ciclo)
+        self.print_interval = 20
 
     def record_trade(self, pnl):
         pass
@@ -111,7 +126,8 @@ class TradingBot:
         self.sm.save_positions(self.open_positions)
         self.consecutive_timeouts = 0
         self._last_order_time = 0
-        self._min_order_interval = 5  # segundos entre órdenes (throttling)
+        self._min_order_interval = 5
+        self._cycle_count = 0
 
     def verify_protection(self):
         for pos in self.open_positions:
@@ -269,10 +285,9 @@ class TradingBot:
         return d5, d15
 
     def place_order_with_retry(self, symbol, side, entry_price, tp, sl, pos_side):
-        # 🔥 Throttling: esperar si se ha enviado una orden recientemente
-        now = time.time()
-        if now - self._last_order_time < self._min_order_interval:
-            time.sleep(self._min_order_interval - (now - self._last_order_time))
+        now_time = time.time()
+        if now_time - self._last_order_time < self._min_order_interval:
+            time.sleep(self._min_order_interval - (now_time - self._last_order_time))
         self._last_order_time = time.time()
 
         factor = self.rm.get_factor(symbol)
@@ -352,6 +367,7 @@ class TradingBot:
         while self.running:
             try:
                 cycle += 1
+                self._cycle_count = cycle
                 now = datetime.utcnow()
                 bal = self.ex.get_balance()
                 self.rm.update(bal)
@@ -384,6 +400,9 @@ class TradingBot:
 
                         if len([p for p in self.open_positions if not p.closed]) < MAX_POSITIONS:
                             signals = self.strat.generate_signals(d5, d15, bal)
+                            # 🔥 Log de cuántas señales se generaron
+                            if cycle % 5 == 0:  # cada 5 ciclos
+                                logger.info(f"Ciclo {cycle}: {len(signals)} señales generadas para {len(UNIVERSO)} activos")
                             if signals:
                                 if bal < MICRO_CAPITAL_THRESHOLD:
                                     signals = self._apply_micro_filter(signals)

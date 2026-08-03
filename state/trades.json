@@ -1,11 +1,74 @@
 [
   {
     "symbol": "DOT",
-    "entry": 0.792,
-    "exit": 0.7891,
-    "pnl_net": -6.052613920000024,
+    "entry": 0.81,
+    "exit": 0.813,
+    "pnl_net": 3.648928799999832,
+    "reason": "VelocityExit",
+    "hold_minutes": 40.560550166666665,
+    "time": "2026-08-03T12:56:08.081810"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.8138740477727567,
+    "exit": 0.815,
+    "pnl_net": 0.7341519999997321,
+    "reason": "VelocityExit",
+    "hold_minutes": 15.71029375,
+    "time": "2026-08-03T13:13:02.912015"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.828,
+    "exit": 0.829,
+    "pnl_net": 0.49711680000000125,
+    "reason": "VelocityExit",
+    "hold_minutes": 13.794143033333334,
+    "time": "2026-08-03T14:06:05.976992"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.828,
+    "exit": 0.8228,
+    "pnl_net": -8.968965439999973,
     "reason": "SL",
-    "hold_minutes": 27.339371816666667,
-    "time": "2026-08-03T05:33:03.605823"
+    "hold_minutes": 9.029889950000001,
+    "time": "2026-08-03T14:15:11.330974"
+  },
+  {
+    "symbol": "LINK",
+    "entry": 8.279,
+    "exit": 8.2438,
+    "pnl_net": -6.189845423999952,
+    "reason": "SL",
+    "hold_minutes": 80.03173028333335,
+    "time": "2026-08-03T15:35:27.117732"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.826,
+    "exit": 0.8220999999999999,
+    "pnl_net": -6.590405280000022,
+    "reason": "SL",
+    "hold_minutes": 21.2261243,
+    "time": "2026-08-03T16:16:41.875744"
+  },
+  {
+    "symbol": "ETH",
+    "entry": 1866.49,
+    "exit": 1867.87,
+    "pnl_net": -0.07086352000007323,
+    "reason": "VelocityExit",
+    "hold_minutes": 3.61220055,
+    "time": "2026-08-03T17:34:41.635461"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.829,
+    "exit": 0.83,
+    "pnl_net": 0.4660320000000012,
+    "reason": "VelocityExit",
+    "hold_minutes": 28.422023116666665,
+    "time": "2026-08-03T18:03:10.513166"
   }
 ]

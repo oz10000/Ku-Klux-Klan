@@ -2,13 +2,5 @@
   "DOT": {
     "factor": 0.98,
     "consecutive_success": 1
-  },
-  "LINK": {
-    "factor": 0.98,
-    "consecutive_success": 1
-  },
-  "ETH": {
-    "factor": 1.0,
-    "consecutive_success": 1
   }
 }

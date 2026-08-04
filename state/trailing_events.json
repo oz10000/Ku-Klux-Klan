@@ -1,0 +1,854 @@
+[
+  {
+    "time": "2026-08-04T00:10:04.979754",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1865.1127800000002
+  },
+  {
+    "time": "2026-08-04T00:10:39.536357",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1865.1127800000002
+  },
+  {
+    "time": "2026-08-04T00:11:14.463954",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1865.1127800000002
+  },
+  {
+    "time": "2026-08-04T00:11:49.159817",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1864.94244
+  },
+  {
+    "time": "2026-08-04T00:12:24.279565",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1863.76008
+  },
+  {
+    "time": "2026-08-04T00:12:58.963645",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1862.2671
+  },
+  {
+    "time": "2026-08-04T00:13:33.898105",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1862.23704
+  },
+  {
+    "time": "2026-08-04T00:14:08.900109",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1862.23704
+  },
+  {
+    "time": "2026-08-04T00:14:43.483490",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1862.23704
+  },
+  {
+    "time": "2026-08-04T00:15:18.452766",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1862.23704
+  },
+  {
+    "time": "2026-08-04T00:15:53.175040",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1861.22502
+  },
+  {
+    "time": "2026-08-04T00:16:27.997554",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1861.22502
+  },
+  {
+    "time": "2026-08-04T00:17:02.868725",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1860.18294
+  },
+  {
+    "time": "2026-08-04T00:17:37.642500",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1860.18294
+  },
+  {
+    "time": "2026-08-04T00:18:13.132874",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:18:47.845887",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:19:23.032729",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:19:57.835829",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:20:32.752826",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:21:07.671969",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:21:42.388715",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:22:17.413710",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:22:51.983999",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:23:26.896034",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:24:01.799405",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:24:36.506523",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:25:11.513882",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:25:46.154034",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:26:21.105853",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:26:55.741011",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:27:30.627249",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:28:05.551425",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1859.59176
+  },
+  {
+    "time": "2026-08-04T00:28:40.156880",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.42944
+  },
+  {
+    "time": "2026-08-04T00:29:15.063907",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.4094
+  },
+  {
+    "time": "2026-08-04T00:29:49.628551",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.4094
+  },
+  {
+    "time": "2026-08-04T00:30:24.668204",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.2591
+  },
+  {
+    "time": "2026-08-04T00:30:59.317908",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.08876
+  },
+  {
+    "time": "2026-08-04T00:31:34.429223",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1858.08876
+  },
+  {
+    "time": "2026-08-04T00:32:09.545963",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1857.33726
+  },
+  {
+    "time": "2026-08-04T00:32:44.310273",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1857.33726
+  },
+  {
+    "time": "2026-08-04T00:33:19.354261",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1857.2871599999999
+  },
+  {
+    "time": "2026-08-04T00:33:53.994783",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1856.54568
+  },
+  {
+    "time": "2026-08-04T00:34:28.993993",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1856.54568
+  },
+  {
+    "time": "2026-08-04T00:35:04.084900",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1856.1348600000001
+  },
+  {
+    "time": "2026-08-04T00:35:38.745565",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1853.74008
+  },
+  {
+    "time": "2026-08-04T00:36:13.785152",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1853.74008
+  },
+  {
+    "time": "2026-08-04T00:36:48.471239",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1853.74008
+  },
+  {
+    "time": "2026-08-04T00:37:23.441311",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1853.74008
+  },
+  {
+    "time": "2026-08-04T00:37:58.114727",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1853.74008
+  },
+  {
+    "time": "2026-08-04T00:38:33.131076",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:39:08.052717",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:39:42.687483",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:40:17.604720",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:40:52.277031",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:41:27.358717",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.4976
+  },
+  {
+    "time": "2026-08-04T00:42:03.380131",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1852.0968
+  },
+  {
+    "time": "2026-08-04T00:42:38.105578",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:43:13.113124",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:43:47.856650",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:44:23.002095",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:44:58.636657",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:45:34.535840",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:46:09.585883",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:46:44.479200",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:47:19.576366",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:47:54.181922",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:48:29.074094",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:49:04.183157",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:49:44.371572",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:50:24.005486",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:51:03.092083",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:51:42.641101",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:52:22.140516",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:53:01.142455",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:53:37.065215",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:54:13.036380",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:54:53.265855",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:55:28.215668",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:56:03.262446",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:56:37.762666",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:57:12.610935",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:57:47.182892",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:58:22.240262",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:58:56.965565",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T00:59:31.993378",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:00:07.007620",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:00:41.605780",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:01:16.715848",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:01:56.775307",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:02:36.193672",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:03:11.167950",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:03:46.000080",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:04:21.076501",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:04:55.752629",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:05:36.161794",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:06:11.210738",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:06:45.966256",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:07:20.920523",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:08:01.149523",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:08:36.259378",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:09:16.785623",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:09:56.031338",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:10:35.625687",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:11:15.107741",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:11:54.482331",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:12:29.509118",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:13:11.901201",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:13:46.827167",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:14:22.918346",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:15:02.936026",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:15:42.701890",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:16:22.507997",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:16:57.550432",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:17:32.517332",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:18:08.595018",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:18:48.825818",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:19:28.421009",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:20:08.040438",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:20:47.294042",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:21:26.953727",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:22:06.447278",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:22:45.669581",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:23:25.242860",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:24:04.407532",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:24:43.935324",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:25:23.537713",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:26:02.762390",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:26:42.539229",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:27:25.132637",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:28:51.538741",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:30:00.095608",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:30:43.475101",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:31:23.249784",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:32:02.807408",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:32:43.032354",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:33:22.978740",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:34:02.482567",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:34:42.345531",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:35:21.889062",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:36:01.286604",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:36:41.747283",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  },
+  {
+    "time": "2026-08-04T01:37:21.695935",
+    "symbol": "ETH",
+    "action": "MOVE_SL",
+    "new_sl": 1851.70602
+  }
+]

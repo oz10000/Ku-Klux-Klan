@@ -1,83 +1,20 @@
 [
   {
-    "symbol": "ETH",
-    "entry": 1864.8,
-    "exit": 1861.77,
-    "pnl_net": 0.9243503999999837,
-    "reason": "VelocityExit",
-    "hold_minutes": 88.02859400000001,
-    "time": "2026-08-04T01:38:01.235250"
-  },
-  {
     "symbol": "DOT",
-    "entry": 0.836,
-    "exit": 0.8328,
-    "pnl_net": -5.149831679999974,
+    "entry": 0.829,
+    "exit": 0.826,
+    "pnl_net": -3.865804800000003,
     "reason": "SL",
-    "hold_minutes": 1.3420343000000001,
-    "time": "2026-08-04T01:39:35.387012"
+    "hold_minutes": 9.74319635,
+    "time": "2026-08-04T13:55:12.172169"
   },
   {
     "symbol": "DOT",
-    "entry": 0.833,
-    "exit": 0.837,
-    "pnl_net": 4.326189600000005,
+    "entry": 0.826,
+    "exit": 0.825,
+    "pnl_net": 0.351900000000001,
     "reason": "VelocityExit",
-    "hold_minutes": 13.317916666666667,
-    "time": "2026-08-04T01:52:57.984752"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.839,
-    "exit": 0.841,
-    "pnl_net": 1.7452680000000025,
-    "reason": "VelocityExit",
-    "hold_minutes": 0.6730227833333333,
-    "time": "2026-08-04T01:53:41.841586"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.84,
-    "exit": 0.835,
-    "pnl_net": -7.770828000000006,
-    "reason": "SL",
-    "hold_minutes": 12.65479445,
-    "time": "2026-08-04T02:06:24.576653"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.838,
-    "exit": 0.84,
-    "pnl_net": 1.7609280000000025,
-    "reason": "VelocityExit",
-    "hold_minutes": 8.246776233333334,
-    "time": "2026-08-04T02:15:53.725443"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.842,
-    "exit": 0.846,
-    "pnl_net": 4.183908800000005,
-    "reason": "VelocityExit",
-    "hold_minutes": 31.496562166666667,
-    "time": "2026-08-04T02:47:26.982506"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.847,
-    "exit": 0.8398,
-    "pnl_net": -10.54039375999998,
-    "reason": "SL",
-    "hold_minutes": 29.835820216666665,
-    "time": "2026-08-04T03:17:20.514565"
-  },
-  {
-    "symbol": "DOT",
-    "entry": 0.844,
-    "exit": 0.839,
-    "pnl_net": -7.264807200000005,
-    "reason": "SL",
-    "hold_minutes": 9.0757569,
-    "time": "2026-08-04T04:04:48.692705"
+    "hold_minutes": 24.189430616666666,
+    "time": "2026-08-04T14:19:26.759316"
   }
 ]

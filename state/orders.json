@@ -1,0 +1,56 @@
+[
+  {
+    "time": "2026-08-08T14:30:51.570522",
+    "symbol": "BNB",
+    "side": "buy",
+    "size": 1.0,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3815039942784155648",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786199450296"
+        }
+      ],
+      "inTime": "1786199450295344",
+      "msg": "",
+      "outTime": "1786199450298456"
+    },
+    "avg_price": 611.3
+  },
+  {
+    "time": "2026-08-08T14:37:34.237006",
+    "symbol": "BNB",
+    "side": "buy",
+    "size": 1.0,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3815053454851932160",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786199852987"
+        }
+      ],
+      "inTime": "1786199852986358",
+      "msg": "",
+      "outTime": "1786199852988941"
+    },
+    "avg_price": 608.4
+  }
+]

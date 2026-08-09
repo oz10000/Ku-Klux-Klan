@@ -1,0 +1,11 @@
+[
+  {
+    "symbol": "DOT",
+    "entry": 0.808,
+    "exit": 0.807,
+    "pnl_net": 0.2519784000000006,
+    "reason": "VelocityExit",
+    "hold_minutes": 3.8321566666666667,
+    "time": "2026-08-09T18:01:18.603887"
+  }
+]

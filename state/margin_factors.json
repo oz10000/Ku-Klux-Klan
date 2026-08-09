@@ -1,6 +1,6 @@
 {
-  "BNB": {
-    "factor": 1.0,
+  "DOT": {
+    "factor": 0.98,
     "consecutive_success": 1
   }
 }

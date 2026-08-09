@@ -1,56 +1,83 @@
 [
   {
-    "time": "2026-08-08T14:30:51.570522",
-    "symbol": "BNB",
+    "time": "2026-08-09T09:52:01.545485",
+    "symbol": "DOT",
     "side": "buy",
-    "size": 1.0,
+    "size": 759.0,
     "factor": 1.0,
     "attempt": 1,
-    "success": true,
+    "success": false,
     "response": {
-      "code": "0",
+      "code": "1",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3815039942784155648",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
           "tag": "",
-          "ts": "1786199450296"
+          "ts": "1786269121470"
         }
       ],
-      "inTime": "1786199450295344",
-      "msg": "",
-      "outTime": "1786199450298456"
+      "inTime": "1786269121469837",
+      "msg": "All operations failed",
+      "outTime": "1786269121470653"
     },
-    "avg_price": 611.3
+    "avg_price": null
   },
   {
-    "time": "2026-08-08T14:37:34.237006",
-    "symbol": "BNB",
+    "time": "2026-08-09T09:52:05.428610",
+    "symbol": "DOT",
     "side": "buy",
-    "size": 1.0,
-    "factor": 1.0,
-    "attempt": 1,
+    "size": 751.0,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1786269125350"
+        }
+      ],
+      "inTime": "1786269125349733",
+      "msg": "All operations failed",
+      "outTime": "1786269125352080"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-09T09:52:06.748993",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 744.0,
+    "factor": 0.98,
+    "attempt": 3,
     "success": true,
     "response": {
       "code": "0",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3815053454851932160",
+          "ordId": "3817377854913740800",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786199852987"
+          "ts": "1786269125507"
         }
       ],
-      "inTime": "1786199852986358",
+      "inTime": "1786269125506796",
       "msg": "",
-      "outTime": "1786199852988941"
+      "outTime": "1786269125507599"
     },
-    "avg_price": 608.4
+    "avg_price": 0.8068657258064517
   }
 ]

@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "symbol": "ETH",
+    "side": "short",
+    "entry": 1866.94,
+    "size": 0.25,
+    "tp": 1853.0549999999998,
+    "sl": 1861.284,
+    "open_time": "2026-08-11T15:36:49.779425",
+    "ord_id": null,
+    "sl_algo_id": "3824298527023468544",
+    "tp_algo_id": "3824298527023468544",
+    "pos_id": "3823870020741730305",
+    "closed": false,
+    "exit_price": null,
+    "reason": null
+  }
+]

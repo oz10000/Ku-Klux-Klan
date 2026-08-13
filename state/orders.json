@@ -1,9 +1,9 @@
 [
   {
-    "time": "2026-08-12T20:08:48.809867",
+    "time": "2026-08-13T12:12:45.846410",
     "symbol": "DOT",
     "side": "buy",
-    "size": 503.0,
+    "size": 480.0,
     "factor": 1.0,
     "attempt": 1,
     "success": false,
@@ -17,22 +17,49 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1786565328733"
+          "ts": "1786623165786"
         }
       ],
-      "inTime": "1786565328732319",
+      "inTime": "1786623165785255",
       "msg": "All operations failed",
-      "outTime": "1786565328734782"
+      "outTime": "1786623165787656"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-12T20:08:52.743582",
+    "time": "2026-08-13T12:12:50.733623",
     "symbol": "DOT",
     "side": "buy",
-    "size": 498.0,
+    "size": 475.0,
     "factor": 0.99,
     "attempt": 2,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3829257601042055168",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786623169531"
+        }
+      ],
+      "inTime": "1786623169530564",
+      "msg": "",
+      "outTime": "1786623169533300"
+    },
+    "avg_price": 0.774
+  },
+  {
+    "time": "2026-08-13T12:13:31.842677",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 453.0,
+    "factor": 0.99,
+    "attempt": 1,
     "success": false,
     "response": {
       "code": "1",
@@ -44,47 +71,47 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1786565332664"
+          "ts": "1786623211781"
         }
       ],
-      "inTime": "1786565332663322",
+      "inTime": "1786623211780134",
       "msg": "All operations failed",
-      "outTime": "1786565332665899"
+      "outTime": "1786623211783006"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-12T20:08:54.128850",
+    "time": "2026-08-13T12:13:33.120020",
     "symbol": "DOT",
     "side": "buy",
-    "size": 493.0,
+    "size": 449.0,
     "factor": 0.98,
-    "attempt": 3,
+    "attempt": 2,
     "success": true,
     "response": {
       "code": "0",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3827316923693236224",
+          "ordId": "3829259023179546624",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786565332839"
+          "ts": "1786623211914"
         }
       ],
-      "inTime": "1786565332839256",
+      "inTime": "1786623211912643",
       "msg": "",
-      "outTime": "1786565332840036"
+      "outTime": "1786623211915282"
     },
-    "avg_price": 0.7839578093306289
+    "avg_price": 0.771
   },
   {
-    "time": "2026-08-12T21:28:20.934640",
+    "time": "2026-08-13T12:50:34.692689",
     "symbol": "DOT",
     "side": "buy",
-    "size": 484.0,
+    "size": 440.0,
     "factor": 0.98,
     "attempt": 1,
     "success": true,
@@ -93,25 +120,25 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3827476871798554624",
+          "ordId": "3829333566833262592",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786570099664"
+          "ts": "1786625433488"
         }
       ],
-      "inTime": "1786570099662847",
+      "inTime": "1786625433487241",
       "msg": "",
-      "outTime": "1786570099665413"
+      "outTime": "1786625433490095"
     },
-    "avg_price": 0.776
+    "avg_price": 0.7797775000000001
   },
   {
-    "time": "2026-08-12T21:33:08.682308",
+    "time": "2026-08-13T15:05:16.517626",
     "symbol": "DOT",
     "side": "buy",
-    "size": 470.0,
+    "size": 448.0,
     "factor": 0.98,
     "attempt": 1,
     "success": true,
@@ -120,25 +147,25 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3827486525979066368",
+          "ordId": "3829604746874032128",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786570387381"
+          "ts": "1786633515283"
         }
       ],
-      "inTime": "1786570387381246",
+      "inTime": "1786633515282055",
       "msg": "",
-      "outTime": "1786570387382535"
+      "outTime": "1786633515285117"
     },
-    "avg_price": 0.776
+    "avg_price": 0.789
   },
   {
-    "time": "2026-08-12T22:01:23.701001",
+    "time": "2026-08-13T15:10:09.210308",
     "symbol": "DOT",
     "side": "buy",
-    "size": 455.0,
+    "size": 434.0,
     "factor": 0.98,
     "attempt": 1,
     "success": true,
@@ -147,45 +174,18 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3827543402251255808",
+          "ordId": "3829614568692482048",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786572082426"
+          "ts": "1786633807996"
         }
       ],
-      "inTime": "1786572082425962",
+      "inTime": "1786633807994196",
       "msg": "",
-      "outTime": "1786572082426980"
+      "outTime": "1786633807998290"
     },
-    "avg_price": 0.7737804395604396
-  },
-  {
-    "time": "2026-08-12T22:20:25.985411",
-    "symbol": "DOT",
-    "side": "buy",
-    "size": 452.0,
-    "factor": 0.98,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3827581730472296448",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1786573224696"
-        }
-      ],
-      "inTime": "1786573224696097",
-      "msg": "",
-      "outTime": "1786573224697651"
-    },
-    "avg_price": 0.7845130530973452
+    "avg_price": 0.787
   }
 ]

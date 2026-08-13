@@ -1,10 +1,91 @@
 [
   {
-    "time": "2026-08-12T10:03:02.232199",
-    "symbol": "ETH",
+    "time": "2026-08-12T20:08:48.809867",
+    "symbol": "DOT",
     "side": "buy",
-    "size": 0.22,
+    "size": 503.0,
     "factor": 1.0,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1786565328733"
+        }
+      ],
+      "inTime": "1786565328732319",
+      "msg": "All operations failed",
+      "outTime": "1786565328734782"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-12T20:08:52.743582",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 498.0,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1786565332664"
+        }
+      ],
+      "inTime": "1786565332663322",
+      "msg": "All operations failed",
+      "outTime": "1786565332665899"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-12T20:08:54.128850",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 493.0,
+    "factor": 0.98,
+    "attempt": 3,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3827316923693236224",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786565332839"
+        }
+      ],
+      "inTime": "1786565332839256",
+      "msg": "",
+      "outTime": "1786565332840036"
+    },
+    "avg_price": 0.7839578093306289
+  },
+  {
+    "time": "2026-08-12T21:28:20.934640",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 484.0,
+    "factor": 0.98,
     "attempt": 1,
     "success": true,
     "response": {
@@ -12,18 +93,99 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3826097156772827136",
+          "ordId": "3827476871798554624",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1786528980952"
+          "ts": "1786570099664"
         }
       ],
-      "inTime": "1786528980950886",
+      "inTime": "1786570099662847",
       "msg": "",
-      "outTime": "1786528980953698"
+      "outTime": "1786570099665413"
     },
-    "avg_price": 1911.68
+    "avg_price": 0.776
+  },
+  {
+    "time": "2026-08-12T21:33:08.682308",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 470.0,
+    "factor": 0.98,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3827486525979066368",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786570387381"
+        }
+      ],
+      "inTime": "1786570387381246",
+      "msg": "",
+      "outTime": "1786570387382535"
+    },
+    "avg_price": 0.776
+  },
+  {
+    "time": "2026-08-12T22:01:23.701001",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 455.0,
+    "factor": 0.98,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3827543402251255808",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786572082426"
+        }
+      ],
+      "inTime": "1786572082425962",
+      "msg": "",
+      "outTime": "1786572082426980"
+    },
+    "avg_price": 0.7737804395604396
+  },
+  {
+    "time": "2026-08-12T22:20:25.985411",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 452.0,
+    "factor": 0.98,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3827581730472296448",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1786573224696"
+        }
+      ],
+      "inTime": "1786573224696097",
+      "msg": "",
+      "outTime": "1786573224697651"
+    },
+    "avg_price": 0.7845130530973452
   }
 ]

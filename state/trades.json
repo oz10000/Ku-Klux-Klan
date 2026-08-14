@@ -1,20 +1,38 @@
 [
   {
     "symbol": "DOT",
-    "entry": 0.774,
-    "exit": 0.771,
-    "pnl_net": -1.356300000000001,
-    "reason": "SL",
-    "hold_minutes": 6.662238033333334,
-    "time": "2026-08-13T21:37:04.033495"
+    "entry": 0.761,
+    "exit": 0.762,
+    "pnl_net": 0.1370304000000003,
+    "reason": "VelocityExit",
+    "hold_minutes": 1.1525724333333334,
+    "time": "2026-08-14T11:54:37.976257"
   },
   {
     "symbol": "DOT",
-    "entry": 0.784,
-    "exit": 0.78,
-    "pnl_net": -1.6507680000000013,
-    "reason": "SL",
-    "hold_minutes": 12.191441916666667,
-    "time": "2026-08-13T21:58:25.514261"
+    "entry": 0.761,
+    "exit": 0.762,
+    "pnl_net": 0.13156480000000031,
+    "reason": "VelocityExit",
+    "hold_minutes": 1.1532821833333335,
+    "time": "2026-08-14T11:55:54.034689"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.76,
+    "exit": 0.761,
+    "pnl_net": 0.12792240000000027,
+    "reason": "VelocityExit",
+    "hold_minutes": 1.1210940333333332,
+    "time": "2026-08-14T11:57:04.236133"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.767,
+    "exit": 0.774,
+    "pnl_net": 2.0290944000000017,
+    "reason": "VelocityExit",
+    "hold_minutes": 1.1541243333333333,
+    "time": "2026-08-14T11:58:48.568988"
   }
 ]

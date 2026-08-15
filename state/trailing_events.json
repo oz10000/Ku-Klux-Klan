@@ -1,0 +1,188 @@
+[
+  {
+    "time": "2026-08-15T01:57:38.412607",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.22525
+  },
+  {
+    "time": "2026-08-15T02:21:08.417768",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.499
+  },
+  {
+    "time": "2026-08-15T02:38:56.264548",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.607899999999999
+  },
+  {
+    "time": "2026-08-15T02:39:28.761526",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.607899999999999
+  },
+  {
+    "time": "2026-08-15T02:40:01.263561",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.607899999999999
+  },
+  {
+    "time": "2026-08-15T02:40:33.681893",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.607899999999999
+  },
+  {
+    "time": "2026-08-15T02:41:06.238261",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.607899999999999
+  },
+  {
+    "time": "2026-08-15T02:41:38.652682",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.6085125
+  },
+  {
+    "time": "2026-08-15T02:42:11.161334",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.6139875
+  },
+  {
+    "time": "2026-08-15T02:42:43.550150",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:43:16.036495",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:43:48.409200",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:44:21.034756",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:44:53.357430",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:45:25.840312",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:45:58.312534",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:46:30.801636",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:47:03.303131",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:47:35.669684",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:48:08.252470",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:48:40.563169",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:49:13.201340",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:49:45.601953",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:50:19.068731",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.624762500000001
+  },
+  {
+    "time": "2026-08-15T02:50:51.422914",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.63060875
+  },
+  {
+    "time": "2026-08-15T02:51:24.172607",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  },
+  {
+    "time": "2026-08-15T02:51:56.486638",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  },
+  {
+    "time": "2026-08-15T02:52:29.210032",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  },
+  {
+    "time": "2026-08-15T02:53:01.890429",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  },
+  {
+    "time": "2026-08-15T02:53:34.316752",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  },
+  {
+    "time": "2026-08-15T02:54:06.871504",
+    "symbol": "LINK",
+    "action": "MOVE_SL",
+    "new_sl": 9.639935000000001
+  }
+]

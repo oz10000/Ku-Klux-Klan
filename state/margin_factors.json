@@ -1,6 +1,14 @@
 {
+  "ETH": {
+    "factor": 1.0,
+    "consecutive_success": 1
+  },
   "DOT": {
     "factor": 0.98,
+    "consecutive_success": 1
+  },
+  "SOL": {
+    "factor": 0.99,
     "consecutive_success": 1
   }
 }

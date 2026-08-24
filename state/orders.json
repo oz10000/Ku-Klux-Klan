@@ -1,1980 +1,63 @@
 [
   {
-    "time": "2026-08-24T08:15:39.884940",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559339803"
-        }
-      ],
-      "inTime": "1787559339802709",
-      "msg": "All operations failed",
-      "outTime": "1787559339803085"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:15:44.852171",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559344771"
-        }
-      ],
-      "inTime": "1787559344771462",
-      "msg": "All operations failed",
-      "outTime": "1787559344771646"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:16:21.018573",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559380937"
-        }
-      ],
-      "inTime": "1787559380937359",
-      "msg": "All operations failed",
-      "outTime": "1787559380937644"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:16:25.985504",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559385903"
-        }
-      ],
-      "inTime": "1787559385903596",
-      "msg": "All operations failed",
-      "outTime": "1787559385903850"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:16:31.233566",
+    "time": "2026-08-24T17:31:29.703957",
     "symbol": "DOT",
     "side": "sell",
-    "size": 107.0,
+    "size": 1.0,
     "factor": 1.0,
     "attempt": 1,
-    "success": false,
+    "success": true,
     "response": {
-      "code": "1",
+      "code": "0",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
+          "ordId": "3861789257883684864",
+          "sCode": "0",
+          "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1787559391153"
+          "ts": "1787592688456"
         }
       ],
-      "inTime": "1787559391152912",
-      "msg": "All operations failed",
-      "outTime": "1787559391153182"
+      "inTime": "1787592688456315",
+      "msg": "",
+      "outTime": "1787592688457534"
     },
-    "avg_price": null
+    "avg_price": 0.897
   },
   {
-    "time": "2026-08-24T08:17:07.434811",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559427337"
-        }
-      ],
-      "inTime": "1787559427336818",
-      "msg": "All operations failed",
-      "outTime": "1787559427337095"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:17:12.405497",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559432324"
-        }
-      ],
-      "inTime": "1787559432324543",
-      "msg": "All operations failed",
-      "outTime": "1787559432324786"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:17:48.675793",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559468563"
-        }
-      ],
-      "inTime": "1787559468563036",
-      "msg": "All operations failed",
-      "outTime": "1787559468563370"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:17:53.646815",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559473567"
-        }
-      ],
-      "inTime": "1787559473567281",
-      "msg": "All operations failed",
-      "outTime": "1787559473567534"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:17:58.662110",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559478581"
-        }
-      ],
-      "inTime": "1787559478581071",
-      "msg": "All operations failed",
-      "outTime": "1787559478581300"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:18:03.841878",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.02,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559483762"
-        }
-      ],
-      "inTime": "1787559483762141",
-      "msg": "All operations failed",
-      "outTime": "1787559483762380"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:18:40.011257",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559519930"
-        }
-      ],
-      "inTime": "1787559519930143",
-      "msg": "All operations failed",
-      "outTime": "1787559519930426"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:18:45.041028",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559524932"
-        }
-      ],
-      "inTime": "1787559524931783",
-      "msg": "All operations failed",
-      "outTime": "1787559524932094"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:19:21.354822",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559561275"
-        }
-      ],
-      "inTime": "1787559561274766",
-      "msg": "All operations failed",
-      "outTime": "1787559561275091"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:19:26.410097",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559566330"
-        }
-      ],
-      "inTime": "1787559566329973",
-      "msg": "All operations failed",
-      "outTime": "1787559566330230"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:20:02.612553",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559602531"
-        }
-      ],
-      "inTime": "1787559602530705",
-      "msg": "All operations failed",
-      "outTime": "1787559602531005"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:20:38.757752",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559638676"
-        }
-      ],
-      "inTime": "1787559638676354",
-      "msg": "All operations failed",
-      "outTime": "1787559638676643"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:20:44.049868",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.8,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559643968"
-        }
-      ],
-      "inTime": "1787559643968578",
-      "msg": "All operations failed",
-      "outTime": "1787559643968827"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:20:48.792838",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559648688"
-        }
-      ],
-      "inTime": "1787559648688484",
-      "msg": "All operations failed",
-      "outTime": "1787559648688770"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:21:24.874996",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559684794"
-        }
-      ],
-      "inTime": "1787559684794557",
-      "msg": "All operations failed",
-      "outTime": "1787559684794832"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:21:30.005986",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.8,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559689902"
-        }
-      ],
-      "inTime": "1787559689902431",
-      "msg": "All operations failed",
-      "outTime": "1787559689902678"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:22:06.413179",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559726332"
-        }
-      ],
-      "inTime": "1787559726332111",
-      "msg": "All operations failed",
-      "outTime": "1787559726332579"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:22:11.328103",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559731246"
-        }
-      ],
-      "inTime": "1787559731246390",
-      "msg": "All operations failed",
-      "outTime": "1787559731246642"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:22:47.763921",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559767654"
-        }
-      ],
-      "inTime": "1787559767654438",
-      "msg": "All operations failed",
-      "outTime": "1787559767654673"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:22:52.714050",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559772632"
-        }
-      ],
-      "inTime": "1787559772632583",
-      "msg": "All operations failed",
-      "outTime": "1787559772632868"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:23:28.979446",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559808900"
-        }
-      ],
-      "inTime": "1787559808899667",
-      "msg": "All operations failed",
-      "outTime": "1787559808900065"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:23:33.865395",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559813785"
-        }
-      ],
-      "inTime": "1787559813785149",
-      "msg": "All operations failed",
-      "outTime": "1787559813785455"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:23:38.948390",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559818869"
-        }
-      ],
-      "inTime": "1787559818868805",
-      "msg": "All operations failed",
-      "outTime": "1787559818869021"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:23:43.889421",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.02,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559823787"
-        }
-      ],
-      "inTime": "1787559823787143",
-      "msg": "All operations failed",
-      "outTime": "1787559823787403"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:24:20.265158",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559860164"
-        }
-      ],
-      "inTime": "1787559860163776",
-      "msg": "All operations failed",
-      "outTime": "1787559860164047"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:24:25.295988",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.8,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559865216"
-        }
-      ],
-      "inTime": "1787559865216299",
-      "msg": "All operations failed",
-      "outTime": "1787559865216536"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:24:30.249301",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559870168"
-        }
-      ],
-      "inTime": "1787559870167831",
-      "msg": "All operations failed",
-      "outTime": "1787559870168118"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:24:35.294217",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.02,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559875213"
-        }
-      ],
-      "inTime": "1787559875212762",
-      "msg": "All operations failed",
-      "outTime": "1787559875213080"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:25:11.540782",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559911460"
-        }
-      ],
-      "inTime": "1787559911460302",
-      "msg": "All operations failed",
-      "outTime": "1787559911460560"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:25:16.463061",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559916383"
-        }
-      ],
-      "inTime": "1787559916382783",
-      "msg": "All operations failed",
-      "outTime": "1787559916383024"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:25:21.499853",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559921390"
-        }
-      ],
-      "inTime": "1787559921390194",
-      "msg": "All operations failed",
-      "outTime": "1787559921390471"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:25:57.706555",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559957626"
-        }
-      ],
-      "inTime": "1787559957626205",
-      "msg": "All operations failed",
-      "outTime": "1787559957626469"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:02.658792",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559962568"
-        }
-      ],
-      "inTime": "1787559962567827",
-      "msg": "All operations failed",
-      "outTime": "1787559962568192"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:07.720001",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787559967639"
-        }
-      ],
-      "inTime": "1787559967638933",
-      "msg": "All operations failed",
-      "outTime": "1787559967639131"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:43.864031",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560003783"
-        }
-      ],
-      "inTime": "1787560003783578",
-      "msg": "All operations failed",
-      "outTime": "1787560003783826"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:48.831499",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560008750"
-        }
-      ],
-      "inTime": "1787560008749831",
-      "msg": "All operations failed",
-      "outTime": "1787560008750125"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:53.886167",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560013782"
-        }
-      ],
-      "inTime": "1787560013782442",
-      "msg": "All operations failed",
-      "outTime": "1787560013782695"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:26:58.858853",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560018777"
-        }
-      ],
-      "inTime": "1787560018777257",
-      "msg": "All operations failed",
-      "outTime": "1787560018777527"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:27:35.064636",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560054984"
-        }
-      ],
-      "inTime": "1787560054984592",
-      "msg": "All operations failed",
-      "outTime": "1787560054984866"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:27:39.997220",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560059917"
-        }
-      ],
-      "inTime": "1787560059917189",
-      "msg": "All operations failed",
-      "outTime": "1787560059917456"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:27:44.966441",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560064886"
-        }
-      ],
-      "inTime": "1787560064886257",
-      "msg": "All operations failed",
-      "outTime": "1787560064886531"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:28:21.215144",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560101134"
-        }
-      ],
-      "inTime": "1787560101133924",
-      "msg": "All operations failed",
-      "outTime": "1787560101134187"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:28:26.192379",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560106111"
-        }
-      ],
-      "inTime": "1787560106111078",
-      "msg": "All operations failed",
-      "outTime": "1787560106111284"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:28:31.250908",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560111169"
-        }
-      ],
-      "inTime": "1787560111169051",
-      "msg": "All operations failed",
-      "outTime": "1787560111169337"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:28:36.230152",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560116121"
-        }
-      ],
-      "inTime": "1787560116121160",
-      "msg": "All operations failed",
-      "outTime": "1787560116121470"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:29:12.616456",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560152535"
-        }
-      ],
-      "inTime": "1787560152535238",
-      "msg": "All operations failed",
-      "outTime": "1787560152535512"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:29:17.633318",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560157529"
-        }
-      ],
-      "inTime": "1787560157529639",
-      "msg": "All operations failed",
-      "outTime": "1787560157529987"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:29:22.620726",
-    "symbol": "ETH",
-    "side": "sell",
-    "size": 0.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560162540"
-        }
-      ],
-      "inTime": "1787560162540383",
-      "msg": "All operations failed",
-      "outTime": "1787560162540655"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:29:27.654884",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560167574"
-        }
-      ],
-      "inTime": "1787560167574153",
-      "msg": "All operations failed",
-      "outTime": "1787560167574360"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:30:03.816704",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 8.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560203735"
-        }
-      ],
-      "inTime": "1787560203735008",
-      "msg": "All operations failed",
-      "outTime": "1787560203735256"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:30:08.865948",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 1.03,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560208762"
-        }
-      ],
-      "inTime": "1787560208761909",
-      "msg": "All operations failed",
-      "outTime": "1787560208762180"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:30:13.817225",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560213735"
-        }
-      ],
-      "inTime": "1787560213734805",
-      "msg": "All operations failed",
-      "outTime": "1787560213735131"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:31:22.183450",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560282079"
-        }
-      ],
-      "inTime": "1787560282078985",
-      "msg": "All operations failed",
-      "outTime": "1787560282079461"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:32:30.640028",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 443.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560350559"
-        }
-      ],
-      "inTime": "1787560350559439",
-      "msg": "All operations failed",
-      "outTime": "1787560350559691"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:35:15.533281",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560515453"
-        }
-      ],
-      "inTime": "1787560515452819",
-      "msg": "All operations failed",
-      "outTime": "1787560515453107"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:35:20.554930",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560520473"
-        }
-      ],
-      "inTime": "1787560520473754",
-      "msg": "All operations failed",
-      "outTime": "1787560520473999"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:35:56.695992",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560556616"
-        }
-      ],
-      "inTime": "1787560556616274",
-      "msg": "All operations failed",
-      "outTime": "1787560556616511"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:36:01.653242",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560561572"
-        }
-      ],
-      "inTime": "1787560561572531",
-      "msg": "All operations failed",
-      "outTime": "1787560561572750"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:36:37.780853",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 442.2,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560597701"
-        }
-      ],
-      "inTime": "1787560597700993",
-      "msg": "All operations failed",
-      "outTime": "1787560597701236"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:36:42.758846",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560602677"
-        }
-      ],
-      "inTime": "1787560602677391",
-      "msg": "All operations failed",
-      "outTime": "1787560602677641"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:36:48.014131",
+    "time": "2026-08-24T17:33:41.674078",
     "symbol": "LTC",
     "side": "sell",
-    "size": 1.8,
+    "size": 1.6,
     "factor": 1.0,
     "attempt": 1,
-    "success": false,
+    "success": true,
     "response": {
-      "code": "1",
+      "code": "0",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
+          "ordId": "3861793685860749312",
+          "sCode": "0",
+          "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1787560607934"
+          "ts": "1787592820420"
         }
       ],
-      "inTime": "1787560607933977",
-      "msg": "All operations failed",
-      "outTime": "1787560607934218"
+      "inTime": "1787592820420353",
+      "msg": "",
+      "outTime": "1787592820421842"
     },
-    "avg_price": null
+    "avg_price": 51.7625
   },
   {
-    "time": "2026-08-24T08:37:24.226844",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560644146"
-        }
-      ],
-      "inTime": "1787560644146615",
-      "msg": "All operations failed",
-      "outTime": "1787560644146829"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:37:29.215927",
+    "time": "2026-08-24T18:31:18.080437",
     "symbol": "ADA",
-    "side": "sell",
-    "size": 441.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560649135"
-        }
-      ],
-      "inTime": "1787560649134770",
-      "msg": "All operations failed",
-      "outTime": "1787560649135041"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:38:05.470868",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560685389"
-        }
-      ],
-      "inTime": "1787560685389370",
-      "msg": "All operations failed",
-      "outTime": "1787560685389690"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:38:10.476421",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560690395"
-        }
-      ],
-      "inTime": "1787560690394776",
-      "msg": "All operations failed",
-      "outTime": "1787560690395073"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:38:46.654440",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560726546"
-        }
-      ],
-      "inTime": "1787560726546492",
-      "msg": "All operations failed",
-      "outTime": "1787560726546752"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:38:51.599833",
-    "symbol": "ADA",
-    "side": "sell",
-    "size": 441.4,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560731519"
-        }
-      ],
-      "inTime": "1787560731519431",
-      "msg": "All operations failed",
-      "outTime": "1787560731519738"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T08:39:27.786282",
-    "symbol": "DOT",
-    "side": "sell",
-    "size": 107.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787560767694"
-        }
-      ],
-      "inTime": "1787560767694374",
-      "msg": "All operations failed",
-      "outTime": "1787560767694657"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-24T09:15:00.971024",
-    "symbol": "DOT",
     "side": "buy",
-    "size": 105.0,
+    "size": 385.3,
     "factor": 1.0,
     "attempt": 1,
     "success": false,
@@ -1988,74 +71,398 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787562900867"
+          "ts": "1787596278003"
         }
       ],
-      "inTime": "1787562900867004",
+      "inTime": "1787596278003181",
       "msg": "All operations failed",
-      "outTime": "1787562900868157"
+      "outTime": "1787596278004228"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-24T09:15:02.379705",
-    "symbol": "DOT",
+    "time": "2026-08-24T18:31:21.996803",
+    "symbol": "ADA",
     "side": "buy",
-    "size": 104.0,
+    "size": 381.5,
     "factor": 0.99,
     "attempt": 2,
-    "success": true,
+    "success": false,
     "response": {
-      "code": "0",
+      "code": "1",
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3860789758965022720",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
           "tag": "",
-          "ts": "1787562901067"
+          "ts": "1787596281923"
         }
       ],
-      "inTime": "1787562901065567",
-      "msg": "",
-      "outTime": "1787562901068778"
+      "inTime": "1787596281923483",
+      "msg": "All operations failed",
+      "outTime": "1787596281924458"
     },
-    "avg_price": 0.907
+    "avg_price": null
   },
   {
-    "time": "2026-08-24T11:01:59.396968",
+    "time": "2026-08-24T18:31:25.886613",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 377.6,
+    "factor": 0.98,
+    "attempt": 3,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596285808"
+        }
+      ],
+      "inTime": "1787596285808056",
+      "msg": "All operations failed",
+      "outTime": "1787596285809461"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:29.852008",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 373.8,
+    "factor": 0.97,
+    "attempt": 4,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596289774"
+        }
+      ],
+      "inTime": "1787596289773583",
+      "msg": "All operations failed",
+      "outTime": "1787596289774463"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:33.929327",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 369.9,
+    "factor": 0.96,
+    "attempt": 5,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596293849"
+        }
+      ],
+      "inTime": "1787596293849055",
+      "msg": "All operations failed",
+      "outTime": "1787596293850374"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:37.920172",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 366.1,
+    "factor": 0.95,
+    "attempt": 6,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596297841"
+        }
+      ],
+      "inTime": "1787596297841332",
+      "msg": "All operations failed",
+      "outTime": "1787596297842358"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:41.815338",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 362.2,
+    "factor": 0.94,
+    "attempt": 7,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596301741"
+        }
+      ],
+      "inTime": "1787596301741112",
+      "msg": "All operations failed",
+      "outTime": "1787596301742190"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:45.710873",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 358.4,
+    "factor": 0.9299999999999999,
+    "attempt": 8,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596305634"
+        }
+      ],
+      "inTime": "1787596305633442",
+      "msg": "All operations failed",
+      "outTime": "1787596305636099"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:49.574662",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 354.5,
+    "factor": 0.9199999999999999,
+    "attempt": 9,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596309501"
+        }
+      ],
+      "inTime": "1787596309500802",
+      "msg": "All operations failed",
+      "outTime": "1787596309501879"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:53.467795",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 350.7,
+    "factor": 0.9099999999999999,
+    "attempt": 10,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596313392"
+        }
+      ],
+      "inTime": "1787596313391771",
+      "msg": "All operations failed",
+      "outTime": "1787596313392752"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:31:57.425452",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 346.8,
+    "factor": 0.8999999999999999,
+    "attempt": 11,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596317348"
+        }
+      ],
+      "inTime": "1787596317348358",
+      "msg": "All operations failed",
+      "outTime": "1787596317349552"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:01.309860",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 343.0,
+    "factor": 0.8899999999999999,
+    "attempt": 12,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596321233"
+        }
+      ],
+      "inTime": "1787596321233375",
+      "msg": "All operations failed",
+      "outTime": "1787596321234448"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:05.216018",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 339.1,
+    "factor": 0.8799999999999999,
+    "attempt": 13,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596325138"
+        }
+      ],
+      "inTime": "1787596325137887",
+      "msg": "All operations failed",
+      "outTime": "1787596325138914"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:09.127589",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 335.2,
+    "factor": 0.8699999999999999,
+    "attempt": 14,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596329054"
+        }
+      ],
+      "inTime": "1787596329053794",
+      "msg": "All operations failed",
+      "outTime": "1787596329054820"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:13.024400",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 331.4,
+    "factor": 0.8599999999999999,
+    "attempt": 15,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787596332947"
+        }
+      ],
+      "inTime": "1787596332947269",
+      "msg": "All operations failed",
+      "outTime": "1787596332948254"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:17.202566",
     "symbol": "LINK",
-    "side": "sell",
-    "size": 8.1,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3861005078963126273",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787569318103"
-        }
-      ],
-      "inTime": "1787569318103098",
-      "msg": "",
-      "outTime": "1787569318104826"
-    },
-    "avg_price": 11.507
-  },
-  {
-    "time": "2026-08-24T11:17:11.870075",
-    "symbol": "XRP",
-    "side": "sell",
-    "size": 62.51,
+    "side": "buy",
+    "size": 7.3,
     "factor": 1.0,
     "attempt": 1,
     "success": false,
@@ -2065,17 +472,125 @@
         {
           "clOrdId": "",
           "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
           "tag": "",
-          "ts": "1787570231766"
+          "ts": "1787596337129"
         }
       ],
-      "inTime": "1787570231766071",
+      "inTime": "1787596337128723",
       "msg": "All operations failed",
-      "outTime": "1787570231766301"
+      "outTime": "1787596337129720"
     },
     "avg_price": null
+  },
+  {
+    "time": "2026-08-24T18:32:18.528058",
+    "symbol": "LINK",
+    "side": "buy",
+    "size": 7.2,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3861911692469571584",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787596337291"
+        }
+      ],
+      "inTime": "1787596337291184",
+      "msg": "",
+      "outTime": "1787596337292654"
+    },
+    "avg_price": 11.588
+  },
+  {
+    "time": "2026-08-24T18:39:31.575633",
+    "symbol": "LINK",
+    "side": "buy",
+    "size": 7.1,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3861926222679478272",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787596770325"
+        }
+      ],
+      "inTime": "1787596770324454",
+      "msg": "",
+      "outTime": "1787596770326025"
+    },
+    "avg_price": 11.566
+  },
+  {
+    "time": "2026-08-24T20:05:07.917546",
+    "symbol": "LTC",
+    "side": "sell",
+    "size": 1.5,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3862098569315192832",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787601906655"
+        }
+      ],
+      "inTime": "1787601906654862",
+      "msg": "",
+      "outTime": "1787601906656127"
+    },
+    "avg_price": 51.400666666666666
+  },
+  {
+    "time": "2026-08-24T20:09:57.882848",
+    "symbol": "ETH",
+    "side": "buy",
+    "size": 0.03,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3862108299395829760",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787602196634"
+        }
+      ],
+      "inTime": "1787602196633997",
+      "msg": "",
+      "outTime": "1787602196635434"
+    },
+    "avg_price": 2473.31
   }
 ]

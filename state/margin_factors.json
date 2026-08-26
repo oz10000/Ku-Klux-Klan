@@ -4,7 +4,7 @@
     "consecutive_success": 1
   },
   "SOL": {
-    "factor": 0.99,
+    "factor": 0.98,
     "consecutive_success": 1
   }
 }

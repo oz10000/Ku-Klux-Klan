@@ -1,10 +1,10 @@
 {
-  "ETH": {
-    "factor": 1.0,
+  "DOT": {
+    "factor": 0.99,
     "consecutive_success": 1
   },
-  "SOL": {
-    "factor": 0.98,
+  "LINK": {
+    "factor": 0.99,
     "consecutive_success": 1
   }
 }

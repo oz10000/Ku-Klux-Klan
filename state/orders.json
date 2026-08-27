@@ -1,36 +1,9 @@
 [
   {
-    "time": "2026-08-26T17:34:47.564261",
-    "symbol": "ETH",
+    "time": "2026-08-27T05:50:52.402978",
+    "symbol": "DOT",
     "side": "buy",
-    "size": 0.01,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3867594104222490624",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787765686358"
-        }
-      ],
-      "inTime": "1787765686357394",
-      "msg": "",
-      "outTime": "1787765686358818"
-    },
-    "avg_price": 2463.6
-  },
-  {
-    "time": "2026-08-26T21:25:33.902066",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 38.05,
+    "size": 52.0,
     "factor": 1.0,
     "attempt": 1,
     "success": false,
@@ -44,20 +17,101 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779533840"
+          "ts": "1787809852322"
         }
       ],
-      "inTime": "1787779533839887",
+      "inTime": "1787809852322221",
       "msg": "All operations failed",
-      "outTime": "1787779533841132"
+      "outTime": "1787809852323205"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:25:41.397307",
-    "symbol": "XRP",
+    "time": "2026-08-27T05:50:53.754993",
+    "symbol": "DOT",
     "side": "buy",
-    "size": 37.67,
+    "size": 51.0,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869076073762496512",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787809852492"
+        }
+      ],
+      "inTime": "1787809852491494",
+      "msg": "",
+      "outTime": "1787809852494158"
+    },
+    "avg_price": 0.875
+  },
+  {
+    "time": "2026-08-27T05:58:46.630214",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 54.0,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869091941217181696",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787810325379"
+        }
+      ],
+      "inTime": "1787810325378564",
+      "msg": "",
+      "outTime": "1787810325379551"
+    },
+    "avg_price": 0.876
+  },
+  {
+    "time": "2026-08-27T08:24:10.508112",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 244.1,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819050429"
+        }
+      ],
+      "inTime": "1787819050428449",
+      "msg": "All operations failed",
+      "outTime": "1787819050431070"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:14.466581",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 241.7,
     "factor": 0.99,
     "attempt": 2,
     "success": false,
@@ -71,20 +125,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779541336"
+          "ts": "1787819054387"
         }
       ],
-      "inTime": "1787779541335817",
+      "inTime": "1787819054387042",
       "msg": "All operations failed",
-      "outTime": "1787779541336924"
+      "outTime": "1787819054388097"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:25:45.136726",
-    "symbol": "XRP",
+    "time": "2026-08-27T08:24:18.421196",
+    "symbol": "ADA",
     "side": "buy",
-    "size": 37.29,
+    "size": 239.2,
     "factor": 0.98,
     "attempt": 3,
     "success": false,
@@ -98,20 +152,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779545077"
+          "ts": "1787819058341"
         }
       ],
-      "inTime": "1787779545075956",
+      "inTime": "1787819058340769",
       "msg": "All operations failed",
-      "outTime": "1787779545078323"
+      "outTime": "1787819058341770"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:25:49.346626",
-    "symbol": "XRP",
+    "time": "2026-08-27T08:24:22.409550",
+    "symbol": "ADA",
     "side": "buy",
-    "size": 36.91,
+    "size": 236.8,
     "factor": 0.97,
     "attempt": 4,
     "success": false,
@@ -125,182 +179,1154 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779549286"
+          "ts": "1787819062331"
         }
       ],
-      "inTime": "1787779549285142",
+      "inTime": "1787819062330519",
       "msg": "All operations failed",
-      "outTime": "1787779549287682"
+      "outTime": "1787819062332009"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:25:53.097887",
+    "time": "2026-08-27T08:24:26.401578",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 234.4,
+    "factor": 0.96,
+    "attempt": 5,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819066321"
+        }
+      ],
+      "inTime": "1787819066320191",
+      "msg": "All operations failed",
+      "outTime": "1787819066322711"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:30.340215",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 231.9,
+    "factor": 0.95,
+    "attempt": 6,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819070261"
+        }
+      ],
+      "inTime": "1787819070259837",
+      "msg": "All operations failed",
+      "outTime": "1787819070262483"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:34.288434",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 229.5,
+    "factor": 0.94,
+    "attempt": 7,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819074208"
+        }
+      ],
+      "inTime": "1787819074208298",
+      "msg": "All operations failed",
+      "outTime": "1787819074209497"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:38.230916",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 227.0,
+    "factor": 0.9299999999999999,
+    "attempt": 8,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819078152"
+        }
+      ],
+      "inTime": "1787819078151701",
+      "msg": "All operations failed",
+      "outTime": "1787819078152867"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:42.173600",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 224.6,
+    "factor": 0.9199999999999999,
+    "attempt": 9,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819082095"
+        }
+      ],
+      "inTime": "1787819082095480",
+      "msg": "All operations failed",
+      "outTime": "1787819082096410"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:46.115852",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 222.1,
+    "factor": 0.9099999999999999,
+    "attempt": 10,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819086037"
+        }
+      ],
+      "inTime": "1787819086037350",
+      "msg": "All operations failed",
+      "outTime": "1787819086038226"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:50.062817",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 219.7,
+    "factor": 0.8999999999999999,
+    "attempt": 11,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819089982"
+        }
+      ],
+      "inTime": "1787819089982331",
+      "msg": "All operations failed",
+      "outTime": "1787819089983154"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:54.041572",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 217.3,
+    "factor": 0.8899999999999999,
+    "attempt": 12,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819093963"
+        }
+      ],
+      "inTime": "1787819093962989",
+      "msg": "All operations failed",
+      "outTime": "1787819093963842"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:24:57.998889",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 214.8,
+    "factor": 0.8799999999999999,
+    "attempt": 13,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819097920"
+        }
+      ],
+      "inTime": "1787819097919655",
+      "msg": "All operations failed",
+      "outTime": "1787819097921059"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:01.950893",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 212.4,
+    "factor": 0.8699999999999999,
+    "attempt": 14,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819101872"
+        }
+      ],
+      "inTime": "1787819101870537",
+      "msg": "All operations failed",
+      "outTime": "1787819101873096"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:05.907499",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 209.9,
+    "factor": 0.8599999999999999,
+    "attempt": 15,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819105826"
+        }
+      ],
+      "inTime": "1787819105825520",
+      "msg": "All operations failed",
+      "outTime": "1787819105828353"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:09.896044",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 57.0,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51051",
+          "sMsg": "Your SL price should be lower than the primary order price.",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787819109817"
+        }
+      ],
+      "inTime": "1787819109817011",
+      "msg": "All operations failed",
+      "outTime": "1787819109817276"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:50.974816",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 243.9,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819150894"
+        }
+      ],
+      "inTime": "1787819150893452",
+      "msg": "All operations failed",
+      "outTime": "1787819150895710"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:54.926848",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 241.5,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819154847"
+        }
+      ],
+      "inTime": "1787819154846195",
+      "msg": "All operations failed",
+      "outTime": "1787819154848530"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:25:58.915313",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 239.0,
+    "factor": 0.98,
+    "attempt": 3,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819158835"
+        }
+      ],
+      "inTime": "1787819158835276",
+      "msg": "All operations failed",
+      "outTime": "1787819158836176"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:02.859016",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 236.6,
+    "factor": 0.97,
+    "attempt": 4,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819162778"
+        }
+      ],
+      "inTime": "1787819162777285",
+      "msg": "All operations failed",
+      "outTime": "1787819162779900"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:06.821056",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 234.1,
+    "factor": 0.96,
+    "attempt": 5,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819166739"
+        }
+      ],
+      "inTime": "1787819166738365",
+      "msg": "All operations failed",
+      "outTime": "1787819166740985"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:10.760624",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 231.7,
+    "factor": 0.95,
+    "attempt": 6,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819170681"
+        }
+      ],
+      "inTime": "1787819170680730",
+      "msg": "All operations failed",
+      "outTime": "1787819170683125"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:14.704066",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 229.3,
+    "factor": 0.94,
+    "attempt": 7,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819174624"
+        }
+      ],
+      "inTime": "1787819174623433",
+      "msg": "All operations failed",
+      "outTime": "1787819174625865"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:18.654877",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 226.8,
+    "factor": 0.9299999999999999,
+    "attempt": 8,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819178575"
+        }
+      ],
+      "inTime": "1787819178573821",
+      "msg": "All operations failed",
+      "outTime": "1787819178576603"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:22.599286",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 224.4,
+    "factor": 0.9199999999999999,
+    "attempt": 9,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819182521"
+        }
+      ],
+      "inTime": "1787819182520861",
+      "msg": "All operations failed",
+      "outTime": "1787819182521659"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:26.541271",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 221.9,
+    "factor": 0.9099999999999999,
+    "attempt": 10,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819186461"
+        }
+      ],
+      "inTime": "1787819186460316",
+      "msg": "All operations failed",
+      "outTime": "1787819186462633"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:30.498422",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 219.5,
+    "factor": 0.8999999999999999,
+    "attempt": 11,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819190418"
+        }
+      ],
+      "inTime": "1787819190418015",
+      "msg": "All operations failed",
+      "outTime": "1787819190418975"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:34.443282",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 217.1,
+    "factor": 0.8899999999999999,
+    "attempt": 12,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819194363"
+        }
+      ],
+      "inTime": "1787819194363267",
+      "msg": "All operations failed",
+      "outTime": "1787819194364067"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:38.398262",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 214.6,
+    "factor": 0.8799999999999999,
+    "attempt": 13,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819198320"
+        }
+      ],
+      "inTime": "1787819198319751",
+      "msg": "All operations failed",
+      "outTime": "1787819198320552"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:42.340936",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 212.2,
+    "factor": 0.8699999999999999,
+    "attempt": 14,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819202262"
+        }
+      ],
+      "inTime": "1787819202261231",
+      "msg": "All operations failed",
+      "outTime": "1787819202263552"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:46.292305",
+    "symbol": "ADA",
+    "side": "buy",
+    "size": 209.7,
+    "factor": 0.8599999999999999,
+    "attempt": 15,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787819206213"
+        }
+      ],
+      "inTime": "1787819206213195",
+      "msg": "All operations failed",
+      "outTime": "1787819206214017"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T08:26:47.637969",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 58.0,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869389938127773696",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787819206379"
+        }
+      ],
+      "inTime": "1787819206378840",
+      "msg": "",
+      "outTime": "1787819206379696"
+    },
+    "avg_price": 0.884
+  },
+  {
+    "time": "2026-08-27T08:30:58.610650",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 61.0,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869398359484899328",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787819457355"
+        }
+      ],
+      "inTime": "1787819457354692",
+      "msg": "",
+      "outTime": "1787819457357248"
+    },
+    "avg_price": 0.889
+  },
+  {
+    "time": "2026-08-27T09:18:48.805944",
+    "symbol": "LINK",
+    "side": "buy",
+    "size": 4.4,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787822328724"
+        }
+      ],
+      "inTime": "1787822328723433",
+      "msg": "All operations failed",
+      "outTime": "1787822328725712"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T09:18:50.162600",
+    "symbol": "LINK",
+    "side": "buy",
+    "size": 4.3,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869494712546336768",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787822328900"
+        }
+      ],
+      "inTime": "1787822328899691",
+      "msg": "",
+      "outTime": "1787822328900990"
+    },
+    "avg_price": 11.865013953488372
+  },
+  {
+    "time": "2026-08-27T10:25:48.051402",
+    "symbol": "LINK",
+    "side": "sell",
+    "size": 4.6,
+    "factor": 0.99,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3869629530697342976",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1787826346794"
+        }
+      ],
+      "inTime": "1787826346793352",
+      "msg": "",
+      "outTime": "1787826346795891"
+    },
+    "avg_price": 11.737
+  },
+  {
+    "time": "2026-08-27T11:07:58.462876",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 40.59,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828878384"
+        }
+      ],
+      "inTime": "1787828878383847",
+      "msg": "All operations failed",
+      "outTime": "1787828878384570"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:02.423077",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 40.19,
+    "factor": 0.99,
+    "attempt": 2,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828882343"
+        }
+      ],
+      "inTime": "1787828882342591",
+      "msg": "All operations failed",
+      "outTime": "1787828882345383"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:06.375966",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 39.78,
+    "factor": 0.98,
+    "attempt": 3,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828886295"
+        }
+      ],
+      "inTime": "1787828886294212",
+      "msg": "All operations failed",
+      "outTime": "1787828886296645"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:10.338000",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 39.37,
+    "factor": 0.97,
+    "attempt": 4,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828890257"
+        }
+      ],
+      "inTime": "1787828890256867",
+      "msg": "All operations failed",
+      "outTime": "1787828890258212"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:14.280498",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 38.97,
+    "factor": 0.96,
+    "attempt": 5,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828894200"
+        }
+      ],
+      "inTime": "1787828894198967",
+      "msg": "All operations failed",
+      "outTime": "1787828894201206"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:18.226972",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 38.56,
+    "factor": 0.95,
+    "attempt": 6,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828898148"
+        }
+      ],
+      "inTime": "1787828898148349",
+      "msg": "All operations failed",
+      "outTime": "1787828898149097"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:22.184250",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 38.16,
+    "factor": 0.94,
+    "attempt": 7,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828902105"
+        }
+      ],
+      "inTime": "1787828902104564",
+      "msg": "All operations failed",
+      "outTime": "1787828902105350"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:26.139717",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 37.75,
+    "factor": 0.9299999999999999,
+    "attempt": 8,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828906060"
+        }
+      ],
+      "inTime": "1787828906058676",
+      "msg": "All operations failed",
+      "outTime": "1787828906061371"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:30.086898",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 37.34,
+    "factor": 0.9199999999999999,
+    "attempt": 9,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828910006"
+        }
+      ],
+      "inTime": "1787828910005523",
+      "msg": "All operations failed",
+      "outTime": "1787828910008084"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:34.040160",
+    "symbol": "XRP",
+    "side": "buy",
+    "size": 36.94,
+    "factor": 0.9099999999999999,
+    "attempt": 10,
+    "success": false,
+    "response": {
+      "code": "1",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "",
+          "sCode": "51008",
+          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
+          "subCode": "1000",
+          "tag": "",
+          "ts": "1787828913960"
+        }
+      ],
+      "inTime": "1787828913959947",
+      "msg": "All operations failed",
+      "outTime": "1787828913960867"
+    },
+    "avg_price": null
+  },
+  {
+    "time": "2026-08-27T11:08:37.991714",
     "symbol": "XRP",
     "side": "buy",
     "size": 36.53,
-    "factor": 0.96,
-    "attempt": 5,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779553030"
-        }
-      ],
-      "inTime": "1787779553029717",
-      "msg": "All operations failed",
-      "outTime": "1787779553032545"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:25:56.877543",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 36.15,
-    "factor": 0.95,
-    "attempt": 6,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779556811"
-        }
-      ],
-      "inTime": "1787779556811320",
-      "msg": "All operations failed",
-      "outTime": "1787779556812223"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:26:00.635468",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 35.77,
-    "factor": 0.94,
-    "attempt": 7,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779560567"
-        }
-      ],
-      "inTime": "1787779560566054",
-      "msg": "All operations failed",
-      "outTime": "1787779560568489"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:26:04.391945",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 35.39,
-    "factor": 0.9299999999999999,
-    "attempt": 8,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779564332"
-        }
-      ],
-      "inTime": "1787779564331196",
-      "msg": "All operations failed",
-      "outTime": "1787779564333507"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:26:08.127298",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 35.01,
-    "factor": 0.9199999999999999,
-    "attempt": 9,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779568068"
-        }
-      ],
-      "inTime": "1787779568067601",
-      "msg": "All operations failed",
-      "outTime": "1787779568068384"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:26:11.908440",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 34.63,
-    "factor": 0.9099999999999999,
-    "attempt": 10,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787779571842"
-        }
-      ],
-      "inTime": "1787779571841597",
-      "msg": "All operations failed",
-      "outTime": "1787779571844171"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:26:15.672786",
-    "symbol": "XRP",
-    "side": "buy",
-    "size": 34.25,
     "factor": 0.8999999999999999,
     "attempt": 11,
     "success": false,
@@ -314,20 +1340,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779575613"
+          "ts": "1787828917910"
         }
       ],
-      "inTime": "1787779575611858",
+      "inTime": "1787828917909430",
       "msg": "All operations failed",
-      "outTime": "1787779575614548"
+      "outTime": "1787828917911654"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:26:19.412734",
+    "time": "2026-08-27T11:08:41.969214",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.87,
+    "size": 36.13,
     "factor": 0.8899999999999999,
     "attempt": 12,
     "success": false,
@@ -341,20 +1367,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779579352"
+          "ts": "1787828921890"
         }
       ],
-      "inTime": "1787779579351281",
+      "inTime": "1787828921889824",
       "msg": "All operations failed",
-      "outTime": "1787779579353669"
+      "outTime": "1787828921890602"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:26:23.140836",
+    "time": "2026-08-27T11:08:45.969882",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.48,
+    "size": 35.72,
     "factor": 0.8799999999999999,
     "attempt": 13,
     "success": false,
@@ -368,20 +1394,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779583081"
+          "ts": "1787828925888"
         }
       ],
-      "inTime": "1787779583080788",
+      "inTime": "1787828925887717",
       "msg": "All operations failed",
-      "outTime": "1787779583082010"
+      "outTime": "1787828925889987"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:26:26.865612",
+    "time": "2026-08-27T11:08:49.918724",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.1,
+    "size": 35.31,
     "factor": 0.8699999999999999,
     "attempt": 14,
     "success": false,
@@ -395,20 +1421,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779586805"
+          "ts": "1787828929839"
         }
       ],
-      "inTime": "1787779586804121",
+      "inTime": "1787828929837732",
       "msg": "All operations failed",
-      "outTime": "1787779586806759"
+      "outTime": "1787828929840284"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:26:30.660833",
+    "time": "2026-08-27T11:08:53.867596",
     "symbol": "XRP",
     "side": "buy",
-    "size": 32.72,
+    "size": 34.91,
     "factor": 0.8599999999999999,
     "attempt": 15,
     "success": false,
@@ -422,47 +1448,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787779590598"
+          "ts": "1787828933787"
         }
       ],
-      "inTime": "1787779590597628",
+      "inTime": "1787828933787294",
       "msg": "All operations failed",
-      "outTime": "1787779590600072"
+      "outTime": "1787828933788103"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:27:03.743497",
-    "symbol": "ETH",
-    "side": "buy",
-    "size": 0.02,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3868061724860194816",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787779622539"
-        }
-      ],
-      "inTime": "1787779622539371",
-      "msg": "",
-      "outTime": "1787779622540446"
-    },
-    "avg_price": 2493.45
-  },
-  {
-    "time": "2026-08-26T21:41:10.056133",
+    "time": "2026-08-27T11:09:29.906043",
     "symbol": "XRP",
     "side": "buy",
-    "size": 37.95,
+    "size": 40.6,
     "factor": 1.0,
     "attempt": 1,
     "success": false,
@@ -476,20 +1475,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780469990"
+          "ts": "1787828969826"
         }
       ],
-      "inTime": "1787780469989818",
+      "inTime": "1787828969825659",
       "msg": "All operations failed",
-      "outTime": "1787780469990862"
+      "outTime": "1787828969826567"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:13.848992",
+    "time": "2026-08-27T11:09:33.868702",
     "symbol": "XRP",
     "side": "buy",
-    "size": 37.57,
+    "size": 40.19,
     "factor": 0.99,
     "attempt": 2,
     "success": false,
@@ -503,20 +1502,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780473789"
+          "ts": "1787828973788"
         }
       ],
-      "inTime": "1787780473788664",
+      "inTime": "1787828973787578",
       "msg": "All operations failed",
-      "outTime": "1787780473791124"
+      "outTime": "1787828973790085"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:17.586910",
+    "time": "2026-08-27T11:09:37.870443",
     "symbol": "XRP",
     "side": "buy",
-    "size": 37.19,
+    "size": 39.78,
     "factor": 0.98,
     "attempt": 3,
     "success": false,
@@ -530,20 +1529,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780477523"
+          "ts": "1787828977790"
         }
       ],
-      "inTime": "1787780477522008",
+      "inTime": "1787828977789756",
       "msg": "All operations failed",
-      "outTime": "1787780477524282"
+      "outTime": "1787828977790918"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:21.365227",
+    "time": "2026-08-27T11:09:41.820336",
     "symbol": "XRP",
     "side": "buy",
-    "size": 36.82,
+    "size": 39.38,
     "factor": 0.97,
     "attempt": 4,
     "success": false,
@@ -557,20 +1556,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780481298"
+          "ts": "1787828981740"
         }
       ],
-      "inTime": "1787780481298434",
+      "inTime": "1787828981738793",
       "msg": "All operations failed",
-      "outTime": "1787780481299512"
+      "outTime": "1787828981741635"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:25.170150",
+    "time": "2026-08-27T11:09:45.766056",
     "symbol": "XRP",
     "side": "buy",
-    "size": 36.44,
+    "size": 38.97,
     "factor": 0.96,
     "attempt": 5,
     "success": false,
@@ -584,20 +1583,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780485110"
+          "ts": "1787828985685"
         }
       ],
-      "inTime": "1787780485109900",
+      "inTime": "1787828985683924",
       "msg": "All operations failed",
-      "outTime": "1787780485110864"
+      "outTime": "1787828985686257"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:28.907532",
+    "time": "2026-08-27T11:09:49.760807",
     "symbol": "XRP",
     "side": "buy",
-    "size": 36.06,
+    "size": 38.57,
     "factor": 0.95,
     "attempt": 6,
     "success": false,
@@ -611,20 +1610,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780488847"
+          "ts": "1787828989680"
         }
       ],
-      "inTime": "1787780488846222",
+      "inTime": "1787828989679423",
       "msg": "All operations failed",
-      "outTime": "1787780488848623"
+      "outTime": "1787828989681658"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:32.672949",
+    "time": "2026-08-27T11:09:53.754506",
     "symbol": "XRP",
     "side": "buy",
-    "size": 35.68,
+    "size": 38.16,
     "factor": 0.94,
     "attempt": 7,
     "success": false,
@@ -638,20 +1637,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780492611"
+          "ts": "1787828993676"
         }
       ],
-      "inTime": "1787780492611592",
+      "inTime": "1787828993675527",
       "msg": "All operations failed",
-      "outTime": "1787780492612294"
+      "outTime": "1787828993676325"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:36.470842",
+    "time": "2026-08-27T11:09:57.750200",
     "symbol": "XRP",
     "side": "buy",
-    "size": 35.3,
+    "size": 37.75,
     "factor": 0.9299999999999999,
     "attempt": 8,
     "success": false,
@@ -665,20 +1664,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780496405"
+          "ts": "1787828997670"
         }
       ],
-      "inTime": "1787780496404739",
+      "inTime": "1787828997670154",
       "msg": "All operations failed",
-      "outTime": "1787780496407094"
+      "outTime": "1787828997670972"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:40.271748",
+    "time": "2026-08-27T11:10:01.748373",
     "symbol": "XRP",
     "side": "buy",
-    "size": 34.92,
+    "size": 37.35,
     "factor": 0.9199999999999999,
     "attempt": 9,
     "success": false,
@@ -692,20 +1691,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780500211"
+          "ts": "1787829001668"
         }
       ],
-      "inTime": "1787780500210534",
+      "inTime": "1787829001666861",
       "msg": "All operations failed",
-      "outTime": "1787780500213070"
+      "outTime": "1787829001669080"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:43.997204",
+    "time": "2026-08-27T11:10:05.706614",
     "symbol": "XRP",
     "side": "buy",
-    "size": 34.54,
+    "size": 36.94,
     "factor": 0.9099999999999999,
     "attempt": 10,
     "success": false,
@@ -719,20 +1718,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780503936"
+          "ts": "1787829005627"
         }
       ],
-      "inTime": "1787780503936283",
+      "inTime": "1787829005626508",
       "msg": "All operations failed",
-      "outTime": "1787780503937154"
+      "outTime": "1787829005628861"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:47.775223",
+    "time": "2026-08-27T11:10:09.665386",
     "symbol": "XRP",
     "side": "buy",
-    "size": 34.16,
+    "size": 36.54,
     "factor": 0.8999999999999999,
     "attempt": 11,
     "success": false,
@@ -746,20 +1745,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780507714"
+          "ts": "1787829009585"
         }
       ],
-      "inTime": "1787780507713139",
+      "inTime": "1787829009585250",
       "msg": "All operations failed",
-      "outTime": "1787780507715383"
+      "outTime": "1787829009586562"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:51.566001",
+    "time": "2026-08-27T11:10:13.670447",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.78,
+    "size": 36.13,
     "factor": 0.8899999999999999,
     "attempt": 12,
     "success": false,
@@ -773,20 +1772,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780511503"
+          "ts": "1787829013590"
         }
       ],
-      "inTime": "1787780511503049",
+      "inTime": "1787829013588747",
       "msg": "All operations failed",
-      "outTime": "1787780511504246"
+      "outTime": "1787829013591349"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:55.350583",
+    "time": "2026-08-27T11:10:17.666814",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.4,
+    "size": 35.72,
     "factor": 0.8799999999999999,
     "attempt": 13,
     "success": false,
@@ -800,20 +1799,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780515291"
+          "ts": "1787829017587"
         }
       ],
-      "inTime": "1787780515291184",
+      "inTime": "1787829017587312",
       "msg": "All operations failed",
-      "outTime": "1787780515292028"
+      "outTime": "1787829017588258"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:41:59.086870",
+    "time": "2026-08-27T11:10:21.618841",
     "symbol": "XRP",
     "side": "buy",
-    "size": 33.02,
+    "size": 35.32,
     "factor": 0.8699999999999999,
     "attempt": 14,
     "success": false,
@@ -827,20 +1826,20 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780519025"
+          "ts": "1787829021538"
         }
       ],
-      "inTime": "1787780519024481",
+      "inTime": "1787829021537535",
       "msg": "All operations failed",
-      "outTime": "1787780519027001"
+      "outTime": "1787829021540225"
     },
     "avg_price": null
   },
   {
-    "time": "2026-08-26T21:42:02.837475",
+    "time": "2026-08-27T11:10:25.616558",
     "symbol": "XRP",
     "side": "buy",
-    "size": 32.64,
+    "size": 34.91,
     "factor": 0.8599999999999999,
     "attempt": 15,
     "success": false,
@@ -854,148 +1853,13 @@
           "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
           "subCode": "1000",
           "tag": "",
-          "ts": "1787780522777"
+          "ts": "1787829025536"
         }
       ],
-      "inTime": "1787780522775846",
+      "inTime": "1787829025535613",
       "msg": "All operations failed",
-      "outTime": "1787780522778193"
+      "outTime": "1787829025537950"
     },
     "avg_price": null
-  },
-  {
-    "time": "2026-08-26T21:42:04.110315",
-    "symbol": "ETH",
-    "side": "buy",
-    "size": 0.02,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3868091936297689088",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787780522910"
-        }
-      ],
-      "inTime": "1787780522908933",
-      "msg": "",
-      "outTime": "1787780522911421"
-    },
-    "avg_price": 2495.2
-  },
-  {
-    "time": "2026-08-26T21:57:59.588048",
-    "symbol": "ETH",
-    "side": "buy",
-    "size": 0.01,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3868123996919930880",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787781478391"
-        }
-      ],
-      "inTime": "1787781478389939",
-      "msg": "",
-      "outTime": "1787781478392724"
-    },
-    "avg_price": 2496.85
-  },
-  {
-    "time": "2026-08-26T23:25:50.896110",
-    "symbol": "SOL",
-    "side": "buy",
-    "size": 0.52,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787786750829"
-        }
-      ],
-      "inTime": "1787786750828186",
-      "msg": "All operations failed",
-      "outTime": "1787786750830957"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T23:25:54.676178",
-    "symbol": "SOL",
-    "side": "buy",
-    "size": 0.52,
-    "factor": 0.99,
-    "attempt": 2,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51008",
-          "sMsg": "Order failed. Your available USDT balance is insufficient, and your available margin (in USD) is too low for borrowing. ",
-          "subCode": "1000",
-          "tag": "",
-          "ts": "1787786754616"
-        }
-      ],
-      "inTime": "1787786754615983",
-      "msg": "All operations failed",
-      "outTime": "1787786754616949"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-08-26T23:25:55.961855",
-    "symbol": "SOL",
-    "side": "buy",
-    "size": 0.51,
-    "factor": 0.98,
-    "attempt": 3,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3868301042216312832",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1787786754752"
-        }
-      ],
-      "inTime": "1787786754751520",
-      "msg": "",
-      "outTime": "1787786754754058"
-    },
-    "avg_price": 100.91
   }
 ]

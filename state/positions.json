@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "symbol": "SOL",
+    "side": "long",
+    "entry": 104.98,
+    "size": 0.54,
+    "tp": 105.91250000000001,
+    "sl": 104.562,
+    "open_time": "2026-08-29T15:03:36.804380",
+    "ord_id": null,
+    "sl_algo_id": null,
+    "tp_algo_id": null,
+    "pos_id": "3875976501565554688",
+    "closed": false,
+    "exit_price": null,
+    "reason": null
+  }
+]

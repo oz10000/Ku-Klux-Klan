@@ -1,0 +1,6 @@
+{
+  "SOL": {
+    "factor": 0.99,
+    "consecutive_success": 1
+  }
+}

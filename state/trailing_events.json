@@ -1,0 +1,44 @@
+[
+  {
+    "time": "2026-08-30T23:31:08.322523",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.6335
+  },
+  {
+    "time": "2026-08-30T23:31:44.625303",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  },
+  {
+    "time": "2026-08-30T23:32:53.447755",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  },
+  {
+    "time": "2026-08-30T23:33:29.978740",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  },
+  {
+    "time": "2026-08-30T23:34:06.627173",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  },
+  {
+    "time": "2026-08-30T23:34:42.987366",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  },
+  {
+    "time": "2026-08-30T23:37:28.837912",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 101.676675
+  }
+]

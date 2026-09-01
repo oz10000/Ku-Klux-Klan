@@ -1,0 +1,29 @@
+[
+  {
+    "symbol": "DOT",
+    "entry": 0.853,
+    "exit": 0.858,
+    "pnl_net": 0.15528960000000017,
+    "reason": "VelocityExit",
+    "hold_minutes": 7.151019883333333,
+    "time": "2026-09-01T03:37:33.729810"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.854,
+    "exit": 0.857,
+    "pnl_net": 0.0833184000000001,
+    "reason": "VelocityExit",
+    "hold_minutes": 14.694609016666668,
+    "time": "2026-09-01T03:52:54.392619"
+  },
+  {
+    "symbol": "DOT",
+    "entry": 0.858,
+    "exit": 0.854,
+    "pnl_net": -0.16859520000000014,
+    "reason": "SL",
+    "hold_minutes": 32.35717828333333,
+    "time": "2026-09-01T04:25:54.770061"
+  }
+]

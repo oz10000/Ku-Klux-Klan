@@ -1,6 +1,10 @@
 {
-  "SOL": {
-    "factor": 0.98,
+  "LINK": {
+    "factor": 0.99,
+    "consecutive_success": 1
+  },
+  "DOT": {
+    "factor": 1.0,
     "consecutive_success": 1
   }
 }

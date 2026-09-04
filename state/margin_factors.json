@@ -1,9 +1,5 @@
 {
-  "LINK": {
-    "factor": 0.99,
-    "consecutive_success": 1
-  },
-  "DOT": {
+  "SOL": {
     "factor": 1.0,
     "consecutive_success": 1
   }

@@ -2,5 +2,9 @@
   "SOL": {
     "factor": 1.0,
     "consecutive_success": 1
+  },
+  "LTC": {
+    "factor": 1.0,
+    "consecutive_success": 1
   }
 }

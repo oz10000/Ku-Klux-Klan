@@ -1,9 +1,17 @@
 {
-  "SOL": {
+  "DOT": {
     "factor": 1.0,
     "consecutive_success": 1
   },
-  "DOT": {
+  "LTC": {
+    "factor": 1.0,
+    "consecutive_success": 1
+  },
+  "LINK": {
+    "factor": 1.0,
+    "consecutive_success": 1
+  },
+  "SOL": {
     "factor": 1.0,
     "consecutive_success": 1
   }

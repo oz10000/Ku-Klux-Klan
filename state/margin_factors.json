@@ -1,9 +1,9 @@
 {
-  "LINK": {
+  "DOT": {
     "factor": 1.0,
     "consecutive_success": 1
   },
-  "DOT": {
+  "LINK": {
     "factor": 1.0,
     "consecutive_success": 1
   }

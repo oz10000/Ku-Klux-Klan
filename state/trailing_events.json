@@ -1,278 +1,110 @@
 [
   {
-    "time": "2026-09-09T22:25:50.213455",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:48:03.653778",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.10975
+    "new_sl": 11.66076875
   },
   {
-    "time": "2026-09-09T22:26:22.808404",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:49:09.073983",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.66076875
   },
   {
-    "time": "2026-09-09T22:26:55.217543",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:52:56.151693",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.66076875
   },
   {
-    "time": "2026-09-09T22:27:27.721128",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:53:28.800135",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.66076875
   },
   {
-    "time": "2026-09-09T22:28:00.050638",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:54:01.361601",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.66076875
   },
   {
-    "time": "2026-09-09T22:28:32.453450",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:54:33.859915",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.65670875
   },
   {
-    "time": "2026-09-09T22:29:04.961525",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:55:06.555624",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.65036125
   },
   {
-    "time": "2026-09-09T22:29:37.305332",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:55:39.033251",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.1945
+    "new_sl": 11.64485125
   },
   {
-    "time": "2026-09-09T22:30:09.819092",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:56:11.710497",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:30:42.116436",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:56:44.186953",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:31:14.672693",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:57:16.926636",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:31:47.015591",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:57:50.203704",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:32:19.562435",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:58:22.854620",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:32:51.826543",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:58:55.530528",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:33:24.298226",
-    "symbol": "SOL",
+    "time": "2026-09-10T12:59:28.150598",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:34:00.961104",
-    "symbol": "SOL",
+    "time": "2026-09-10T13:00:00.951151",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:34:37.177924",
-    "symbol": "SOL",
+    "time": "2026-09-10T13:00:33.532193",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   },
   {
-    "time": "2026-09-09T22:35:13.710700",
-    "symbol": "SOL",
+    "time": "2026-09-10T13:01:06.328421",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:37:26.353337",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:38:02.429203",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:38:38.580689",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:39:11.014794",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:39:43.279845",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:40:15.705973",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:40:47.982801",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:41:20.521122",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:41:52.850081",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:42:25.465964",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:42:57.829179",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:43:30.304977",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:44:02.703731",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:44:35.055125",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:45:07.530589",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:45:39.767431",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:46:20.536887",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:46:53.342131",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:47:33.807323",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:48:14.406016",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:48:47.704976",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:49:20.050743",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:49:56.704190",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:50:29.147280",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:51:01.724234",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:51:34.223203",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:52:11.058545",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
-  },
-  {
-    "time": "2026-09-09T22:52:47.146409",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 101.20875
+    "new_sl": 11.63734125
   }
 ]

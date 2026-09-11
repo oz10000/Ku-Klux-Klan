@@ -1,18 +1,1 @@
-[
-  {
-    "symbol": "DOT",
-    "side": "short",
-    "entry": 1.074,
-    "size": 1.0,
-    "tp": 1.0605,
-    "sl": 1.08075,
-    "open_time": "2026-09-10T16:20:33.736837",
-    "ord_id": null,
-    "sl_algo_id": null,
-    "tp_algo_id": null,
-    "pos_id": "3910931153570463744",
-    "closed": false,
-    "exit_price": null,
-    "reason": null
-  }
-]
+[]

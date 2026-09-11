@@ -1,56 +1,20 @@
 [
   {
-    "time": "2026-09-11T00:45:43.098584",
-    "symbol": "DOT",
+    "time": "2026-09-11T13:46:51.467112",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 1.1182175
+    "new_sl": 11.687100000000001
   },
   {
-    "time": "2026-09-11T00:46:15.830130",
-    "symbol": "DOT",
+    "time": "2026-09-11T13:47:26.897521",
+    "symbol": "LINK",
     "action": "MOVE_SL",
-    "new_sl": 1.1182175
+    "new_sl": 11.68765
   },
   {
-    "time": "2026-09-11T00:46:48.456727",
-    "symbol": "DOT",
+    "time": "2026-09-11T13:55:50.389159",
+    "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:47:21.658962",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:47:54.288904",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:48:27.383333",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:49:00.191915",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:49:33.202596",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.1202175
-  },
-  {
-    "time": "2026-09-11T00:50:06.261495",
-    "symbol": "DOT",
-    "action": "MOVE_SL",
-    "new_sl": 1.12027
+    "new_sl": 103.46725
   }
 ]

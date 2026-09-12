@@ -1,6 +1,6 @@
 [
   {
-    "time": "2026-09-11T23:20:34.374281",
+    "time": "2026-09-12T10:42:30.561884",
     "symbol": "DOT",
     "side": "buy",
     "size": 1.0,
@@ -12,180 +12,18 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "3914675898645979136",
+          "ordId": "3916048814772027392",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1789168833174"
+          "ts": "1789209749263"
         }
       ],
-      "inTime": "1789168833172756",
+      "inTime": "1789209749262602",
       "msg": "",
-      "outTime": "1789168833175574"
-    },
-    "avg_price": 1.035
-  },
-  {
-    "time": "2026-09-12T00:15:19.232271",
-    "symbol": "DOT",
-    "side": "buy",
-    "size": 1.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3914786120492359680",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789172118041"
-        }
-      ],
-      "inTime": "1789172118040733",
-      "msg": "",
-      "outTime": "1789172118042340"
+      "outTime": "1789209749264120"
     },
     "avg_price": 1.043
-  },
-  {
-    "time": "2026-09-12T01:37:49.160555",
-    "symbol": "LINK",
-    "side": "buy",
-    "size": 0.1,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3914952212548395008",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789177067970"
-        }
-      ],
-      "inTime": "1789177067969359",
-      "msg": "",
-      "outTime": "1789177067972378"
-    },
-    "avg_price": 11.633
-  },
-  {
-    "time": "2026-09-12T01:38:27.599322",
-    "symbol": "DOT",
-    "side": "buy",
-    "size": 1.0,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3914953502414315520",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789177106411"
-        }
-      ],
-      "inTime": "1789177106409892",
-      "msg": "",
-      "outTime": "1789177106413091"
-    },
-    "avg_price": 1.054
-  },
-  {
-    "time": "2026-09-12T01:41:15.371440",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 0.1,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": false,
-    "response": {
-      "code": "1",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "",
-          "sCode": "51053",
-          "sMsg": "Your SL price should be higher than the primary order price.",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789177275316"
-        }
-      ],
-      "inTime": "1789177275316178",
-      "msg": "All operations failed",
-      "outTime": "1789177275316480"
-    },
-    "avg_price": null
-  },
-  {
-    "time": "2026-09-12T01:47:36.146552",
-    "symbol": "LINK",
-    "side": "buy",
-    "size": 0.1,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3914971908597325824",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789177654958"
-        }
-      ],
-      "inTime": "1789177654957500",
-      "msg": "",
-      "outTime": "1789177654960030"
-    },
-    "avg_price": 11.557
-  },
-  {
-    "time": "2026-09-12T01:57:43.357210",
-    "symbol": "LINK",
-    "side": "sell",
-    "size": 0.1,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "3914992283049762816",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1789178262164"
-        }
-      ],
-      "inTime": "1789178262163445",
-      "msg": "",
-      "outTime": "1789178262165012"
-    },
-    "avg_price": 11.527
   }
 ]

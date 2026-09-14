@@ -1,18 +1,1 @@
-[
-  {
-    "symbol": "LINK",
-    "side": "long",
-    "entry": 11.334,
-    "size": 0.1,
-    "tp": 11.443750000000001,
-    "sl": 11.29875,
-    "open_time": "2026-09-14T02:20:30.584009",
-    "ord_id": null,
-    "sl_algo_id": null,
-    "tp_algo_id": null,
-    "pos_id": "3920836316368175104",
-    "closed": false,
-    "exit_price": null,
-    "reason": null
-  }
-]
+[]

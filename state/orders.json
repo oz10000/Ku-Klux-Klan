@@ -1,0 +1,83 @@
+[
+  {
+    "time": "2026-09-14T00:18:03.343350",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 1.0,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3920589828497047552",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1789345082018"
+        }
+      ],
+      "inTime": "1789345082017364",
+      "msg": "",
+      "outTime": "1789345082020380"
+    },
+    "avg_price": 1.006
+  },
+  {
+    "time": "2026-09-14T00:41:06.013502",
+    "symbol": "DOT",
+    "side": "buy",
+    "size": 1.0,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3920636223740411904",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1789346464704"
+        }
+      ],
+      "inTime": "1789346464702931",
+      "msg": "",
+      "outTime": "1789346464705400"
+    },
+    "avg_price": 1.008
+  },
+  {
+    "time": "2026-09-14T02:20:29.199001",
+    "symbol": "LINK",
+    "side": "buy",
+    "size": 0.1,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "3920836316334620672",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1789352427928"
+        }
+      ],
+      "inTime": "1789352427927033",
+      "msg": "",
+      "outTime": "1789352427929964"
+    },
+    "avg_price": 11.334
+  }
+]

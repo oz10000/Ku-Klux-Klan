@@ -1,0 +1,29 @@
+[
+  {
+    "time": "2026-11-10T17:35:13.405399",
+    "symbol": "SOL",
+    "side": "buy",
+    "size": 0.01,
+    "factor": 1.0,
+    "attempt": 1,
+    "success": true,
+    "response": {
+      "code": "0",
+      "data": [
+        {
+          "clOrdId": "",
+          "ordId": "4087926790970118144",
+          "sCode": "0",
+          "sMsg": "Order placed",
+          "subCode": "",
+          "tag": "",
+          "ts": "1794332112121"
+        }
+      ],
+      "inTime": "1794332112120663",
+      "msg": "",
+      "outTime": "1794332112123329"
+    },
+    "avg_price": 82.38
+  }
+]

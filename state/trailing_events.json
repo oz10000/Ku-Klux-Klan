@@ -1,0 +1,20 @@
+[
+  {
+    "time": "2026-11-12T14:22:15.710130",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 80.973625
+  },
+  {
+    "time": "2026-11-12T14:22:48.176322",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 80.973625
+  },
+  {
+    "time": "2026-11-12T14:23:20.789623",
+    "symbol": "SOL",
+    "action": "MOVE_SL",
+    "new_sl": 80.883625
+  }
+]

@@ -1,158 +1,38 @@
 [
   {
-    "time": "2026-11-14T14:56:45.540514",
+    "time": "2026-11-14T21:15:05.078500",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.59599999999999
+    "new_sl": 70.170625
   },
   {
-    "time": "2026-11-14T15:00:35.226439",
+    "time": "2026-11-14T21:15:37.193446",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.679
+    "new_sl": 70.170625
   },
   {
-    "time": "2026-11-14T15:01:11.597725",
+    "time": "2026-11-14T21:16:09.481800",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.70450000000001
+    "new_sl": 70.170625
   },
   {
-    "time": "2026-11-14T15:01:47.598716",
+    "time": "2026-11-14T21:16:41.594184",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.7915
+    "new_sl": 70.170625
   },
   {
-    "time": "2026-11-14T15:02:23.884547",
+    "time": "2026-11-14T21:17:14.079879",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.7915
+    "new_sl": 70.170625
   },
   {
-    "time": "2026-11-14T15:02:59.958662",
+    "time": "2026-11-14T21:17:46.495798",
     "symbol": "SOL",
     "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:03:36.308726",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:04:44.858181",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:05:21.074718",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:05:57.190891",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:06:33.547673",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:07:09.797195",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:07:45.942221",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:08:22.250913",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:08:58.332897",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:09:34.605817",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:10:10.953790",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:10:47.044585",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:11:23.336518",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:12:31.771366",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:13:08.098847",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:13:44.292420",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:15:57.314561",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:16:33.624525",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:17:10.132313",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
-  },
-  {
-    "time": "2026-11-14T15:17:46.389169",
-    "symbol": "SOL",
-    "action": "MOVE_SL",
-    "new_sl": 73.7915
+    "new_sl": 70.170625
   }
 ]

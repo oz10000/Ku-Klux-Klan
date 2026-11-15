@@ -1,33 +1,6 @@
 [
   {
-    "time": "2026-11-14T20:54:22.132716",
-    "symbol": "SOL",
-    "side": "sell",
-    "size": 0.01,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "4099924120988516352",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1794689660418"
-        }
-      ],
-      "inTime": "1794689660417451",
-      "msg": "",
-      "outTime": "1794689660420139"
-    },
-    "avg_price": 70.52
-  },
-  {
-    "time": "2026-11-14T23:45:53.279064",
+    "time": "2026-11-15T11:45:19.324848",
     "symbol": "SOL",
     "side": "buy",
     "size": 0.01,
@@ -39,72 +12,18 @@
       "data": [
         {
           "clOrdId": "",
-          "ordId": "4100269449948659712",
+          "ordId": "4101717864687566848",
           "sCode": "0",
           "sMsg": "Order placed",
           "subCode": "",
           "tag": "",
-          "ts": "1794699952023"
+          "ts": "1794743118146"
         }
       ],
-      "inTime": "1794699952022529",
+      "inTime": "1794743118145102",
       "msg": "",
-      "outTime": "1794699952023688"
+      "outTime": "1794743118148362"
     },
-    "avg_price": 69.86
-  },
-  {
-    "time": "2026-11-15T00:13:22.131969",
-    "symbol": "SOL",
-    "side": "buy",
-    "size": 0.01,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "4100324776140308480",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1794701600872"
-        }
-      ],
-      "inTime": "1794701600871375",
-      "msg": "",
-      "outTime": "1794701600874417"
-    },
-    "avg_price": 70.5
-  },
-  {
-    "time": "2026-11-15T00:24:15.032780",
-    "symbol": "SOL",
-    "side": "buy",
-    "size": 0.01,
-    "factor": 1.0,
-    "attempt": 1,
-    "success": true,
-    "response": {
-      "code": "0",
-      "data": [
-        {
-          "clOrdId": "",
-          "ordId": "4100346684198060032",
-          "sCode": "0",
-          "sMsg": "Order placed",
-          "subCode": "",
-          "tag": "",
-          "ts": "1794702253783"
-        }
-      ],
-      "inTime": "1794702253782133",
-      "msg": "",
-      "outTime": "1794702253784950"
-    },
-    "avg_price": 70.13
+    "avg_price": 72.47
   }
 ]
